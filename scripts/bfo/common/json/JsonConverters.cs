@@ -1,0 +1,31 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
+namespace BFO;
+
+public static class JsonConverters
+{
+	public class HashSetConverter : JsonConverter
+	{
+		public override bool CanConvert(Type objectType)
+		{
+			return objectType == typeof(HashSet<string>);
+		}
+
+		public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
+		{
+			JObject jo = JObject.Load(reader);
+			return new HashSet<string>(jo.Properties().Select(p => p.Name));
+		}
+
+		public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
+		{
+			HashSet<string> hashSet = (HashSet<string>)value;
+			JObject jo = new(hashSet.Select(s => new JProperty(s, s)));
+			jo.WriteTo(writer);
+		}
+	}
+}

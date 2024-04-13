@@ -32,7 +32,6 @@ func _process(_delta):
 		if note_hit:
 			note_hit[0].hit.emit()
 		
-
 	if Input.is_action_just_pressed("rightclick"): ###For DEBUG PURPOSE ONLY
 		spawn_note.emit()
 

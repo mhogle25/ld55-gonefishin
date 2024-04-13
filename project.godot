@@ -12,12 +12,13 @@ config_version=5
 
 config/name="ld55-gonefishin"
 run/main_scene="res://scenes/fishing_minigame_prototype.tscn"
-config/features=PackedStringArray("4.2", "GL Compatibility")
+config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 Global="*res://scripts/Global.gd"
+GameCtx="*res://scripts/system/GameCtx.cs"
 
 [display]
 
