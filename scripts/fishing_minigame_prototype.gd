@@ -3,10 +3,11 @@ extends Node2D
 var upperbound : int = Global.upperboundary ###pixel dependent, will change when target resolution is decided
 var lowerbound : int = Global.lowerboundary ###pixel dependent, will change when target resolution is decided
 var num_note : int = 1
+var note = preload("res://assets/game_objects/note.tscn")
 signal hit_upperboundary
 signal hit_lowerboundary
 signal spawn_note
-var note = preload("res://assets/game_objects/note.tscn")
+
 
 
 
@@ -18,7 +19,7 @@ func _ready():
 	#Create Cooldown Rate for spawning notes at a given BPM
 	var spawn_timer := Timer.new()
 	spawn_timer.name = "NOTE_RATE"
-	spawn_timer.set_wait_time(2) ###.set_wait_time(Global.somedict[song_title]["GetBPM"] / 60) beats per second, get from global variable assigned to each song in a dict, pull from current song
+	spawn_timer.set_wait_time(float(1/Global.bpm_debug)) ###get from global variable assigned to each song in a dict, pull from current song , set to quarter notes by default (*2 for half notes, /2 for eighth notes if you're a maniac)
 	spawn_timer.one_shot = false
 	spawn_timer.autostart = true
 	add_child(spawn_timer)

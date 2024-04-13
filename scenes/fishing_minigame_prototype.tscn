@@ -19,23 +19,14 @@ position = Vector2(-2, -274)
 scale = Vector2(2.24, 2.24)
 shape = SubResource("CircleShape2D_0ow6w")
 
-[node name="Sprite2D" type="Sprite2D" parent="cursor_beatbox"]
+[node name="Staff_Sprite" type="Sprite2D" parent="cursor_beatbox"]
 position = Vector2(-32, -170)
 texture = ExtResource("2_saru1")
 
-[node name="ColorRect" type="ColorRect" parent="cursor_beatbox"]
-visible = false
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-size_flags_horizontal = 4
-metadata/_edit_use_anchors_ = true
-
 [node name="NoteSpawner" type="Marker2D" parent="."]
-position = Vector2(0, -85)
+position = Vector2(0, -72)
 
-[node name="TextEdit" type="TextEdit" parent="."]
+[node name="debug_instructions" type="TextEdit" parent="."]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
