@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://d3fb1275t86li"]
+
+[ext_resource type="Script" path="res://scripts/note.gd" id="1_8oln7"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_tfc7r"]
+
+[node name="Note" type="Area2D"]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_8oln7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(1.5, 1.5)
+shape = SubResource("RectangleShape2D_tfc7r")
+
+[node name="NoteSprite" type="Sprite2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="NoteSprite"]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+
+[connection signal="hit" from="." to="." method="_on_hit"]
