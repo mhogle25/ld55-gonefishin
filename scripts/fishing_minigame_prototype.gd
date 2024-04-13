@@ -13,7 +13,8 @@ var note = preload("res://assets/game_objects/note.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	
+	#make the mouse disappear
+	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	#Create Cooldown Rate for spawning notes at a given BPM
 	var spawn_timer := Timer.new()
 	spawn_timer.name = "NOTE_RATE"
