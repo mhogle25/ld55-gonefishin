@@ -33,14 +33,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = 18.0
 offset_top = 106.0
-offset_right = 288.0
+offset_right = 449.0
 offset_bottom = 216.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 text = "LEFT CLICK - rhythm
-RIGHT CLICK - debug spawn"
+RIGHT CLICK  or G if you're mitchell- debug spawn"
 
 [connection signal="hit_lowerboundary" from="." to="." method="_on_hit_lowerboundary"]
 [connection signal="hit_upperboundary" from="." to="." method="_on_hit_upperboundary"]
