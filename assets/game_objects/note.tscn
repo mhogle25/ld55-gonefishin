@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/note.gd" id="1_8oln7"]
 [ext_resource type="Texture2D" uid="uid://3e8p0ulgdydb" path="res://assets/art/orb.png" id="2_tj351"]
-[ext_resource type="Script" path="res://assets/game_objects/ParticleEffectSpawn.gd" id="3_ps4hr"]
+[ext_resource type="Script" path="res://scripts/ParticleEffectSpawn.gd" id="3_0uofb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tfc7r"]
 
@@ -98,7 +98,6 @@ texture = ExtResource("2_tj351")
 
 [node name="PointLight2D" type="PointLight2D" parent="NoteSprite"]
 scale = Vector2(1.6, 1.6)
-energy = 0.0
 texture = SubResource("GradientTexture2D_04rv5")
 
 [node name="NoteSprite2" type="Sprite2D" parent="NoteSprite"]
@@ -113,7 +112,7 @@ libraries = {
 }
 
 [node name="ParticleSpawn" type="Marker2D" parent="."]
-script = ExtResource("3_ps4hr")
+script = ExtResource("3_0uofb")
 particle_texture = ExtResource("2_tj351")
 
 [connection signal="hit" from="." to="." method="_on_hit"]
