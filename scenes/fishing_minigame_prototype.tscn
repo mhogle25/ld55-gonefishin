@@ -1,22 +1,30 @@
-[gd_scene load_steps=3 format=3 uid="uid://jshelr344ipn"]
+[gd_scene load_steps=4 format=3 uid="uid://jshelr344ipn"]
 
 [ext_resource type="Script" path="res://scripts/fishing_minigame_prototype.gd" id="1_kqglp"]
+[ext_resource type="Texture2D" uid="uid://dn66w68t3my5f" path="res://assets/art/staff.png" id="2_saru1"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_04pxi"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_0ow6w"]
+radius = 28.5854
 
 [node name="Fish_Minigame" type="Node2D"]
 script = ExtResource("1_kqglp")
 
 [node name="cursor_beatbox" type="Area2D" parent="."]
-position = Vector2(156, 580)
+position = Vector2(1523, 982)
 collision_layer = 0
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="cursor_beatbox"]
+position = Vector2(-2, -274)
 scale = Vector2(2.24, 2.24)
-shape = SubResource("RectangleShape2D_04pxi")
+shape = SubResource("CircleShape2D_0ow6w")
+
+[node name="Sprite2D" type="Sprite2D" parent="cursor_beatbox"]
+position = Vector2(-32, -170)
+texture = ExtResource("2_saru1")
 
 [node name="ColorRect" type="ColorRect" parent="cursor_beatbox"]
+visible = false
 offset_left = -20.0
 offset_top = -20.0
 offset_right = 20.0
@@ -31,9 +39,9 @@ position = Vector2(0, -85)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 18.0
+offset_left = 193.0
 offset_top = 106.0
-offset_right = 449.0
+offset_right = 624.0
 offset_bottom = 216.0
 grow_horizontal = 2
 grow_vertical = 2
