@@ -3,16 +3,18 @@ extends Marker2D
 @export var particle_texture : Texture
 signal go_spawn
 signal stop_spawn
+signal kill
+signal free_note
 var spawning : bool = false
 var particles_storage : Array
-var SPEED = 100.0
-var radius : int = 6
-var spawn_limit: int = 30
+@export var SPEED = 150.0
+@export var radius : int = 6
+@export var spawn_limit: int = 30
 var spawn_count: int = 0
 @export var spawn_margin : int = 20
 var spawn_timer = 0
 @export var spawn_rate : float = 0.05
-
+var should_kill : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,7 +36,8 @@ func _process(delta):
 		trans.origin = trans.origin - global_position
 		RenderingServer.canvas_item_set_transform(col[1], trans)
 		
-		
+	if should_kill:
+		kill_particles()
 
 
 func create_particles():
@@ -80,7 +83,7 @@ func create_particles():
 	##Create rectangle to contain texture
 	var rect = Rect2()
 	rect.position = Vector2(-radius, -radius)
-	rect.size = particle_texture.get_size()/spawn_margin*radius
+	rect.size = Vector2(radius*2, radius*2)
 	
 	rs.canvas_item_add_texture_rect(particle, rect, particle_texture)
 	
@@ -97,7 +100,9 @@ func kill_particles():
 			PhysicsServer2D.free_rid(part[0])
 			RenderingServer.free_rid(part[1])
 			particles_storage.erase(part)
-			
+	else:
+		free_note.emit()
+	
 
 
 func _on_go_spawn():
@@ -106,3 +111,7 @@ func _on_go_spawn():
 
 func _on_stop_spawn():
 	spawning = false # Replace with function body.
+
+
+func _on_kill():
+	should_kill = true # Replace with function body.

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d3fb1275t86li"]
+[gd_scene load_steps=14 format=3 uid="uid://d3fb1275t86li"]
 
 [ext_resource type="Script" path="res://scripts/note.gd" id="1_8oln7"]
 [ext_resource type="Texture2D" uid="uid://3e8p0ulgdydb" path="res://assets/art/orb.png" id="2_tj351"]
@@ -84,6 +84,15 @@ _data = {
 "hit_feedback": SubResource("Animation_dnegp")
 }
 
+[sub_resource type="Gradient" id="Gradient_1oyxs"]
+offsets = PackedFloat32Array(0, 0.777518)
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_lru72"]
+gradient = SubResource("Gradient_1oyxs")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="Note" type="Area2D"]
 collision_layer = 2
 collision_mask = 0
@@ -113,8 +122,11 @@ libraries = {
 
 [node name="ParticleSpawn" type="Marker2D" parent="."]
 script = ExtResource("3_0uofb")
-particle_texture = ExtResource("2_tj351")
+particle_texture = SubResource("GradientTexture2D_lru72")
+radius = 12
 
 [connection signal="hit" from="." to="." method="_on_hit"]
+[connection signal="free_note" from="ParticleSpawn" to="." method="_on_particle_spawn_free_note"]
 [connection signal="go_spawn" from="ParticleSpawn" to="ParticleSpawn" method="_on_go_spawn"]
+[connection signal="kill" from="ParticleSpawn" to="ParticleSpawn" method="_on_kill"]
 [connection signal="stop_spawn" from="ParticleSpawn" to="ParticleSpawn" method="_on_stop_spawn"]
