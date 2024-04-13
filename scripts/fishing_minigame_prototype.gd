@@ -9,12 +9,22 @@ signal spawn_note
 var note = preload("res://assets/game_objects/note.tscn")
 
 
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass 
+	
+	#Create Cooldown Rate for spawning notes at a given BPM
+	var spawn_timer := Timer.new()
+	spawn_timer.name = "NOTE_RATE"
+	spawn_timer.set_wait_time(2) ###.set_wait_time(Global.somedict[song_title]["GetBPM"] / 60) beats per second, get from global variable assigned to each song in a dict, pull from current song
+	spawn_timer.one_shot = false
+	spawn_timer.autostart = true
+	add_child(spawn_timer)
+	spawn_timer.timeout.connect(spawn_timer_timeout)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
+
 func _process(delta):
 
 	cursor.position.x = get_global_mouse_position().x
@@ -30,7 +40,7 @@ func _process(delta):
 			note_hit[0].hit.emit()
 		
 
-	if Input.is_action_just_pressed("rightclick"):
+	if Input.is_action_just_pressed("rightclick"): ###For DEBUG PURPOSE ONLY
 		spawn_note.emit()
 
 
@@ -48,5 +58,8 @@ func _on_spawn_note():
 	var note_instance = note.instantiate()
 	note_instance.name = str("Note ", num_note)
 	$NoteSpawner.add_child(note_instance)
-	num_note += 1
+	num_note += 1 ###Could be used to easily track accuracy of player, overall notes hit out of total
 	
+	
+func spawn_timer_timeout():
+	spawn_note.emit()
