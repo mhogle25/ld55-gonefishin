@@ -46,6 +46,7 @@ rightclick={
 [layer_names]
 
 2d_physics/layer_2="NotesLayer"
+2d_physics/layer_5="ParticleLayer"
 
 [rendering]
 
