@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://jshelr344ipn"]
+
+[ext_resource type="Script" path="res://scripts/fishing_minigame_prototype.gd" id="1_kqglp"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_04pxi"]
+
+[node name="Fish_Minigame" type="Node2D"]
+script = ExtResource("1_kqglp")
+
+[node name="cursor_beatbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cursor_beatbox"]
+position = Vector2(211, 260)
+scale = Vector2(2.24, 2.24)
+shape = SubResource("RectangleShape2D_04pxi")
