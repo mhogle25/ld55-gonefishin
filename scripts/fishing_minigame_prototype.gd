@@ -38,6 +38,8 @@ func _process(_delta):
 		var note_hit = cursor.get_overlapping_areas()
 		if note_hit:
 			note_hit[0].hit.emit()
+		else:
+			print("miss")
 		
 	if Input.is_action_just_pressed("rightclick"): ###For DEBUG PURPOSE ONLY
 		spawn_note()
