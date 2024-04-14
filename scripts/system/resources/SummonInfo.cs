@@ -16,10 +16,10 @@ public partial class SummonInfo : Resource
 
 public static class SummonInfoExtensions 
 {
-	public static void SetupDictionary(this IEnumerable<SummonInfo> infos, Dictionary<string, SummonInfo> dictionary) 
+	public static void SetupDictionary<T>(this IEnumerable<T> infos, Dictionary<string, T> dictionary) where T : SummonInfo
 	{
 		dictionary.Clear();
-		foreach (SummonInfo info in infos) 
+		foreach (T info in infos) 
 			dictionary[info.Id] = info;
 	}
 }

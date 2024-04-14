@@ -32,6 +32,12 @@ public partial class GameCtx : Node
 		SaveDataToDisk();
 	}
 	
+	public void IncrementSummonCount() 
+	{
+		this.saveData.IncrementSummonCount();
+		SaveDataToDisk();
+	}
+	
 	private void SaveDataToDisk() 
 	{
 		string data = JSON.Serialize(this.saveData);
