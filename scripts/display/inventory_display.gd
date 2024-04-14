@@ -1,30 +1,35 @@
 extends Node
 
 
-var spawnArea = $CollisionShape2D.shape.extents
-var origin = $CollisionShape2D.global_position - spawnArea
+@onready var spawnArea = $CollisionShape2D.shape.extents
+@onready var origin = $CollisionShape2D.global_position - spawnArea
 
-func random_pos():
-	var x = randf_range(origin.x, spawnArea.x)
-	var y = randf_range(origin.y, spawnArea.y)
-	return Vector2(x,y)
+@export var summon_displays_debug: Array[Node2D] = []
+
+#func random_pos():
+	#var x = randf_range(origin.x, spawnArea.x)
+	#var y = randf_range(origin.y, spawnArea.y)
+	#return Vector2(x,y)
 
 
 var summon_display_prefab = load("res://assets/game_objects/summon_display.tscn")
 
-func setup(summon_infos):
-	for info in summon_infos: 
-		var summon_display = summon_display_prefab.instantiate()
-		summon_display.setup(info.InstantiateSprite(),info.GetName())
+func setup(summon_displays):
+	for summon_display in summon_displays: 
 		add_child(summon_display)
-		random_pos()
+		var x = randf_range(origin.x, spawnArea.x)
+		var y = randf_range(origin.y, spawnArea.y)
+		#random_pos()
 		summon_display.position = Vector2(x,y)
+		#print("you just got ryaned")
 
 
+func _ready():
+	setup(summon_displays_debug)
 
 # Called when the node enters the scene tree for the first time.
 #func _ready():
-	#pass # Replace with function body.
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
