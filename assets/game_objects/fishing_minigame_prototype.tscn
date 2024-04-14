@@ -14,7 +14,7 @@ radius = 28.5854
 script = ExtResource("1_ehl5l")
 
 [node name="PhysicsCursor" type="RigidBody2D" parent="."]
-position = Vector2(0, 12)
+position = Vector2(0, 15)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicsCursor"]
 shape = SubResource("RectangleShape2D_axj6i")
@@ -43,7 +43,8 @@ shape = SubResource("RectangleShape2D_11m13")
 position = Vector2(0, 7)
 node_a = NodePath("..")
 node_b = NodePath("../../PhysicsCursor")
-softness = 1.11
+bias = 0.155
+softness = 0.3
 
 [node name="NoteSpawner" type="Marker2D" parent="."]
 position = Vector2(0, -72)
@@ -64,3 +65,4 @@ text = "LEFT CLICK - rhythm
 RIGHT CLICK  or G if you're mitchell- debug spawn"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"

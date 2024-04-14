@@ -7,7 +7,8 @@ var upperbound : int = 1800 ###pixel dependent, will change when target resoluti
 var lowerbound : int = 1400 ###pixel dependent, will change when target resolution is decided
 @onready var spawn_timer := Timer.new()
 var num_note : int = 1
-
+@onready var difficulty : Dictionary = option.difficulty_storage[option.difficulty_selected]
+@onready var spawn_diff = difficulty["NoteSpawnDelay"]
 
 var bpm_mod = float(1.0 / 60.0)
 
@@ -23,6 +24,9 @@ signal song_isplaying(song : String)
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	begin("Soft Stars")
+	if option.limit_mouse_movement:
+		upperbound = 1625
+		lowerbound = 1575
 
 func _process(_delta):
 	cursor_static.position.x = get_global_mouse_position().x
@@ -62,13 +66,13 @@ func begin(song: String):
 	spawn_timer.start()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	#Create Cooldown Rate for spawning notes at a given BPM
-	spawn_timer.set_wait_time(float(1/bpm_mod)) ###defaults to quarter notes of active bpm
+	spawn_timer.set_wait_time(float(spawn_diff/bpm_mod)) ###defaults to quarter notes of active bpm
 	start_minigame.emit() ### may be unneccessary signal
 	
 func end():
 	#re-enable mouse cursor
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	#Create Cooldown Rate for spawning notes at a given BPM
+
 	spawn_timer.one_shot = true
 	spawn_timer.stop()
 	end_minigame.emit() ### useful signal!
@@ -89,7 +93,7 @@ func spawn_note():
 	
 func spawn_timer_timeout():
 	spawn_note()
-	spawn_timer.set_wait_time(float(1/bpm_mod) / randi_range(1, 2) * randi_range(1,2))
+	spawn_timer.set_wait_time(float(spawn_diff/bpm_mod) / randi_range(1, 2) * randi_range(1,2))
 
 ### func signal receieved from controller to "begin minigame":
 	#begin()

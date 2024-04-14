@@ -64,7 +64,9 @@ horizontal_alignment = 1
 [node name="Music_HSlider" type="HSlider" parent="VBoxContainer/MarginContainer2/VBoxContainer/VolumeContainer/Music"]
 unique_name_in_owner = true
 layout_mode = 2
-value = 100.0
+max_value = 1.0
+step = 0.001
+value = 1.0
 
 [node name="MusicBar" type="ProgressBar" parent="VBoxContainer/MarginContainer2/VBoxContainer/VolumeContainer/Music/Music_HSlider"]
 unique_name_in_owner = true
@@ -90,7 +92,9 @@ horizontal_alignment = 1
 [node name="Master_HSlider" type="HSlider" parent="VBoxContainer/MarginContainer2/VBoxContainer/VolumeContainer/Master"]
 unique_name_in_owner = true
 layout_mode = 2
-value = 100.0
+max_value = 1.0
+step = 0.001
+value = 1.0
 
 [node name="MasterBar" type="ProgressBar" parent="VBoxContainer/MarginContainer2/VBoxContainer/VolumeContainer/Master/Master_HSlider"]
 unique_name_in_owner = true
@@ -124,35 +128,10 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.823529, 0.85098, 1)
-theme_override_font_sizes/font_size = 60
+theme_override_font_sizes/font_size = 48
 toggle_mode = true
 text = "Limit Mouse
 Movement"
-
-[node name="Check2" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/VBoxContainer/AccessibilityContainer"]
-visible = false
-layout_mode = 2
-
-[node name="Label2" type="Label" parent="VBoxContainer/MarginContainer2/VBoxContainer/AccessibilityContainer/Check2"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 0.823529, 0.85098, 1)
-theme_override_font_sizes/font_size = 80
-text = "Master"
-horizontal_alignment = 1
-
-[node name="HSlider2" type="HSlider" parent="VBoxContainer/MarginContainer2/VBoxContainer/AccessibilityContainer/Check2"]
-layout_mode = 2
-value = 100.0
-
-[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/MarginContainer2/VBoxContainer/AccessibilityContainer/Check2/HSlider2"]
-show_behind_parent = true
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = -12.0
-offset_bottom = 21.0
-grow_horizontal = 2
-value = 100.0
 
 [node name="Gameplay" type="Label" parent="VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
@@ -174,7 +153,7 @@ layout_mode = 2
 [node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/VBoxContainer/GameplayContainer/Difficulty"]
 layout_mode = 2
 theme_override_colors/font_color = Color(1, 0.823529, 0.85098, 1)
-theme_override_font_sizes/font_size = 80
+theme_override_font_sizes/font_size = 64
 text = "Difficulty"
 horizontal_alignment = 1
 
@@ -183,6 +162,18 @@ unique_name_in_owner = true
 layout_mode = 2
 max_value = 2.0
 value = 1.0
+
+[node name="Fullscreen" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/VBoxContainer/GameplayContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="FullscreenToggle" type="CheckBox" parent="VBoxContainer/MarginContainer2/VBoxContainer/GameplayContainer/Fullscreen"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 0.823529, 0.85098, 1)
+text = "Fullscreen"
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/MarginContainer2/VBoxContainer"]
 layout_mode = 2
@@ -202,4 +193,5 @@ flat = true
 [connection signal="value_changed" from="VBoxContainer/MarginContainer2/VBoxContainer/VolumeContainer/Master/Master_HSlider" to="." method="_on_master_h_slider_value_changed"]
 [connection signal="toggled" from="VBoxContainer/MarginContainer2/VBoxContainer/AccessibilityContainer/LimitMouse/MouseMovement" to="." method="_on_mouse_movement_toggled"]
 [connection signal="drag_ended" from="VBoxContainer/MarginContainer2/VBoxContainer/GameplayContainer/Difficulty/DifficultySlider" to="." method="_on_difficulty_slider_drag_ended"]
+[connection signal="toggled" from="VBoxContainer/MarginContainer2/VBoxContainer/GameplayContainer/Fullscreen/FullscreenToggle" to="." method="_on_fullscreen_toggle_toggled"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer3/back" to="." method="_on_back_pressed"]
