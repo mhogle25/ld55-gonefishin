@@ -4,8 +4,9 @@ extends Area2D
 @export var speed : float = 195 * music.bpm_active  
 @onready var animate = $AnimationPlayer
 var selectedhsv : Color
-var vertical_height_hit : float 
-signal hit
+var vertical_height_hit : int 
+var perf_height = 780
+signal hit (perf_bound)
 signal missed 
 
 
@@ -34,7 +35,7 @@ func enter(upbound, lowbound, tempo):
 	$NoteSprite.modulate = rand_hsv ####pseudo-random color picker
 	
 	
-func _on_hit():
+func _on_hit(bound):
 	$ParticleSpawn.go_spawn.emit(selectedhsv)
 	animate.play("hit_feedback")
 	self.set_collision_layer_value(2, false)
@@ -47,7 +48,8 @@ func _on_hit():
 	kill_timer.timeout.connect(kill_timer_timeout)
 	###grab vertical height hit
 	vertical_height_hit = self.position.y
-	if vertical_height_hit > 750 && vertical_height_hit < 800:
+
+	if vertical_height_hit > perf_height - bound && vertical_height_hit < perf_height + bound:
 		print("perfect")
 	else:
 		print("good")
