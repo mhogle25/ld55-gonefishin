@@ -44,13 +44,11 @@ public partial class SummonDisplay : Node2D
 	
 	private void OnMouseEnter() 
 	{
-		BFCtx.Print("hi");
 		this.timer.Start();
 	}
 	
 	private void OnMouseExit() 
 	{
-		BFCtx.Print("hello");
 		this.timer.Stop();
 		this.tooltipContainer.Visible = false;
 	}
