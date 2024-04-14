@@ -1,6 +1,8 @@
 extends Node2D
 @export_enum("Soft Stars", "Other songs here") var song_toplay : String
-@onready var cursor = $cursor_beatbox
+@onready var cursor = %cursor_beatbox
+@onready var cursor_physics = $PhysicsCursor
+@onready var cursor_static = $CursorStatic
 var upperbound : int = 1800 ###pixel dependent, will change when target resolution is decided
 var lowerbound : int = 1400 ###pixel dependent, will change when target resolution is decided
 @onready var spawn_timer := Timer.new()
@@ -25,8 +27,8 @@ func _ready():
 	begin("Soft Stars")
 
 func _process(_delta):
-	
-	cursor.position.x = get_global_mouse_position().x
+	cursor_static.position.x = get_global_mouse_position().x
+	cursor.position.x = cursor_physics.global_position.x
 
 	if cursor.position.x >= upperbound:
 		cursor.position.x = upperbound
