@@ -3,6 +3,7 @@ extends Area2D
 
 @export var speed : float = 195 * music.bpm_active  
 @onready var animate = $AnimationPlayer
+var selectedhsv : Color
 signal hit
 signal miss 
 
@@ -25,12 +26,13 @@ func enter(upbound, lowbound):
 	animation.speed_scale = music.bpm_active
 	animation.play("bob")
 	var rand_hsv = Color.from_hsv((randi() % 12) / 12.0, 1, 1) ####pseudo-random color picker
+	selectedhsv = rand_hsv
 	self.position.x = randi_range(upbound, lowbound)
 	$NoteSprite.modulate = rand_hsv ####pseudo-random color picker
 	
 	
 func _on_hit():
-	$ParticleSpawn.go_spawn.emit()
+	$ParticleSpawn.go_spawn.emit(selectedhsv)
 	animate.play("hit_feedback")
 	self.set_collision_layer_value(2, false)
 	var kill_timer := Timer.new()

@@ -1,7 +1,7 @@
 extends Marker2D
 
 @export var particle_texture : Texture
-signal go_spawn
+signal go_spawn(hsv: Color)
 signal stop_spawn
 signal kill
 signal free_note
@@ -15,6 +15,7 @@ var spawn_count: int = 0
 var spawn_timer = 0
 @export var spawn_rate : float = 0.05
 var should_kill : bool = false
+var hsv_selected : Color
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -88,7 +89,7 @@ func create_particles():
 	rs.canvas_item_add_texture_rect(particle, rect, particle_texture)
 	
 	##Color texture ##random color again idk what we're going for palette wise yet
-	rs.canvas_item_set_self_modulate(particle, Color.from_hsv((randi() % 12) / 12.0, 1, 1))
+	rs.canvas_item_set_self_modulate(particle, hsv_selected)
 	
 	##add to storage array
 	particles_storage.append([part_col, particle])
@@ -105,7 +106,8 @@ func kill_particles():
 	
 
 
-func _on_go_spawn():
+func _on_go_spawn(hsv):
+	hsv_selected = hsv
 	spawning = true
 
 
