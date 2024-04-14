@@ -1,5 +1,6 @@
 extends Node2D
-@export var velocity : int = 30
+@export var velocity : int = 50
+
 @export var max_v_displacement : int
 @export var max_h_displacement : int
 @onready var iris = $IrisBody
