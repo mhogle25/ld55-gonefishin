@@ -6,7 +6,8 @@ extends Sprite2D
 signal onFadedIn
 
 var demon_sprite: AnimatedSprite2D
-var increasing: bool = true
+var increasing := true
+var faded_in := false
 
 #Substitute click event with just calling function
 func _input(event):
@@ -16,12 +17,13 @@ func _input(event):
 
 func _process(delta):
 #if fading in (var), add value to the a/alpha.
-	if demon_sprite == null:
+	if demon_sprite == null || faded_in:
 		return
 
 	if demon_sprite.modulate.a >= 1:
 		print ("faded")
 		onFadedIn.emit()
+		faded_in = true
 		return
 
 	if increasing:
