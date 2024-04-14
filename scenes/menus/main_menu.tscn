@@ -1,23 +1,15 @@
-[gd_scene load_steps=10 format=3 uid="uid://lwvbniudbqxe"]
+[gd_scene load_steps=8 format=3 uid="uid://lwvbniudbqxe"]
 
 [ext_resource type="Theme" uid="uid://d1sg2hcjlo4sl" path="res://assets/themes/menu_theme.tres" id="1_5knkv"]
 [ext_resource type="Script" path="res://scripts/menu_logic/main_menu.gd" id="2_psoe0"]
 [ext_resource type="Script" path="res://scripts/menu_logic/Menu_Eyeball.gd" id="3_5j3pi"]
-<<<<<<< Updated upstream
 [ext_resource type="Texture2D" uid="uid://ddy5khdx8en3s" path="res://assets/art/get_ryaned.png" id="4_2vf76"]
 [ext_resource type="Texture2D" uid="uid://3e8p0ulgdydb" path="res://assets/art/orb.png" id="5_x56ih"]
-=======
-[ext_resource type="Texture2D" uid="uid://bc4k0l7745eda" path="res://assets/art/menu_eye_components/eyeball.png" id="4_wbhnn"]
-[ext_resource type="Texture2D" uid="uid://vnetcur4cnmg" path="res://assets/art/menu_eye_components/eye_iris.png" id="5_l58ln"]
-[ext_resource type="Texture2D" uid="uid://ch72clp521xyy" path="res://assets/art/menu_eye_components/eye_portalbg.png" id="6_ppsl4"]
-[ext_resource type="Texture2D" uid="uid://chdi1yokgse0t" path="res://assets/art/menu_eye_components/eyelid.png" id="7_m0oie"]
->>>>>>> Stashed changes
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tidds"]
-radius = 49.0684
+radius = 26.85
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yve5e"]
-radius = 21.64
 
 [node name="Control" type="MarginContainer"]
 anchors_preset = 15
@@ -100,72 +92,55 @@ flat = true
 
 [node name="EyeballRoot" type="Node2D" parent="."]
 show_behind_parent = true
-position = Vector2(399, 313)
+position = Vector2(814, 240)
 script = ExtResource("3_5j3pi")
 max_v_displacement = 50
 max_h_displacement = 50
 
 [node name="PinJoint2D" type="PinJoint2D" parent="EyeballRoot"]
 node_a = NodePath("../IrisBody")
-node_b = NodePath("../Eyeball")
+node_b = NodePath("../RigidBody2D")
 bias = 0.025
 softness = 1.0
 
-[node name="Eyeball" type="RigidBody2D" parent="EyeballRoot"]
+[node name="RigidBody2D" type="RigidBody2D" parent="EyeballRoot"]
 gravity_scale = -0.1
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="EyeballRoot/Eyeball"]
-visible = false
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="EyeballRoot/RigidBody2D"]
 scale = Vector2(1.91667, 1.91667)
 shape = SubResource("CircleShape2D_tidds")
 debug_color = Color(1, 1, 1, 1)
 
-[node name="Eyeballsprite" type="Sprite2D" parent="EyeballRoot/Eyeball"]
-light_mask = 2
-visibility_layer = 2
-scale = Vector2(0.572812, 0.572812)
-texture = ExtResource("4_wbhnn")
-
 [node name="IrisBody" type="StaticBody2D" parent="EyeballRoot"]
-unique_name_in_owner = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EyeballRoot/IrisBody"]
 scale = Vector2(2.08, 2.08)
 shape = SubResource("CircleShape2D_yve5e")
 
 [node name="Iris_Sprite" type="Sprite2D" parent="EyeballRoot/IrisBody"]
-light_mask = 2
-visibility_layer = 2
-scale = Vector2(0.784463, 0.784463)
-texture = ExtResource("5_l58ln")
+visible = false
+scale = Vector2(0.24, 0.24)
+texture = ExtResource("4_2vf76")
 
-[node name="Eyebg" type="Sprite2D" parent="EyeballRoot"]
+[node name="Eye_Boundary" type="Sprite2D" parent="EyeballRoot"]
 self_modulate = Color(1, 1, 1, 0.431373)
-<<<<<<< Updated upstream
 scale = Vector2(15.88, 5.36)
 texture = ExtResource("5_x56ih")
-=======
-texture = ExtResource("6_ppsl4")
-
-[node name="Eyelid" type="Sprite2D" parent="EyeballRoot"]
-self_modulate = Color(1, 1, 1, 0.431373)
-texture = ExtResource("7_m0oie")
->>>>>>> Stashed changes
 
 [node name="v_bound" type="Marker2D" parent="EyeballRoot"]
-position = Vector2(-11, 88)
+position = Vector2(-11, 104)
 
 [node name="h_bound" type="Marker2D" parent="EyeballRoot"]
-position = Vector2(204, 3)
+position = Vector2(285, 0)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="EyeballRoot"]
-position = Vector2(0, 112)
-scale = Vector2(0.756366, 0.799999)
+position = Vector2(0, 137)
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="EyeballRoot/StaticBody2D"]
-position = Vector2(11, 56)
-scale = Vector2(1.01194, 1.41194)
-polygon = PackedVector2Array(-13, -16, -107.553, -23.7262, -244.737, -58.2531, -316, -77, -366, -122, -293.078, -191.049, -226, -227, -120, -248, 13, -254, 123.701, -244.167, 258.272, -208.755, 311.84, -172.458, 335, -124, 290, -77, 207, -44, 76, -15, -11, -15, -11, 23, 198, 10, 200, 10, 437, -7, 508, -75, 374, -267, 33, -333, -442, -267, -529, -106, -418, 32, -14, 25)
+visible = false
+position = Vector2(14, 20)
+scale = Vector2(1.17194, 1.17194)
+polygon = PackedVector2Array(-13, -16, -111, -18, -253, -44, -316, -77, -366, -122, -301, -206, -226, -227, -120, -248, 13, -254, 126, -248, 252, -217, 323, -176, 335, -124, 290, -77, 207, -44, 76, -15, -11, -15, -11, 23, 198, 10, 200, 10, 437, -7, 508, -75, 374, -267, 33, -333, -442, -267, -529, -106, -418, 32, -14, 25)
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer2/New Game" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer2/Load Game" to="." method="_on_load_game_pressed"]

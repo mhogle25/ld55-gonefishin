@@ -2,7 +2,7 @@ extends Node2D
 @export var velocity : int = 30
 @export var max_v_displacement : int
 @export var max_h_displacement : int
-@onready var iris = %IrisBody
+@onready var iris = $IrisBody
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
