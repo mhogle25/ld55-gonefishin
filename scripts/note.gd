@@ -5,7 +5,7 @@ extends Area2D
 @onready var animate = $AnimationPlayer
 var selectedhsv : Color
 signal hit
-signal miss 
+signal missed 
 
 
 # Called when the node enters the scene tree for the first time.
@@ -18,8 +18,9 @@ signal miss
 func _process(delta):
 	self.position.y += delta * speed ###most basic of sliding movement lol
 	if self.position.y >= 1500: ###idunno thats probably off the screen
+		missed.emit() #### this signals a note has been missed
 		queue_free()
-		miss.emit() #### this signals a miss has occurred
+		
 
 func enter(upbound, lowbound):
 	var animation = $AnimationPlayer

@@ -1,15 +1,26 @@
-[gd_scene load_steps=4 format=3 uid="uid://dnbp28rwkbndb"]
+[gd_scene load_steps=6 format=3 uid="uid://dnbp28rwkbndb"]
 
 [ext_resource type="Script" path="res://scripts/fishing_minigame_prototype.gd" id="1_ehl5l"]
 [ext_resource type="Texture2D" uid="uid://dn66w68t3my5f" path="res://assets/art/staff.png" id="2_m8ejj"]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_axj6i"]
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_0ow6w"]
 radius = 28.5854
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_11m13"]
 
 [node name="Fish_Minigame" type="Node2D"]
 script = ExtResource("1_ehl5l")
 
+[node name="PhysicsCursor" type="RigidBody2D" parent="."]
+position = Vector2(0, 12)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicsCursor"]
+shape = SubResource("RectangleShape2D_axj6i")
+
 [node name="cursor_beatbox" type="Area2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(1523, 982)
 collision_layer = 0
 collision_mask = 2
@@ -22,6 +33,17 @@ shape = SubResource("CircleShape2D_0ow6w")
 [node name="Staff_Sprite" type="Sprite2D" parent="cursor_beatbox"]
 position = Vector2(-32, -170)
 texture = ExtResource("2_m8ejj")
+
+[node name="CursorStatic" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CursorStatic"]
+shape = SubResource("RectangleShape2D_11m13")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="CursorStatic"]
+position = Vector2(0, 7)
+node_a = NodePath("..")
+node_b = NodePath("../../PhysicsCursor")
+softness = 1.11
 
 [node name="NoteSpawner" type="Marker2D" parent="."]
 position = Vector2(0, -72)
