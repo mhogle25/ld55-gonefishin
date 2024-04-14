@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/menu_logic/main_menu.gd" id="2_psoe0"]
 [ext_resource type="Script" path="res://scripts/menu_logic/Menu_Eyeball.gd" id="3_5j3pi"]
 [ext_resource type="Texture2D" uid="uid://ddy5khdx8en3s" path="res://assets/art/get_ryaned.png" id="4_2vf76"]
-[ext_resource type="Texture2D" uid="uid://3e8p0ulgdydb" path="res://assets/art/orb.png" id="5_x56ih"]
+[ext_resource type="Texture2D" uid="uid://cb1lswmukp6lk" path="res://assets/art/eye_portal.png" id="5_6cy07"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tidds"]
 radius = 26.85
@@ -124,8 +124,7 @@ texture = ExtResource("4_2vf76")
 
 [node name="Eye_Boundary" type="Sprite2D" parent="EyeballRoot"]
 self_modulate = Color(1, 1, 1, 0.431373)
-scale = Vector2(15.88, 5.36)
-texture = ExtResource("5_x56ih")
+texture = ExtResource("5_6cy07")
 
 [node name="v_bound" type="Marker2D" parent="EyeballRoot"]
 position = Vector2(-11, 104)
