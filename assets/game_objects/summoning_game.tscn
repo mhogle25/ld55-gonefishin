@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://da2kxw1ccgiag"]
+[gd_scene load_steps=13 format=3 uid="uid://da2kxw1ccgiag"]
 
 [ext_resource type="Script" path="res://scripts/system/GameManager.cs" id="1_yfxpf"]
 [ext_resource type="PackedScene" uid="uid://fbt50t0v5xiy" path="res://assets/game_objects/pedestal_prototype.tscn" id="2_8fyn6"]
@@ -11,24 +11,7 @@
 [ext_resource type="Resource" uid="uid://cosloe63sjp0o" path="res://assets/fish_infos/trout.tres" id="8_7g6ny"]
 [ext_resource type="Resource" uid="uid://bku1ilflrtqsk" path="res://assets/fish_infos/tuna.tres" id="9_8ix41"]
 [ext_resource type="Resource" uid="uid://cxdqfsnmn66s8" path="res://assets/fish_infos/big_bass.tres" id="10_mf6k3"]
-[ext_resource type="Texture2D" uid="uid://ddy5khdx8en3s" path="res://assets/art/get_ryaned.png" id="12_he4n5"]
-[ext_resource type="Script" path="res://scripts/display/SummonDisplay.cs" id="13_o38pq"]
-[ext_resource type="Theme" uid="uid://bk4e8ep4hogow" path="res://assets/themes/summon_display_theme.tres" id="15_f6md2"]
-[ext_resource type="Script" path="res://scripts/display/SummonSprite.cs" id="15_o7wwv"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_dlk1r"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("12_he4n5")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kg2v1"]
-size = Vector2(353, 200)
+[ext_resource type="PackedScene" uid="uid://cctbtj7mphtb" path="res://assets/game_objects/summon_display.tscn" id="12_1la50"]
 
 [node name="SummoningGame" type="Node2D" node_paths=PackedStringArray("pedestals")]
 script = ExtResource("1_yfxpf")
@@ -49,53 +32,7 @@ position = Vector2(745, 432)
 [node name="Pedestal4" parent="." instance=ExtResource("2_8fyn6")]
 position = Vector2(1147, 440)
 
-[node name="SummonDisplay" type="Node2D" parent="." node_paths=PackedStringArray("tooltipContainer", "tooltipLabel", "timer")]
-position = Vector2(215, 643)
-script = ExtResource("13_o38pq")
-tooltipContainer = NodePath("Tooltip")
-tooltipLabel = NodePath("Tooltip/MarginContainer/Label")
-timer = NodePath("Timer")
-
-[node name="Timer" type="Timer" parent="SummonDisplay"]
-wait_time = 0.5
-one_shot = true
-
-[node name="SummonSprite" type="AnimatedSprite2D" parent="SummonDisplay" node_paths=PackedStringArray("Hitbox")]
-sprite_frames = SubResource("SpriteFrames_dlk1r")
-script = ExtResource("15_o7wwv")
-Hitbox = NodePath("Hitbox")
-
-[node name="Hitbox" type="Area2D" parent="SummonDisplay/SummonSprite"]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SummonDisplay/SummonSprite/Hitbox"]
-position = Vector2(0.5, 1)
-shape = SubResource("RectangleShape2D_kg2v1")
-
-[node name="Tooltip" type="PanelContainer" parent="SummonDisplay"]
-offset_left = 1.0
-offset_right = 235.0
-offset_bottom = 45.0
-mouse_filter = 2
-
-[node name="ColorRect" type="ColorRect" parent="SummonDisplay/Tooltip"]
-layout_mode = 2
-color = Color(0.0392157, 0.0392157, 0.0392157, 1)
-
-[node name="MarginContainer" type="MarginContainer" parent="SummonDisplay/Tooltip"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("15_f6md2")
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
-
-[node name="Label" type="Label" parent="SummonDisplay/Tooltip/MarginContainer"]
-layout_mode = 2
-text = "Summon Name Here"
-
-[connection signal="timeout" from="SummonDisplay/Timer" to="SummonDisplay" method="ShowTooltip"]
+[node name="SummonDisplay" parent="." instance=ExtResource("12_1la50")]
 
 [editable path="Pedestal1"]
 [editable path="Pedestal2"]

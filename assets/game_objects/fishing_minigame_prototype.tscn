@@ -52,7 +52,6 @@ softness = 0.3
 position = Vector2(0, -72)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-bus = &"Music"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
