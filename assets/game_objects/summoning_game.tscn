@@ -1,23 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://da2kxw1ccgiag"]
+[gd_scene load_steps=5 format=3 uid="uid://nekrfiwugnc6"]
 
 [ext_resource type="Script" path="res://scripts/system/GameManager.cs" id="1_yfxpf"]
 [ext_resource type="PackedScene" uid="uid://fbt50t0v5xiy" path="res://assets/game_objects/pedestal_prototype.tscn" id="2_8fyn6"]
-[ext_resource type="Resource" uid="uid://xubqjci1o0bl" path="res://assets/demon_infos/bifrons.tres" id="2_bcsk6"]
-[ext_resource type="Resource" uid="uid://cvynaoy2cy7up" path="res://assets/demon_infos/amon.tres" id="3_w2xhf"]
-[ext_resource type="Resource" uid="uid://cuvmhmjtijnw4" path="res://assets/demon_infos/orobas.tres" id="4_hnhqm"]
-[ext_resource type="Resource" uid="uid://ct5yeouywmmm2" path="res://assets/demon_infos/eligos.tres" id="5_mvxwf"]
-[ext_resource type="Resource" uid="uid://bgjue6ec8m1dw" path="res://assets/fish_infos/herring.tres" id="6_vay0d"]
-[ext_resource type="Resource" uid="uid://2dtq0lwys6tb" path="res://assets/fish_infos/salmon.tres" id="7_dasoj"]
-[ext_resource type="Resource" uid="uid://cosloe63sjp0o" path="res://assets/fish_infos/trout.tres" id="8_7g6ny"]
-[ext_resource type="Resource" uid="uid://bku1ilflrtqsk" path="res://assets/fish_infos/tuna.tres" id="9_8ix41"]
 [ext_resource type="Resource" uid="uid://cxdqfsnmn66s8" path="res://assets/fish_infos/big_bass.tres" id="10_mf6k3"]
 
-[node name="SummoningGame" type="Node2D" node_paths=PackedStringArray("pedestals")]
+[node name="SummoningGame" type="Node2D"]
 script = ExtResource("1_yfxpf")
-demonInfos = [ExtResource("2_bcsk6"), ExtResource("3_w2xhf"), ExtResource("4_hnhqm"), ExtResource("5_mvxwf")]
-fishInfos = [ExtResource("6_vay0d"), ExtResource("7_dasoj"), ExtResource("8_7g6ny"), ExtResource("9_8ix41")]
 bossInfo = ExtResource("10_mf6k3")
-pedestals = [NodePath("Pedestal1"), NodePath("Pedestal2"), NodePath("Pedestal3"), NodePath("Pedestal4")]
 
 [node name="Pedestal1" parent="." instance=ExtResource("2_8fyn6")]
 position = Vector2(1447, 843)
