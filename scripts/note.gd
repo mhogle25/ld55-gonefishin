@@ -20,6 +20,8 @@ signal missed
 func _process(delta):
 	
 	self.position.y += delta * speed ###most basic of sliding movement lol
+	if self.position.y >= 850: ###idunno thats probably off the screen
+		$NoteSprite.modulate = Color.DIM_GRAY
 	if self.position.y >= 1500: ###idunno thats probably off the screen
 		missed.emit() #### this signals a note has been missed
 		queue_free()
