@@ -82,7 +82,7 @@ func hit_upperbound():
 
 func spawn_note():
 	var note_instance = note.instantiate()
-	note_instance.enter(upperbound, lowerbound)
+	note_instance.enter(upperbound, lowerbound, bpm_mod)
 	note_instance.name = str("Note ", num_note)
 	$NoteSpawner.add_child(note_instance)
 	num_note += 1 ###Could be used to easily track accuracy of player, overall notes hit out of total
