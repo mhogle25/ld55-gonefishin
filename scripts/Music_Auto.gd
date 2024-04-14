@@ -6,8 +6,6 @@ var music_data : Dictionary
 func _ready():
 	music_data = gather_music_data("res://assets/music/")
 
-
-
 func gather_music_data(path: String) -> Dictionary:
 	var data : Dictionary = {}
 	var songs : Array = []
@@ -17,7 +15,6 @@ func gather_music_data(path: String) -> Dictionary:
 		dir.list_dir_begin()
 		var filename = dir.get_next()
 		while filename != "":
-
 			if ".mp3" in filename and "import" not in filename:
 				songs.append(filename)
 				#print("Found File : " + filename)
@@ -26,8 +23,6 @@ func gather_music_data(path: String) -> Dictionary:
 		print("An error occured when trying to access the path for " + path)
 	
 	for song in songs:
-		
-		
 		var song_info : Array = song.get_basename().split(" - ") ##eg. BIG BASS - 190
 
 		data[song_info[0]] = {"BPM": float(song_info[1]), "path": str(path+song)}

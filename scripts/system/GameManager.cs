@@ -5,17 +5,22 @@ namespace BFO.G.GoneFishin;
 
 public partial class GameManager : Node 
 {
-	[Export] private Godot.Collections.Array<PairIdPrefab> summonSprites = new();
+	[Export] private Godot.Collections.Array<SummonInfo> summonInfo = new();
 
-	private readonly Dictionary<string, PackedScene> summonSpritesByName = new();
-
+	private readonly Dictionary<string, SummonInfo> summonInfosByName = new();
+	
+	private GameCtx ctx = null;
+	private Node musicCtx = null;
+	
 	public override void _Ready()
 	{
-		this.summonSprites.SetupDictionary(this.summonSpritesByName);
+		this.ctx = GetNode<GameCtx>(GameCtx.PATH);
+		this.summonInfo.SetupDictionary(this.summonInfosByName);
 	}
 
 	public AnimatedSprite2D InstantiateSummonSprite(string id) =>
-		this.summonSpritesByName[id].Instantiate<AnimatedSprite2D>();
+		this.summonInfosByName[id].SpritePrefab.Instantiate<AnimatedSprite2D>();
 		
-	
+	private string GetSongId(string id) => 
+		this.summonInfosByName[id].SongId;
 }
