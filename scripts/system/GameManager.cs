@@ -5,17 +5,17 @@ namespace BFO.G.GoneFishin;
 
 public partial class GameManager : Node 
 {
-	[Export] private Godot.Collections.Array<PairIdPrefab> catchSprites = new();
+	[Export] private Godot.Collections.Array<PairIdPrefab> summonSprites = new();
 
-	private readonly Dictionary<string, PackedScene> catchSpritesByName = new();
+	private readonly Dictionary<string, PackedScene> summonSpritesByName = new();
 
 	public override void _Ready()
 	{
-		this.catchSprites.SetupDictionary(this.catchSpritesByName);
+		this.summonSprites.SetupDictionary(this.summonSpritesByName);
 	}
 
-	public AnimatedSprite2D InstantiateCatchSprite(string id) =>
-		this.catchSpritesByName[id].Instantiate<AnimatedSprite2D>();
+	public AnimatedSprite2D InstantiateSummonSprite(string id) =>
+		this.summonSpritesByName[id].Instantiate<AnimatedSprite2D>();
 		
 	
 }
