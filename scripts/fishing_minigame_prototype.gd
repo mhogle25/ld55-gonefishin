@@ -22,8 +22,6 @@ signal song_isplaying(song : String)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-
-	
 	begin("Soft Stars")
 
 func _process(_delta):
@@ -79,13 +77,9 @@ func end():
 func hit_lowerbound():
 	cursor.position.x = lowerbound
 
-
 func hit_upperbound():
 	cursor.position.x = upperbound
 
-	
-
-	
 func spawn_note():
 	var note_instance = note.instantiate()
 	note_instance.enter(upperbound, lowerbound)

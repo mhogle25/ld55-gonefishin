@@ -13,11 +13,6 @@ public partial class GameCtx : Node
 	
 	private SaveData saveData = null;
 
-	public override void _Ready()
-	{
-		GetSaveData();
-	}
-
 	public SaveData GetSaveData() 
 	{
 		this.saveData ??= JSON.Deserialize<SaveData>(this.saveFileManager.Read(SAVE_ID)).Reduce(new SaveData());
@@ -34,6 +29,12 @@ public partial class GameCtx : Node
 	{
 		this.saveData.AddDemon(demon);
 		AddSummon(demon);
+		SaveDataToDisk();
+	}
+	
+	public void IncrementSummonCount() 
+	{
+		this.saveData.IncrementSummonCount();
 		SaveDataToDisk();
 	}
 	
