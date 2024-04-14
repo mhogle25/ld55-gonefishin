@@ -22,9 +22,9 @@ func _process(delta):
 		queue_free()
 		
 
-func enter(upbound, lowbound):
+func enter(upbound, lowbound, tempo):
 	var animation = $AnimationPlayer
-	animation.speed_scale = music.bpm_active
+	animation.speed_scale = tempo
 	animation.play("bob")
 	var rand_hsv = Color.from_hsv((randi() % 12) / 12.0, 1, 1) ####pseudo-random color picker
 	selectedhsv = rand_hsv

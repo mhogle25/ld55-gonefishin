@@ -1,0 +1,49 @@
+[gd_resource type="Theme" load_steps=9 format=3 uid="uid://d1sg2hcjlo4sl"]
+
+[ext_resource type="FontFile" uid="uid://hjkqa2r7qed" path="res://assets/fonts/Taiganja Type.ttf" id="1_uxuoe"]
+[ext_resource type="Texture2D" uid="uid://3e8p0ulgdydb" path="res://assets/art/orb.png" id="2_3e1qq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bkhhj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xtax7"]
+bg_color = Color(0.992157, 0.819608, 0.847059, 1)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_alcp8"]
+color = Color(0.2, 0, 0.0352941, 1)
+grow_begin = 0.0
+grow_end = 0.0
+thickness = 3
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_knesc"]
+color = Color(0.352941, 0, 0.0901961, 1)
+thickness = 3
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_nok36"]
+grow_begin = 0.0
+grow_end = -1.0
+thickness = 3
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ccitr"]
+bg_color = Color(0.2, 0, 0.0352941, 1)
+
+[resource]
+Button/colors/font_color = Color(0.933333, 0.831373, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 4
+Button/font_sizes/font_size = 48
+Button/fonts/font = ExtResource("1_uxuoe")
+Button/styles/focus = SubResource("StyleBoxEmpty_bkhhj")
+Button/styles/pressed = SubResource("StyleBoxFlat_xtax7")
+HSlider/icons/grabber = ExtResource("2_3e1qq")
+HSlider/icons/grabber_highlight = ExtResource("2_3e1qq")
+HSlider/styles/grabber_area = SubResource("StyleBoxLine_alcp8")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxLine_knesc")
+HSlider/styles/slider = SubResource("StyleBoxLine_nok36")
+Label/colors/font_shadow_color = Color(0, 0, 0, 1)
+Label/constants/shadow_outline_size = 4
+Label/font_sizes/font_size = 96
+Label/fonts/font = ExtResource("1_uxuoe")
+ProgressBar/font_sizes/font_size = 28
+ProgressBar/fonts/font = ExtResource("1_uxuoe")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_ccitr")
