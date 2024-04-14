@@ -3,12 +3,10 @@
 [ext_resource type="Theme" uid="uid://d1sg2hcjlo4sl" path="res://assets/themes/menu_theme.tres" id="1_5knkv"]
 [ext_resource type="Script" path="res://scripts/menu_logic/main_menu.gd" id="2_psoe0"]
 [ext_resource type="Script" path="res://scripts/menu_logic/Menu_Eyeball.gd" id="3_5j3pi"]
-
 [ext_resource type="Texture2D" uid="uid://cfnurkpdinbt2" path="res://assets/art/eyeball_pieces/eyeball.png" id="4_to054"]
 [ext_resource type="Texture2D" uid="uid://d4jp6r4l3ikx5" path="res://assets/art/eyeball_pieces/eye_iris.png" id="5_bqk1p"]
 [ext_resource type="Texture2D" uid="uid://c8ck3svd3hqoh" path="res://assets/art/eyeball_pieces/eyelid.png" id="6_uq8cr"]
 [ext_resource type="Texture2D" uid="uid://wp7vrdmc26rk" path="res://assets/art/eyeball_pieces/eye_portalbg.png" id="7_nnm7v"]
-
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tidds"]
 radius = 53.4241
@@ -108,7 +106,11 @@ node_b = NodePath("../Eyeball")
 bias = 0.025
 softness = 1.0
 
+[node name="Eye_Boundary" type="Sprite2D" parent="EyeballRoot"]
+texture = ExtResource("7_nnm7v")
+
 [node name="Eyelid" type="Sprite2D" parent="EyeballRoot"]
+self_modulate = Color(1, 1, 1, 0.658824)
 texture = ExtResource("6_uq8cr")
 
 [node name="Eyeball" type="RigidBody2D" parent="EyeballRoot"]
@@ -117,9 +119,9 @@ gravity_scale = -0.1
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="EyeballRoot/Eyeball"]
 scale = Vector2(1.91667, 1.91667)
 shape = SubResource("CircleShape2D_tidds")
-debug_color = Color(1, 1, 1, 1)
 
 [node name="Eyeball" type="Sprite2D" parent="EyeballRoot/Eyeball"]
+self_modulate = Color(1, 1, 1, 0.658824)
 scale = Vector2(0.65, 0.65)
 texture = ExtResource("4_to054")
 
@@ -132,16 +134,11 @@ shape = SubResource("CircleShape2D_yve5e")
 [node name="Iris_Sprite" type="Sprite2D" parent="EyeballRoot/IrisBody"]
 texture = ExtResource("5_bqk1p")
 
-[node name="Eye_Boundary" type="Sprite2D" parent="EyeballRoot"]
-self_modulate = Color(1, 1, 1, 0.431373)
-texture = ExtResource("7_nnm7v")
-
-
 [node name="v_bound" type="Marker2D" parent="EyeballRoot"]
-position = Vector2(-11, 83)
+position = Vector2(-11, 77)
 
 [node name="h_bound" type="Marker2D" parent="EyeballRoot"]
-position = Vector2(235, 0)
+position = Vector2(197, 4)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="EyeballRoot"]
 position = Vector2(0, 137)
