@@ -46,6 +46,12 @@ func _on_hit():
 	add_child(kill_timer)
 	kill_timer.timeout.connect(kill_timer_timeout)
 	###grab vertical height hit
+	vertical_height_hit = self.position.y
+	if vertical_height_hit > 750 && vertical_height_hit < 800:
+		print("perfect")
+	else:
+		print("good")
+	
 	
 	
 func kill_timer_timeout():
