@@ -13,6 +13,7 @@ var num_note : int = 1
 var combo : int = 0
 var temp_score : int = 0
 var total_score : int = 0
+@export var perfect_bounds : int = 20
 
 var bpm_mod = float(1.0 / 60.0)
 
@@ -47,7 +48,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("rhythm"):
 		var note_hit = cursor.get_overlapping_areas()
 		if note_hit:
-			note_hit[0].hit.emit()
+			note_hit[0].hit.emit(perfect_bounds)
 			combo += 1
 			temp_score += 10
 		else:
@@ -138,6 +139,3 @@ func set_combo_meter():
 	else:
 		%Combo.clear()
 	#%Score.text = str("Score: ", total_score)
-
-
-
