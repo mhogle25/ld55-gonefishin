@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://cgjmhvgqevxl5"]
+[gd_scene load_steps=3 format=3 uid="uid://cctbtj7mphtb"]
 
 [ext_resource type="Script" path="res://scripts/display/SummonDisplay.cs" id="1_putdn"]
-[ext_resource type="Theme" uid="uid://df7oenl1joirf" path="res://assets/themes/summon_display_theme.tres" id="2_1xn3u"]
+[ext_resource type="Theme" uid="uid://ynfykhrun2sh" path="res://assets/themes/summon_display_theme.tres" id="2_1xn3u"]
 
 [node name="SummonDisplay" type="Node2D" node_paths=PackedStringArray("tooltipContainer", "tooltipLabel", "timer")]
 position = Vector2(215, 643)

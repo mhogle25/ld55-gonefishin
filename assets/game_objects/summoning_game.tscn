@@ -1,9 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://da2kxw1ccgiag"]
+[gd_scene load_steps=5 format=3 uid="uid://nekrfiwugnc6"]
 
 [ext_resource type="Script" path="res://scripts/system/GameManager.cs" id="1_yfxpf"]
 [ext_resource type="PackedScene" uid="uid://fbt50t0v5xiy" path="res://assets/game_objects/pedestal_prototype.tscn" id="2_8fyn6"]
 [ext_resource type="Resource" uid="uid://cxdqfsnmn66s8" path="res://assets/fish_infos/big_bass.tres" id="10_mf6k3"]
-[ext_resource type="PackedScene" uid="uid://cgjmhvgqevxl5" path="res://assets/game_objects/summon_display.tscn" id="12_1la50"]
+[ext_resource type="PackedScene" uid="uid://cctbtj7mphtb" path="res://assets/game_objects/summon_display.tscn" id="12_1la50"]
 
 [node name="SummoningGame" type="Node2D"]
 script = ExtResource("1_yfxpf")
@@ -21,10 +21,7 @@ position = Vector2(745, 432)
 [node name="Pedestal4" parent="." instance=ExtResource("2_8fyn6")]
 position = Vector2(1147, 440)
 
-[node name="SummonDisplay" parent="." node_paths=PackedStringArray("tooltipContainer", "tooltipLabel", "timer") instance=ExtResource("12_1la50")]
-tooltipContainer = NodePath("")
-tooltipLabel = NodePath("")
-timer = NodePath("")
+[node name="SummonDisplay" parent="." instance=ExtResource("12_1la50")]
 
 [editable path="Pedestal1"]
 [editable path="Pedestal2"]
