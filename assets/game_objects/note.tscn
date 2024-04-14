@@ -115,6 +115,22 @@ show_behind_parent = true
 scale = Vector2(1.44, 1.44)
 texture = SubResource("GradientTexture2D_3cix5")
 
+[node name="GoodText" type="RichTextLabel" parent="NoteSprite"]
+visible = false
+offset_left = -25.0
+offset_top = -260.0
+offset_right = 88.0
+offset_bottom = -234.0
+text = "GOOD"
+
+[node name="PerfectText" type="RichTextLabel" parent="NoteSprite"]
+visible = false
+offset_left = -33.0
+offset_top = -260.0
+offset_right = 80.0
+offset_bottom = -234.0
+text = "PERFECT"
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 "": SubResource("AnimationLibrary_wqj3t")

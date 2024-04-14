@@ -5,9 +5,11 @@ namespace BFO.G.GoneFishin;
 
 public class SaveData 
 {
-	[JsonProperty] private readonly List<Summon> summons = new(); 
-	[JsonProperty] private readonly List<Demon> demons = new();
+	[JsonProperty] private readonly List<SummonData> summons = new(); 
+	[JsonProperty] private int demonCount = 0;
 	
-	public void AddSummon(Summon summon) => this.summons.Add(summon);
-	public void AddDemon(Demon demon) => this.demons.Add(demon);
+	public void AddSummon(SummonData summon) => this.summons.Add(summon);
+	public void IncrementDemonCount() => this.demonCount++;
+	public void DecrementDemonCount() => this.demonCount--;
+	public int DemonCount => this.demonCount;
 }

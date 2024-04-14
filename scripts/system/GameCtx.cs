@@ -9,32 +9,59 @@ public partial class GameCtx : Node
 	public const string PATH = "/root/GameCtx";
 	
 	private const string SAVE_ID = "save_01";
-	private readonly FileManager saveFileManager = new(FilePath.User, "save", "json");
+	private const string SAVE_DIR = "save";
+	private readonly FileManager saveFileManager = new(FilePath.User, SAVE_DIR, "json");
 	
 	private SaveData saveData = null;
 
-	public SaveData GetSaveData() 
+	public override void _Ready()
 	{
-		this.saveData ??= JSON.Deserialize<SaveData>(this.saveFileManager.Read(SAVE_ID)).Reduce(new SaveData());
+		string path = $"{FileManager.USER_PATH}{SAVE_DIR}";
+		
+		if (!DirAccess.DirExistsAbsolute(path))
+			DirAccess.MakeDirRecursiveAbsolute(path);
+	}
+
+	public int GetDemonCount() => 
+		GetSaveData().DemonCount;
+	
+	public void AddSummon(SummonData summon) 
+	{
+		GetSaveData().AddSummon(summon);
+		SaveDataToDisk();
+	}
+	
+	public void IncrementDemonCount() 
+	{
+		GetSaveData().IncrementDemonCount();
+		SaveDataToDisk();
+	}
+	
+	public void DecrementDemonCount() 
+	{
+		GetSaveData().DecrementDemonCount();
+		SaveDataToDisk();
+	}
+	
+	private SaveData GetSaveData() 
+	{
+		this.saveData ??= JSON
+			.Deserialize<SaveData>(this.saveFileManager.Read(SAVE_ID))
+			.ReduceTo(() => 
+			{
+				SaveData newSave = new();
+				SaveDataToDisk(newSave);
+				BFCtx.Print("Created new save file");
+				return newSave;
+			});
 		return this.saveData;
 	}
 	
-	public void AddSummon(Summon summon) 
-	{
-		this.saveData.AddSummon(summon);
-		SaveDataToDisk();
-	}
+	private void SaveDataToDisk() => SaveDataToDisk(GetSaveData());
 	
-	public void AddDemon(Demon demon) 
+	private void SaveDataToDisk(SaveData save) 
 	{
-		this.saveData.AddDemon(demon);
-		AddSummon(demon);
-		SaveDataToDisk();
-	}
-	
-	private void SaveDataToDisk() 
-	{
-		string data = JSON.Serialize(this.saveData);
+		string data = JSON.Serialize(save);
 		
 		if (string.IsNullOrWhiteSpace(data))
 			return;

@@ -4,7 +4,9 @@ extends Area2D
 @export var speed : float = 195 * music.bpm_active  
 @onready var animate = $AnimationPlayer
 var selectedhsv : Color
-signal hit
+var vertical_height_hit : int 
+var perf_height = 780
+signal hit (perf_bound)
 signal missed 
 
 
@@ -16,7 +18,12 @@ signal missed
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
 	self.position.y += delta * speed ###most basic of sliding movement lol
+	if self.position.y >= 850: ###idunno thats probably off the screen
+		$NoteSprite.modulate = Color.DIM_GRAY
+		$NoteSprite/PerfectText.visible = false
+		$NoteSprite/GoodText.visible = false
 	if self.position.y >= 1500: ###idunno thats probably off the screen
 		missed.emit() #### this signals a note has been missed
 		queue_free()
@@ -32,7 +39,7 @@ func enter(upbound, lowbound, tempo):
 	$NoteSprite.modulate = rand_hsv ####pseudo-random color picker
 	
 	
-func _on_hit():
+func _on_hit(bound):
 	$ParticleSpawn.go_spawn.emit(selectedhsv)
 	animate.play("hit_feedback")
 	self.set_collision_layer_value(2, false)
@@ -43,6 +50,14 @@ func _on_hit():
 	kill_timer.autostart = true
 	add_child(kill_timer)
 	kill_timer.timeout.connect(kill_timer_timeout)
+	###grab vertical height hit
+	vertical_height_hit = self.position.y
+
+	if vertical_height_hit > perf_height - bound && vertical_height_hit < perf_height + bound:
+		$NoteSprite/PerfectText.visible = true
+	else:
+		$NoteSprite/GoodText.visible = true
+	
 	
 	
 func kill_timer_timeout():

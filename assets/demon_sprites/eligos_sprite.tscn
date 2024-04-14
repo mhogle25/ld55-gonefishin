@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://vn5y4378gtxd"]
+
+[ext_resource type="Texture2D" uid="uid://ddy5khdx8en3s" path="res://assets/art/get_ryaned.png" id="1_qb1gr"]
+[ext_resource type="Script" path="res://scripts/display/SummonSprite.cs" id="2_sm2tg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ojaal"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_qb1gr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h3jgb"]
+size = Vector2(348, 199)
+
+[node name="EligosSprite" type="AnimatedSprite2D"]
+position = Vector2(748, 669)
+sprite_frames = SubResource("SpriteFrames_ojaal")
+
+[node name="Hitbox" type="Area2D" parent="." node_paths=PackedStringArray("Hitbox")]
+script = ExtResource("2_sm2tg")
+Hitbox = NodePath(".")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-1, -0.5)
+shape = SubResource("RectangleShape2D_h3jgb")

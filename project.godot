@@ -12,13 +12,15 @@ config_version=5
 
 config/name="ld55-gonefishin"
 run/main_scene="res://assets/game_objects/fishing_minigame_prototype.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="hugenose/ld55-gonefishin"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 GameCtx="*res://scripts/system/GameCtx.cs"
-music="*res://scripts/Music_Auto.gd"
+music="*res://scripts/gd_autoload/Music_Auto.gd"
 option="*res://scripts/gd_autoload/options_control.gd"
 
 [display]

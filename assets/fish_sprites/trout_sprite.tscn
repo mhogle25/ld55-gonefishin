@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://uctmchwt4rw0"]
+
+[ext_resource type="Texture2D" uid="uid://ddy5khdx8en3s" path="res://assets/art/get_ryaned.png" id="1_fncce"]
+[ext_resource type="Script" path="res://scripts/display/SummonSprite.cs" id="2_ng78a"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_12wnc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_fncce")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7ntva"]
+size = Vector2(350, 203)
+
+[node name="TroutSprite" type="AnimatedSprite2D" node_paths=PackedStringArray("Hitbox")]
+sprite_frames = SubResource("SpriteFrames_12wnc")
+script = ExtResource("2_ng78a")
+Hitbox = NodePath("Hitbox")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-1, 0.5)
+shape = SubResource("RectangleShape2D_7ntva")
