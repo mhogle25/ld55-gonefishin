@@ -7,6 +7,7 @@ var upperbound : int = 1800 ###pixel dependent, will change when target resoluti
 var lowerbound : int = 1400 ###pixel dependent, will change when target resolution is decided
 @onready var spawn_timer := Timer.new()
 var num_note : int = 1
+var notes_hit: int = 0
 
 
 var bpm_mod = float(1.0 / 60.0)
@@ -15,7 +16,7 @@ var note = preload("res://assets/game_objects/note.tscn")
 
 signal start_minigame
 
-signal end_minigame
+signal end_minigame(notes_hit: int, num_notes: int)
 
 signal song_isplaying(song : String)
 
@@ -71,7 +72,7 @@ func end():
 	#Create Cooldown Rate for spawning notes at a given BPM
 	spawn_timer.one_shot = true
 	spawn_timer.stop()
-	end_minigame.emit() ### useful signal!
+	end_minigame.emit(notes_hit, num_note) ### useful signal!
 
 
 func hit_lowerbound():
@@ -84,12 +85,16 @@ func spawn_note():
 	var note_instance = note.instantiate()
 	note_instance.enter(upperbound, lowerbound, bpm_mod)
 	note_instance.name = str("Note ", num_note)
+	note_instance.hit.connect(note_on_hit)
 	$NoteSpawner.add_child(note_instance)
 	num_note += 1 ###Could be used to easily track accuracy of player, overall notes hit out of total
 	
 func spawn_timer_timeout():
 	spawn_note()
 	spawn_timer.set_wait_time(float(1/bpm_mod) / randi_range(1, 2) * randi_range(1,2))
+
+func note_on_hit():
+	notes_hit += 1
 
 ### func signal receieved from controller to "begin minigame":
 	#begin()

@@ -6,11 +6,25 @@ namespace BFO.G.GoneFishin;
 public partial class SummonInfo : Resource 
 {
 	[Export] private string id = string.Empty;
+	[Export] private string name = string.Empty;
 	[Export] private string songId = string.Empty;
 	[Export] private PackedScene spritePrefab = null;
 	
 	public string Id => this.id;
-	public PackedScene SpritePrefab => this.spritePrefab;
+	
+	public SummonSprite InstantiateSprite() 
+	{
+		return InstantiateSprite(new Color("#ffffff"));
+	}
+	
+	public SummonSprite InstantiateSprite(Color color) 
+	{
+		SummonSprite sprite = this.spritePrefab.Instantiate<SummonSprite>();
+		sprite.Modulate = color;
+		return sprite;
+	}
+	
+	public string GetName() => this.name;
 	public string SongId => this.songId;
 }
 

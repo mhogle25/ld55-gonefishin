@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://ckrrpjjq346ga"]
+
+[ext_resource type="Texture2D" uid="uid://ddy5khdx8en3s" path="res://assets/art/get_ryaned.png" id="1_cjfn1"]
+[ext_resource type="Script" path="res://scripts/display/SummonSprite.cs" id="2_vmbvg"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_47lyk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_cjfn1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y6eih"]
+size = Vector2(352, 200)
+
+[node name="SalmonSprite" type="AnimatedSprite2D" node_paths=PackedStringArray("Hitbox")]
+sprite_frames = SubResource("SpriteFrames_47lyk")
+script = ExtResource("2_vmbvg")
+Hitbox = NodePath("Hitbox")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("RectangleShape2D_y6eih")

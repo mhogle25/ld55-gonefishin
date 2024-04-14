@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cxdqfsnmn66s8"]
+
+[ext_resource type="Script" path="res://scripts/system/resources/SummonInfo.cs" id="1_8rtxt"]
+[ext_resource type="PackedScene" uid="uid://2xtnoadebtx2" path="res://assets/fish_sprites/big_bass_sprite.tscn" id="2_vqx1a"]
+
+[resource]
+script = ExtResource("1_8rtxt")
+id = "big_bass"
+name = "Big Bass, Archfish of Hell"
+songId = ""
+spritePrefab = ExtResource("2_vqx1a")
