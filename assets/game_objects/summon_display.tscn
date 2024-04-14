@@ -6,9 +6,9 @@
 [node name="SummonDisplay" type="Node2D" node_paths=PackedStringArray("tooltipContainer", "tooltipLabel", "timer")]
 position = Vector2(215, 643)
 script = ExtResource("1_putdn")
-tooltipContainer = NodePath("")
-tooltipLabel = NodePath("")
-timer = NodePath("")
+tooltipContainer = NodePath("Tooltip")
+tooltipLabel = NodePath("Tooltip/MarginContainer/Label")
+timer = NodePath("Timer")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
