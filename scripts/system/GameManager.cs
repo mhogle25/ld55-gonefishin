@@ -16,4 +16,6 @@ public partial class GameManager : Node
 
 	public AnimatedSprite2D InstantiateCatchSprite(string id) =>
 		this.catchSpritesByName[id].Instantiate<AnimatedSprite2D>();
+		
+	
 }
