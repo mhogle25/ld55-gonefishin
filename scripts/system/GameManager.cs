@@ -12,6 +12,8 @@ public partial class GameManager : Node
 		Any
 	}
 	
+	public record SummonEvent(SummonInfo Info, SummonData Data, SummonType Type= SummonType.Demon);
+	
 	[Export] private Godot.Collections.Array<SummonInfo> demonInfos = new();
 	[Export] private Godot.Collections.Array<SummonInfo> fishInfos = new();
 	[Export] private SummonInfo bossInfo = new();
@@ -20,8 +22,7 @@ public partial class GameManager : Node
 	
 	private readonly Dictionary<string, SummonInfo> summonInfoBank = new();
 	public RandomNumberGenerator rng = new();
-	private SummonInfo currentSummon = null;
-	private SummonType summonType = SummonType.Demon;
+	private SummonEvent summonEvent = null;
 	
 	private GameCtx ctx = null;
 	
@@ -64,34 +65,52 @@ public partial class GameManager : Node
 	public void BeginNextSummoning() 
 	{
 		int demonCount = this.ctx.GetDemonCount();
+		
 		if (demonCount <= this.summonInfoBank.Count) 
 		{
-			this.currentSummon = demonCount < this.demonInfos.Count ? GetNextDemonInfo(demonCount) : GetBossInfo();
+			bool boss = demonCount == this.demonInfos.Count;
+			
+			SummonInfo info = boss ? GetNextDemonInfo(demonCount) : GetBossInfo();
+			SummonData data = new() 
+			{
+				Id = info.Id,
+				FullName = info.GetName(),
+			};
+			
+			this.summonEvent = new(info, data, boss ? SummonType.Boss : SummonType.Demon);
 			// Do summoning stuff
-			return;
-		}
-		
-		this.summonType = SummonType.Any;
-		
-		if (this.rng.RandiRange(1, this.fishToSummonRatio) == 1)
+		} 
+		else if (this.rng.RandiRange(1, this.fishToSummonRatio) == 1)
 		{
-			this.currentSummon = GetRandDemonInfo();
+			SummonInfo info = GetRandDemonInfo();
+			SummonData data = new() 
+			{
+				Id = info.Id,
+				FullName = info.GetName(),
+			};
+			
+			this.summonEvent = new(info, data, SummonType.Any);
 			// Do summoning stuff
-			return;
+		} 
+		else 
+		{
+			SummonInfo info = GetRandFishInfo();
+			SummonData data = new() 
+			{
+				Id = info.Id,
+				FullName = info.GetName(),
+			};
+			
+			this.summonEvent = new(info, data, SummonType.Any);
+			// Do summoning stuff
 		}
-		
-		SummonInfo fishInfo = GetRandFishInfo();
-		this.currentSummon = fishInfo;
-		// Do summoning stuff
 	}
 	
-	public void HandleSummoningCompleted(int notesHit, int noteCount) 
+	public void HandleSummoningCompleted(/* success parameters go here */) 
 	{
-		// Success check
-		if (notesHit == noteCount)
-			this.ctx.IncrementDemonCount(); 
 		
-		switch (this.summonType) 
+		
+		switch (this.summonEvent.Type) 
 		{
 			case SummonType.Demon:
 				break;
@@ -104,26 +123,22 @@ public partial class GameManager : Node
 
 	private SummonInfo GetNextDemonInfo(int demonCount)  
 	{
-		this.summonType = SummonType.Demon;
 		return this.demonInfos[demonCount];
 	}
 		
 	private SummonInfo GetBossInfo() 
 	{
-		this.summonType = SummonType.Boss;
 		this.ctx.IncrementDemonCount();
 		return this.bossInfo;
 	}
 	
 	private SummonInfo GetRandFishInfo() 
 	{
-		this.summonType = SummonType.Any;
 		return this.fishInfos[this.rng.RandiRange(0, this.fishInfos.Count - 1)];
 	}
 		
 	private SummonInfo GetRandDemonInfo() 
 	{
-		this.summonType = SummonType.Any;
 		return this.demonInfos[this.rng.RandiRange(0, this.demonInfos.Count - 1)];
 	}
 	
@@ -135,6 +150,6 @@ public partial class GameManager : Node
 		return summonDisplay;
 	}
 		
-	private static void SetupPedestal(Sprite2D pedestal, SummonDisplay sprite, bool runOnFadedInEvent) => 
-		pedestal.Call("setup_demon", sprite, runOnFadedInEvent);
+	private static void SetupPedestal(Sprite2D pedestal, SummonDisplay display, bool runOnFadedInEvent) => 
+		pedestal.Call("setup_demon", display, runOnFadedInEvent);
 }

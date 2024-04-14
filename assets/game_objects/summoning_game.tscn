@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://da2kxw1ccgiag"]
+[gd_scene load_steps=12 format=3 uid="uid://da2kxw1ccgiag"]
 
 [ext_resource type="Script" path="res://scripts/system/GameManager.cs" id="1_yfxpf"]
 [ext_resource type="PackedScene" uid="uid://fbt50t0v5xiy" path="res://assets/game_objects/pedestal_prototype.tscn" id="2_8fyn6"]
@@ -11,7 +11,6 @@
 [ext_resource type="Resource" uid="uid://cosloe63sjp0o" path="res://assets/fish_infos/trout.tres" id="8_7g6ny"]
 [ext_resource type="Resource" uid="uid://bku1ilflrtqsk" path="res://assets/fish_infos/tuna.tres" id="9_8ix41"]
 [ext_resource type="Resource" uid="uid://cxdqfsnmn66s8" path="res://assets/fish_infos/big_bass.tres" id="10_mf6k3"]
-[ext_resource type="PackedScene" uid="uid://cctbtj7mphtb" path="res://assets/game_objects/summon_display.tscn" id="12_1la50"]
 
 [node name="SummoningGame" type="Node2D" node_paths=PackedStringArray("pedestals")]
 script = ExtResource("1_yfxpf")
@@ -21,18 +20,16 @@ bossInfo = ExtResource("10_mf6k3")
 pedestals = [NodePath("Pedestal1"), NodePath("Pedestal2"), NodePath("Pedestal3"), NodePath("Pedestal4")]
 
 [node name="Pedestal1" parent="." instance=ExtResource("2_8fyn6")]
-position = Vector2(1151, 869)
+position = Vector2(1447, 843)
 
 [node name="Pedestal2" parent="." instance=ExtResource("2_8fyn6")]
-position = Vector2(743, 864)
+position = Vector2(355, 826)
 
 [node name="Pedestal3" parent="." instance=ExtResource("2_8fyn6")]
-position = Vector2(745, 432)
+position = Vector2(350, 287)
 
 [node name="Pedestal4" parent="." instance=ExtResource("2_8fyn6")]
-position = Vector2(1147, 440)
-
-[node name="SummonDisplay" parent="." instance=ExtResource("12_1la50")]
+position = Vector2(1452, 274)
 
 [editable path="Pedestal1"]
 [editable path="Pedestal2"]

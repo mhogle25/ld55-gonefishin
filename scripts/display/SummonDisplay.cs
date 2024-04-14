@@ -8,7 +8,7 @@ public partial class SummonDisplay : Node2D
 	[Export] Label tooltipLabel = null;
 	[Export] Timer timer = null;
 	
-	public SummonSprite Sprite { get; private set; }= null;
+	private SummonSprite sprite = null;
 
 	public override void _Ready()
 	{
@@ -19,6 +19,8 @@ public partial class SummonDisplay : Node2D
 				return;
 			}
 	}
+	
+	public SummonSprite GetSprite() => this.sprite;
 
 	public void Setup(SummonSprite sprite, string text) 
 	{
@@ -32,7 +34,7 @@ public partial class SummonDisplay : Node2D
 		sprite.Hitbox.MouseEntered += OnMouseEnter;
 		sprite.Hitbox.MouseExited += OnMouseExit;
 		
-		this.Sprite = sprite;
+		this.sprite = sprite;
 		this.tooltipLabel.Text = text;
 	}
 	

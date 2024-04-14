@@ -20,12 +20,6 @@ var note = preload("res://assets/game_objects/note.tscn")
 
 signal end_minigame
 
-##signal start_minigame 
-
-
-
-#signal song_isplaying(song : String) ##o7
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
