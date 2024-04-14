@@ -1,15 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://lwvbniudbqxe"]
+[gd_scene load_steps=10 format=3 uid="uid://lwvbniudbqxe"]
 
 [ext_resource type="Theme" uid="uid://d1sg2hcjlo4sl" path="res://assets/themes/menu_theme.tres" id="1_5knkv"]
 [ext_resource type="Script" path="res://scripts/menu_logic/main_menu.gd" id="2_psoe0"]
 [ext_resource type="Script" path="res://scripts/menu_logic/Menu_Eyeball.gd" id="3_5j3pi"]
-[ext_resource type="Texture2D" uid="uid://ddy5khdx8en3s" path="res://assets/art/get_ryaned.png" id="4_2vf76"]
-[ext_resource type="Texture2D" path="res://assets/art/eye_portal.png" id="5_6cy07"]
+
+[ext_resource type="Texture2D" uid="uid://cfnurkpdinbt2" path="res://assets/art/eyeball_pieces/eyeball.png" id="4_to054"]
+[ext_resource type="Texture2D" uid="uid://d4jp6r4l3ikx5" path="res://assets/art/eyeball_pieces/eye_iris.png" id="5_bqk1p"]
+[ext_resource type="Texture2D" uid="uid://c8ck3svd3hqoh" path="res://assets/art/eyeball_pieces/eyelid.png" id="6_uq8cr"]
+[ext_resource type="Texture2D" uid="uid://wp7vrdmc26rk" path="res://assets/art/eyeball_pieces/eye_portalbg.png" id="7_nnm7v"]
+
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tidds"]
-radius = 26.85
+radius = 53.4241
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yve5e"]
+radius = 27.4713
 
 [node name="Control" type="MarginContainer"]
 anchors_preset = 15
@@ -92,24 +97,31 @@ flat = true
 
 [node name="EyeballRoot" type="Node2D" parent="."]
 show_behind_parent = true
-position = Vector2(814, 240)
+position = Vector2(1554, 313)
 script = ExtResource("3_5j3pi")
 max_v_displacement = 50
 max_h_displacement = 50
 
 [node name="PinJoint2D" type="PinJoint2D" parent="EyeballRoot"]
 node_a = NodePath("../IrisBody")
-node_b = NodePath("../RigidBody2D")
+node_b = NodePath("../Eyeball")
 bias = 0.025
 softness = 1.0
 
-[node name="RigidBody2D" type="RigidBody2D" parent="EyeballRoot"]
+[node name="Eyelid" type="Sprite2D" parent="EyeballRoot"]
+texture = ExtResource("6_uq8cr")
+
+[node name="Eyeball" type="RigidBody2D" parent="EyeballRoot"]
 gravity_scale = -0.1
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="EyeballRoot/RigidBody2D"]
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="EyeballRoot/Eyeball"]
 scale = Vector2(1.91667, 1.91667)
 shape = SubResource("CircleShape2D_tidds")
 debug_color = Color(1, 1, 1, 1)
+
+[node name="Eyeball" type="Sprite2D" parent="EyeballRoot/Eyeball"]
+scale = Vector2(0.65, 0.65)
+texture = ExtResource("4_to054")
 
 [node name="IrisBody" type="StaticBody2D" parent="EyeballRoot"]
 
@@ -118,25 +130,24 @@ scale = Vector2(2.08, 2.08)
 shape = SubResource("CircleShape2D_yve5e")
 
 [node name="Iris_Sprite" type="Sprite2D" parent="EyeballRoot/IrisBody"]
-visible = false
-scale = Vector2(0.24, 0.24)
-texture = ExtResource("4_2vf76")
+texture = ExtResource("5_bqk1p")
 
 [node name="Eye_Boundary" type="Sprite2D" parent="EyeballRoot"]
 self_modulate = Color(1, 1, 1, 0.431373)
-texture = ExtResource("5_6cy07")
+texture = ExtResource("7_nnm7v")
+
 
 [node name="v_bound" type="Marker2D" parent="EyeballRoot"]
-position = Vector2(-11, 104)
+position = Vector2(-11, 83)
 
 [node name="h_bound" type="Marker2D" parent="EyeballRoot"]
-position = Vector2(285, 0)
+position = Vector2(235, 0)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="EyeballRoot"]
 position = Vector2(0, 137)
+scale = Vector2(0.68, 0.960002)
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="EyeballRoot/StaticBody2D"]
-visible = false
 position = Vector2(14, 20)
 scale = Vector2(1.17194, 1.17194)
 polygon = PackedVector2Array(-13, -16, -111, -18, -253, -44, -316, -77, -366, -122, -301, -206, -226, -227, -120, -248, 13, -254, 126, -248, 252, -217, 323, -176, 335, -124, 290, -77, 207, -44, 76, -15, -11, -15, -11, 23, 198, 10, 200, 10, 437, -7, 508, -75, 374, -267, 33, -333, -442, -267, -529, -106, -418, 32, -14, 25)
