@@ -18,7 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 GameCtx="*res://scripts/system/GameCtx.cs"
-music="*res://scripts/Music_Auto.gd"
+music="*res://scripts/gd_autoload/Music_Auto.gd"
 option="*res://scripts/gd_autoload/options_control.gd"
 
 [display]
