@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://caujvo6fg5lt"]
+
+[ext_resource type="Texture2D" uid="uid://ddy5khdx8en3s" path="res://assets/art/get_ryaned.png" id="1_ryfyf"]
+[ext_resource type="Script" path="res://scripts/pedestal_prototype.gd" id="2_qchwj"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jpd5d"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ryfyf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="PedestalPrototype" type="Sprite2D" node_paths=PackedStringArray("temp_demon_sprite")]
+position = Vector2(937, 594)
+texture = ExtResource("1_ryfyf")
+script = ExtResource("2_qchwj")
+temp_demon_sprite = NodePath("DemonSprite")
+fade_rate = 0.2
+
+[node name="DemonSprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -191)
+sprite_frames = SubResource("SpriteFrames_jpd5d")
