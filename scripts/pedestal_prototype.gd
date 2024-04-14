@@ -3,11 +3,12 @@ extends Sprite2D
 @export var temp_demon_sprite: AnimatedSprite2D
 @export var fade_rate = 0.01
 
-signal onFadedIn
+signal on_faded_in
 
 var demon_sprite: AnimatedSprite2D
 var increasing := true
 var faded_in := false
+var runOnFadedIn := false
 
 #Substitute click event with just calling function
 func _input(event):
@@ -22,13 +23,17 @@ func _process(delta):
 
 	if demon_sprite.modulate.a >= 1:
 		print ("faded")
-		onFadedIn.emit()
+		on_faded_in.emit()
 		faded_in = true
 		return
 
 	if increasing:
 		print ("fading in")
 		demon_sprite.modulate.a += fade_rate * delta
+
+func setup_demon_init(sprite: AnimatedSprite2D):
+	setup_demon(sprite)
+	
 
 func setup_demon(sprite: AnimatedSprite2D):
 	demon_sprite = sprite

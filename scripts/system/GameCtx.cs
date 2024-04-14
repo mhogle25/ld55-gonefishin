@@ -12,35 +12,31 @@ public partial class GameCtx : Node
 	private readonly FileManager saveFileManager = new(FilePath.User, "save", "json");
 	
 	private SaveData saveData = null;
-
-	public SaveData GetSaveData() 
+	
+	public int GetDemonCount() => 
+		this.saveData.DemonCount;
+	
+	public void AddSummon(SummonInfo summonInfo) 
+	{
+		GetSaveData().AddSummon(summonInfo.Id);
+		SaveDataToDisk();
+	}
+	
+	public void IncrementDemonCount() 
+	{
+		GetSaveData().IncrementDemonCount();
+		SaveDataToDisk();
+	}
+	
+	private SaveData GetSaveData() 
 	{
 		this.saveData ??= JSON.Deserialize<SaveData>(this.saveFileManager.Read(SAVE_ID)).Reduce(new SaveData());
 		return this.saveData;
 	}
 	
-	public void AddSummon(Summon summon) 
-	{
-		this.saveData.AddSummon(summon);
-		SaveDataToDisk();
-	}
-	
-	public void AddDemon(Demon demon) 
-	{
-		this.saveData.AddDemon(demon);
-		AddSummon(demon);
-		SaveDataToDisk();
-	}
-	
-	public void IncrementSummonCount() 
-	{
-		this.saveData.IncrementSummonCount();
-		SaveDataToDisk();
-	}
-	
 	private void SaveDataToDisk() 
 	{
-		string data = JSON.Serialize(this.saveData);
+		string data = JSON.Serialize(GetSaveData());
 		
 		if (string.IsNullOrWhiteSpace(data))
 			return;
