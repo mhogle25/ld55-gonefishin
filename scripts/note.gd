@@ -4,6 +4,7 @@ extends Area2D
 @export var speed : float = 195 * music.bpm_active  
 @onready var animate = $AnimationPlayer
 var selectedhsv : Color
+var vertical_height_hit : float 
 signal hit
 signal missed 
 
@@ -16,6 +17,7 @@ signal missed
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	
 	self.position.y += delta * speed ###most basic of sliding movement lol
 	if self.position.y >= 1500: ###idunno thats probably off the screen
 		missed.emit() #### this signals a note has been missed
@@ -43,6 +45,7 @@ func _on_hit():
 	kill_timer.autostart = true
 	add_child(kill_timer)
 	kill_timer.timeout.connect(kill_timer_timeout)
+	###grab vertical height hit
 	
 	
 func kill_timer_timeout():
