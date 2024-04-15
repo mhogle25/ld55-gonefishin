@@ -58,6 +58,7 @@ radius = 146.0
 size = Vector2(1168, 886.5)
 
 [node name="SummoningGame" type="Node2D" node_paths=PackedStringArray("pedestals", "inventoryDisplay", "fishingMinigame", "wizard")]
+z_index = 1500
 script = ExtResource("1_yfxpf")
 demonInfos = [ExtResource("2_bcsk6"), ExtResource("3_w2xhf"), ExtResource("4_hnhqm"), ExtResource("5_mvxwf")]
 fishInfos = [ExtResource("6_vay0d"), ExtResource("7_dasoj"), ExtResource("8_7g6ny"), ExtResource("9_8ix41")]
