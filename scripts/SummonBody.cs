@@ -40,7 +40,11 @@ public partial class SummonBody : CharacterBody2D
 		this.deathTimer.Timeout += QueueFree;
 	}
 
-	public override void _Process(double delta) => GetProcessAction()?.Invoke((float) delta);
+	public override void _Process(double delta) 
+	{
+		GetProcessAction()?.Invoke((float) delta);	
+		this.ZIndex = (int) this.Position.Y;
+	}
 	
 	public void Catch() => this.state = State.Caught;
 	public void Flee() 

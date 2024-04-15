@@ -16,7 +16,7 @@ func gather_music_data(path: String) -> Dictionary:
 		dir.list_dir_begin()
 		var filename = dir.get_next()
 		while filename != "":
-			if ".mp3" in filename and "import" not in filename:
+			if ".ogg" in filename and "import" not in filename:
 				songs.append(filename)
 				#print("Found File : " + filename)
 			filename = dir.get_next()

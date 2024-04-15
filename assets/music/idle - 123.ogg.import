@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://bv3dk6t3v3730"
+path="res://.godot/imported/idle - 123.ogg-bb5a50b4e00ef6d8157f96fae9aacb83.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/music/idle - 123.ogg"
+dest_files=["res://.godot/imported/idle - 123.ogg-bb5a50b4e00ef6d8157f96fae9aacb83.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
