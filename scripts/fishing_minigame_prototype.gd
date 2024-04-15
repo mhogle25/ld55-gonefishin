@@ -22,11 +22,9 @@ var note = preload("res://assets/game_objects/note.tscn")
 
 signal end_minigame
 
-##signal start_minigame 
 
 
 
-#signal song_isplaying(song : String) ##o7
 
 
 # Called when the node enters the scene tree for the first time.
@@ -60,8 +58,7 @@ func _process(_delta):
 			temp_score = 0
 			combo = 0 ###reset combo on a misclick
 		
-	#if Input.is_action_just_pressed("rightclick"): ###For DEBUG PURPOSE ONLY
-		#spawn_note()
+
 	set_combo_meter()
 	if score_rolling:
 		%Score.text = str("Score: ", randi_range(0000000, 9999999))
@@ -74,18 +71,18 @@ func begin(song: String):
 		music.bpm_active = bpm_mod
 		$AudioStreamPlayer.set_stream(load(mp3data[song]["path"]))
 		$AudioStreamPlayer.play()
-		#song_isplaying.emit(song)
+
 
 
 	spawn_timer.one_shot = false
-	#spawn_timer.autostart = true
+
 	add_child(spawn_timer)
 	spawn_timer.timeout.connect(spawn_timer_timeout)
 	spawn_timer.start()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	#Create Cooldown Rate for spawning notes at a given BPM
 	spawn_timer.set_wait_time(float(spawn_diff/bpm_mod)) ###defaults to quarter notes of active bpm
-	##start_minigame.emit() ### may be unneccessary signal
+
 	
 	
 func end():
@@ -120,7 +117,7 @@ func time_score_roll():
 	score_rolling = false
 	%Score.text = str("Score: ", total_score)
 	
-	#add_child(rolling_timer)
+
 	
 
 
@@ -132,8 +129,6 @@ func set_combo_meter():
 	if combo > 1 and combo <10:
 		%Combo.bbcode_text = str("+ ", temp_score, " X", combo)
 	elif combo >= 10 and combo <=20: 
-		##%Combo.bbcode_text = str("[rainbow freq=1.0 sat=0.8 val=0.8]+ ",temp_score , " X ", combo, "[/rainbow]")
-		##%Combo.bbcode_text = str("[wave amp=50.0 freq=5.0 connected=1]+ ",temp_score , " X ", combo, "[/wave]")
 		%Combo.bbcode_text = str("[shake rate=20.0 level=5 connected=1]+ ",temp_score , " X ", combo, "[/shake]")
 	elif combo > 20 and combo <= 35:
 		%Combo.bbcode_text = str("[shake rate=25.0 level=20 connected=0]+ ",temp_score , " X " , combo, "[/shake]")
@@ -141,4 +136,4 @@ func set_combo_meter():
 		%Combo.bbcode_text = str("[rainbow freq=1.0 sat=0.8 val=0.8][shake rate=25.0 level=30 connected=0]+ ",temp_score , " X ", combo, "[/shake][/rainbow]")
 	else:
 		%Combo.clear()
-	#%Score.text = str("Score: ", total_score)
+

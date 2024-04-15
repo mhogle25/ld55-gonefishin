@@ -1,14 +1,7 @@
 extends MarginContainer
 var options = "res://scenes/menus/options_menu.tscn"
 
-# Called when the node enters the scene tree for the first time.
-#func _ready():
-	#pass # Replace with function body.
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-	#pass
 
 
 func _on_quit_pressed():
@@ -25,5 +18,5 @@ func _on_new_game_pressed():
 
 
 func _on_load_game_pressed():
-	###pls teach me how save states work
-	pass # Replace with function body.
+	##grab save state
+	pass

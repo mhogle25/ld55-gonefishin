@@ -4,19 +4,14 @@ var master_AudioIndex = AudioServer.get_bus_index("Master")
 var music_AudioIndex = AudioServer.get_bus_index("Music")
 
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	%Music_HSlider.value = option.music_vol 
 	%Master_HSlider.value = option.master_vol 
 	%MouseMovement.button_pressed = option.limit_mouse_movement
 	%FullscreenToggle.button_pressed = option.fullscreen
 	%DifficultySlider.value = option.difficulty_selected
-	# Replace with function body.
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-	#pass
 
 
 func _on_back_pressed():

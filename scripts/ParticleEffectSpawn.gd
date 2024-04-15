@@ -87,8 +87,7 @@ func create_particles():
 	rect.size = Vector2(radius*2, radius*2)
 	
 	rs.canvas_item_add_texture_rect(particle, rect, particle_texture)
-	
-	##Color texture ##random color again idk what we're going for palette wise yet
+
 	rs.canvas_item_set_self_modulate(particle, hsv_selected)
 	
 	##add to storage array
