@@ -109,8 +109,8 @@ shape = SubResource("RectangleShape2D_018se")
 [connection signal="OnAwait" from="." to="Wizard" method="SetSpriteDefault"]
 [connection signal="OnFail" from="." to="Wizard" method="SetSpriteFail"]
 [connection signal="OnSummon" from="." to="Wizard" method="SetSpriteSummon"]
+[connection signal="body_entered" from="Wizard/Area2D" to="Wizard" method="HandleBodyEntered"]
 [connection signal="body_entered" from="Wizard/Area2D" to="." method="HandleFinalizeSummoning" unbinds=1]
-[connection signal="body_entered" from="Wizard/Area2D" to="." method="BeginAwaiting" unbinds=1]
 [connection signal="end_minigame" from="Fish_Minigame" to="." method="HandleSummoningCompleted"]
 
 [editable path="Pedestal1"]
