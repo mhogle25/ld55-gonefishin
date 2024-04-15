@@ -1,23 +1,24 @@
 [gd_scene load_steps=5 format=3 uid="uid://cg0p882ay16nt"]
 
-[ext_resource type="Texture2D" uid="uid://ddy5khdx8en3s" path="res://assets/art/get_ryaned.png" id="1_kdgar"]
+[ext_resource type="Texture2D" uid="uid://dg7l4gt4wb0g2" path="res://assets/art/bigBASSa.png" id="1_aykqg"]
 [ext_resource type="Script" path="res://scripts/display/SummonSprite.cs" id="2_ap8et"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_612n1"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_kdgar")
+"texture": ExtResource("1_aykqg")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_wrcon"]
-size = Vector2(350, 201)
+[sub_resource type="CircleShape2D" id="CircleShape2D_xb884"]
+radius = 446.101
 
 [node name="TunaSprite" type="AnimatedSprite2D" node_paths=PackedStringArray("Hitbox")]
+scale = Vector2(0.2, 0.2)
 sprite_frames = SubResource("SpriteFrames_612n1")
 script = ExtResource("2_ap8et")
 Hitbox = NodePath("Hitbox")
@@ -26,4 +27,4 @@ Hitbox = NodePath("Hitbox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(0, 0.5)
-shape = SubResource("RectangleShape2D_wrcon")
+shape = SubResource("CircleShape2D_xb884")

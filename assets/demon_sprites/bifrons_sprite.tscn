@@ -1,23 +1,25 @@
 [gd_scene load_steps=5 format=3 uid="uid://64xusobj1lb"]
 
-[ext_resource type="Texture2D" uid="uid://ddy5khdx8en3s" path="res://assets/art/get_ryaned.png" id="1_g8oe1"]
+[ext_resource type="Texture2D" uid="uid://cjvcuv2spltun" path="res://assets/art/bifrons.png" id="1_yo6d1"]
 [ext_resource type="Script" path="res://scripts/display/SummonSprite.cs" id="2_286r2"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_j27gh"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_g8oe1")
+"texture": ExtResource("1_yo6d1")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_8h127"]
-size = Vector2(349.5, 201)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i2i2s"]
+radius = 80.75
+height = 387.0
 
 [node name="BifronsSprite" type="AnimatedSprite2D" node_paths=PackedStringArray("Hitbox")]
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_j27gh")
 script = ExtResource("2_286r2")
 Hitbox = NodePath("Hitbox")
@@ -26,4 +28,4 @@ Hitbox = NodePath("Hitbox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(0.25, 0.5)
-shape = SubResource("RectangleShape2D_8h127")
+shape = SubResource("CapsuleShape2D_i2i2s")

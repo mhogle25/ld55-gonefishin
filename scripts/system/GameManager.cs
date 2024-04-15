@@ -15,6 +15,10 @@ public partial class GameManager : Node
 	
 	public record SummonEvent(SummonBody Body, SummonInfo Info, SummonData Data, SummonType Type, ColorInfo Color);
 	
+	[Signal] public delegate void OnAwaitEventHandler();
+	[Signal] public delegate void OnSummonEventHandler();
+	[Signal] public delegate void OnFailEventHandler();
+	
 	[Export] private int fishToDemonRatio = 10;
 	[Export] private int maxWaitTime = 20;
 	[Export] private Godot.Collections.Array<SummonInfo> demonInfos = new();
@@ -26,20 +30,25 @@ public partial class GameManager : Node
 	[Export] private PackedScene summonBodyPrefab = null;
 	[Export] private PackedScene summonDisplayPrefab = null;
 	[Export] private Vector2 bodyOffset = new(960, 540);
-	[Export] private Area2D wizard = null;
+	[Export] private Wizard wizard = null;
 	
 	private readonly Dictionary<string, SummonInfo> summonInfoBank = new();
 	private readonly RandomNumberGenerator rng = new();
-	private readonly Timer timer;
+	private readonly Timer failureTimer;
+	private readonly Timer summoningTimer;
 	private SummonEvent summonEvent = null;
 	
 	private GameCtx ctx = null;
 	
 	GameManager() 
 	{
-		this.timer = new() { OneShot = true };
-		AddChild(this.timer);
-		this.timer.Timeout += BeginNextSummoning;
+		this.summoningTimer = new() { OneShot = true };
+		AddChild(this.summoningTimer);
+		this.summoningTimer.Timeout += BeginNextSummoning;
+		
+		this.failureTimer = new() { OneShot = true };
+		AddChild(this.failureTimer);
+		this.failureTimer.Timeout += BeginAwaiting;
 	}
 	
 	public override void _Ready()
@@ -62,8 +71,6 @@ public partial class GameManager : Node
 		this.demonInfos.SetupDictionary(this.summonInfoBank);
 		this.fishInfos.SetupDictionary(this.summonInfoBank);
 		this.summonInfoBank[this.bossInfo.Id] = this.bossInfo;
-		
-		this.wizard.BodyEntered += WizardBodyEntered;
 		
 		Initialize();
 	}
@@ -99,14 +106,15 @@ public partial class GameManager : Node
 	public void BeginAwaiting() 
 	{
 		BFCtx.Print("Beginning awaiting...");
-		this.timer.WaitTime = this.rng.RandfRange(0, this.maxWaitTime);
-		this.timer.Start();
+		EmitSignal(SignalName.OnAwait);
+		this.summoningTimer.WaitTime = this.rng.RandfRange(0, this.maxWaitTime);
+		this.summoningTimer.Start();
 	}
 	
 	public void BeginNextSummoning() 
 	{
 		BFCtx.Print("Summon caught! Beginning summon minigame...");
-		this.fishingMinigame.Visible = true;
+		EmitSignal(SignalName.OnSummon);
 		int demonCount = this.ctx.GetDemonCount();
 		bool boss = demonCount == this.demonInfos.Count;
 		bool encounteredBoss = this.ctx.GetEncounteredBoss();
@@ -162,21 +170,21 @@ public partial class GameManager : Node
 	public void HandleSummoningCompleted(int totalScore) 
 	{
 		BFCtx.Print("Finalizing summoning minigame...");
-		this.fishingMinigame.Visible = false;
 		SummonEvent sevent = this.summonEvent;
 		
 		if (sevent.Info.GetSuccessThreshold() > totalScore) 
 		{
 			BFCtx.Print($"Failed to catch, need to get above {sevent.Info.GetSuccessThreshold()}");
 			sevent.Body.Flee();
-			BeginAwaiting();
+			EmitSignal(SignalName.OnFail);
+			this.failureTimer.Start();
 			return;
 		}
 		
 		sevent.Body.Catch();
 	}
 	
-	private void HandleFinalizeSummoning() 
+	public void HandleFinalizeSummoning() 
 	{
 		BFCtx.Print("Summoning minigame complete.");
 		SummonEvent sevent = this.summonEvent;
@@ -206,7 +214,7 @@ public partial class GameManager : Node
 		BeginAwaiting();
 	}
 
-private SummonInfo GetNextDemonInfo(int demonCount)  
+    private SummonInfo GetNextDemonInfo(int demonCount)  
 	{
 		return this.demonInfos[demonCount];
 	}
@@ -263,11 +271,4 @@ private SummonInfo GetNextDemonInfo(int demonCount)
 	
 	private static void SetupPedestal(Sprite2D pedestal, Node2D display) => 
 		pedestal.CallDeferred("setup_demon", display);
-		
-	private void WizardBodyEntered(Node2D body) 
-	{
-		BFCtx.Print(body.Name);
-		HandleFinalizeSummoning();
-		body.QueueFree();
-	}
 }

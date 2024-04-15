@@ -1,23 +1,24 @@
 [gd_scene load_steps=5 format=3 uid="uid://dxu8hwvd8q5ig"]
 
-[ext_resource type="Texture2D" uid="uid://ddy5khdx8en3s" path="res://assets/art/get_ryaned.png" id="1_npld1"]
+[ext_resource type="Texture2D" uid="uid://oemhm0sqlm7w" path="res://assets/art/amon.png" id="1_qb3mp"]
 [ext_resource type="Script" path="res://scripts/display/SummonSprite.cs" id="2_l2714"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_e2n0h"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_npld1")
+"texture": ExtResource("1_qb3mp")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_uja5i"]
-size = Vector2(350, 200)
+[sub_resource type="CircleShape2D" id="CircleShape2D_fb3kv"]
+radius = 178.55
 
 [node name="AmonSprite" type="AnimatedSprite2D" node_paths=PackedStringArray("Hitbox")]
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_e2n0h")
 script = ExtResource("2_l2714")
 Hitbox = NodePath("Hitbox")
@@ -26,4 +27,4 @@ Hitbox = NodePath("Hitbox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(-1, 1)
-shape = SubResource("RectangleShape2D_uja5i")
+shape = SubResource("CircleShape2D_fb3kv")
