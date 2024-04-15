@@ -145,6 +145,7 @@ position = Vector2(0, 137)
 scale = Vector2(0.68, 0.960002)
 
 [node name="CollisionShape2D" type="CollisionPolygon2D" parent="EyeballRoot/StaticBody2D"]
+visible = false
 position = Vector2(14, 20)
 scale = Vector2(1.17194, 1.17194)
 polygon = PackedVector2Array(-13, -16, -111, -18, -253, -44, -316, -77, -366, -122, -301, -206, -226, -227, -120, -248, 13, -254, 126, -248, 252, -217, 323, -176, 335, -124, 290, -77, 207, -44, 76, -15, -11, -15, -11, 23, 198, 10, 200, 10, 437, -7, 508, -75, 374, -267, 33, -333, -442, -267, -529, -106, -418, 32, -14, 25)
