@@ -1,23 +1,24 @@
 [gd_scene load_steps=5 format=3 uid="uid://vn5y4378gtxd"]
 
-[ext_resource type="Texture2D" uid="uid://ddy5khdx8en3s" path="res://assets/art/get_ryaned.png" id="1_qb1gr"]
+[ext_resource type="Texture2D" uid="uid://d1xke4txv2quc" path="res://assets/art/eligos.png" id="1_kxo62"]
 [ext_resource type="Script" path="res://scripts/display/SummonSprite.cs" id="2_sm2tg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ojaal"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_qb1gr")
+"texture": ExtResource("1_kxo62")
 }],
 "loop": true,
 "name": &"default",
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_h3jgb"]
-size = Vector2(348, 199)
+[sub_resource type="CircleShape2D" id="CircleShape2D_11n7q"]
+radius = 194.006
 
 [node name="EligosSprite" type="AnimatedSprite2D" node_paths=PackedStringArray("Hitbox")]
+scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_ojaal")
 script = ExtResource("2_sm2tg")
 Hitbox = NodePath("Hitbox")
@@ -26,4 +27,4 @@ Hitbox = NodePath("Hitbox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(-1, -0.5)
-shape = SubResource("RectangleShape2D_h3jgb")
+shape = SubResource("CircleShape2D_11n7q")
