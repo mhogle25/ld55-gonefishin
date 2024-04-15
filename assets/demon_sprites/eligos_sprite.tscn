@@ -18,7 +18,6 @@ animations = [{
 size = Vector2(348, 199)
 
 [node name="EligosSprite" type="AnimatedSprite2D" node_paths=PackedStringArray("Hitbox")]
-position = Vector2(748, 669)
 sprite_frames = SubResource("SpriteFrames_ojaal")
 script = ExtResource("2_sm2tg")
 Hitbox = NodePath("Hitbox")

@@ -4,7 +4,6 @@
 [ext_resource type="Theme" uid="uid://ynfykhrun2sh" path="res://assets/themes/summon_display_theme.tres" id="2_1xn3u"]
 
 [node name="SummonDisplay" type="Node2D" node_paths=PackedStringArray("tooltipContainer", "tooltipLabel", "timer")]
-position = Vector2(215, 643)
 script = ExtResource("1_putdn")
 tooltipContainer = NodePath("Tooltip")
 tooltipLabel = NodePath("Tooltip/MarginContainer/Label")
@@ -15,7 +14,6 @@ wait_time = 0.5
 one_shot = true
 
 [node name="Tooltip" type="PanelContainer" parent="."]
-visible = false
 offset_left = 1.0
 offset_right = 235.0
 offset_bottom = 45.0
