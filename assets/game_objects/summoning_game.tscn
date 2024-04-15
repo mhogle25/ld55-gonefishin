@@ -128,6 +128,7 @@ script = ExtResource("14_8kyiy")
 shape = SubResource("RectangleShape2D_018se")
 
 [node name="Fish_Minigame" parent="." instance=ExtResource("12_u0bdp")]
+z_index = 1500
 
 [node name="QuoteDisplay" parent="." instance=ExtResource("18_3xqyy")]
 z_index = 3000
