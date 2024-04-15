@@ -14,8 +14,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_xb884"]
-radius = 446.101
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x6jw4"]
+size = Vector2(670, 230)
 
 [node name="TunaSprite" type="AnimatedSprite2D" node_paths=PackedStringArray("Hitbox")]
 scale = Vector2(0.2, 0.2)
@@ -26,5 +26,6 @@ Hitbox = NodePath("Hitbox")
 [node name="Hitbox" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
-position = Vector2(0, 0.5)
-shape = SubResource("CircleShape2D_xb884")
+position = Vector2(0, 5)
+scale = Vector2(1, 1)
+shape = SubResource("RectangleShape2D_x6jw4")

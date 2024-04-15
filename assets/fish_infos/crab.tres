@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://blsqvxbft1ley"]
+
+[ext_resource type="Script" path="res://scripts/system/resources/SummonInfo.cs" id="1_f25an"]
+[ext_resource type="PackedScene" uid="uid://b2bjfpdeaoyhd" path="res://assets/fish_sprites/crab_sprite.tscn" id="2_3yitw"]
+
+[resource]
+script = ExtResource("1_f25an")
+id = "crab"
+name = "Crab"
+successThreshold = 800
+songId = "summon"
+spritePrefab = ExtResource("2_3yitw")

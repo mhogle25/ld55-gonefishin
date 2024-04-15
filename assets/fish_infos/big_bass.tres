@@ -7,6 +7,6 @@
 script = ExtResource("1_8rtxt")
 id = "big_bass"
 name = "Big Bass, Archfish of Hell"
-successThreshold = 1000
+successThreshold = 1500
 songId = "slowfunk74"
 spritePrefab = ExtResource("2_vqx1a")
