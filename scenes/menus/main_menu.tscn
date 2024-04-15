@@ -103,21 +103,17 @@ flat = true
 
 [node name="EyeballRoot" type="Node2D" parent="."]
 show_behind_parent = true
-
 position = Vector2(1582, 335.5)
 scale = Vector2(0.88, 0.88)
-
 script = ExtResource("3_5j3pi")
 max_v_displacement = 50
 max_h_displacement = 50
-
 
 [node name="Marker2D" type="Marker2D" parent="EyeballRoot"]
 position = Vector2(-706.818, -490.909)
 scale = Vector2(1.13636, 1.13636)
 script = ExtResource("9_nssvo")
 spawn_rate = 0.05
-
 
 [node name="PinJoint2D" type="PinJoint2D" parent="EyeballRoot"]
 node_a = NodePath("../IrisBody")
@@ -168,7 +164,6 @@ visible = false
 position = Vector2(14, 20)
 scale = Vector2(1.17194, 1.17194)
 polygon = PackedVector2Array(-13, -16, -111, -18, -253, -44, -316, -77, -366, -122, -301, -206, -226, -227, -120, -248, 13, -254, 126, -248, 252, -217, 323, -176, 335, -124, 290, -77, 207, -44, 76, -15, -11, -15, -11, 23, 198, 10, 200, 10, 437, -7, 508, -75, 374, -267, 33, -333, -442, -267, -529, -106, -418, 32, -14, 25)
-
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_a0tvx")
