@@ -8,8 +8,8 @@
 [ext_resource type="Resource" uid="uid://ct5yeouywmmm2" path="res://assets/demon_infos/eligos.tres" id="5_mvxwf"]
 [ext_resource type="Resource" uid="uid://bgjue6ec8m1dw" path="res://assets/fish_infos/herring.tres" id="6_vay0d"]
 [ext_resource type="Resource" uid="uid://2dtq0lwys6tb" path="res://assets/fish_infos/salmon.tres" id="7_dasoj"]
-[ext_resource type="Resource" uid="uid://cosloe63sjp0o" path="res://assets/fish_infos/trout.tres" id="8_7g6ny"]
 [ext_resource type="Resource" uid="uid://bku1ilflrtqsk" path="res://assets/fish_infos/tuna.tres" id="9_8ix41"]
+[ext_resource type="Resource" uid="uid://cosloe63sjp0o" path="res://assets/fish_infos/carp.tres" id="9_ca3by"]
 [ext_resource type="Resource" uid="uid://cxdqfsnmn66s8" path="res://assets/fish_infos/big_bass.tres" id="10_mf6k3"]
 [ext_resource type="PackedScene" uid="uid://cctbtj7mphtb" path="res://assets/game_objects/summon_display.tscn" id="12_g00ne"]
 [ext_resource type="PackedScene" uid="uid://dnbp28rwkbndb" path="res://assets/game_objects/fishing_minigame.tscn" id="12_u0bdp"]
@@ -65,7 +65,7 @@ size = Vector2(1920, 1080)
 z_index = 1500
 script = ExtResource("1_yfxpf")
 demonInfos = [ExtResource("2_bcsk6"), ExtResource("3_w2xhf"), ExtResource("4_hnhqm"), ExtResource("5_mvxwf")]
-fishInfos = [ExtResource("6_vay0d"), ExtResource("7_dasoj"), ExtResource("8_7g6ny"), ExtResource("9_8ix41")]
+fishInfos = [ExtResource("6_vay0d"), ExtResource("7_dasoj"), ExtResource("9_8ix41"), ExtResource("9_ca3by")]
 bossInfo = ExtResource("10_mf6k3")
 pedestals = [NodePath("Pedestal1"), NodePath("Pedestal2"), NodePath("Pedestal3"), NodePath("Pedestal4")]
 inventoryDisplay = NodePath("DisplayArea")
@@ -108,7 +108,7 @@ demon_position_offset = Vector2(2.08165e-12, -250)
 
 [node name="Wizard" type="AnimatedSprite2D" parent="."]
 z_index = 5
-position = Vector2(300, 555)
+position = Vector2(444, 547)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_2ie07")
 animation = &"summon"

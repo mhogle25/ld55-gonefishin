@@ -5,7 +5,17 @@ using Godot;
 
 namespace BFO.G.GoneFishin;
 
-public record struct ColorInfo(string Code, string Name);
+public partial class ColorInfo : Resource 
+{
+	public ColorInfo(string code, string name) 
+	{
+		this.Code = code;
+		this.Name = name;
+	}
+	
+	public string Code { get; init; } 
+	public string Name { get; init;}
+}
 
 public partial class GameCtx : Node
 {
@@ -117,6 +127,7 @@ public partial class GameCtx : Node
 	{
 		return this.colorInfos[this.rng.RandiRange(0, this.colorInfos.Count - 1)];
 	}
+
 	
 	private SaveData GetSaveData() 
 	{
