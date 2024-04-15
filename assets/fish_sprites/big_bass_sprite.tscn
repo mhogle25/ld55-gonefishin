@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://2xtnoadebtx2"]
+
+[ext_resource type="Texture2D" uid="uid://dg7l4gt4wb0g2" path="res://assets/art/bigBASSa.png" id="1_mjnnd"]
+[ext_resource type="Script" path="res://scripts/display/SummonSprite.cs" id="2_gkc77"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k2vjb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_mjnnd")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_q1d8v"]
+radius = 429.497
+
+[node name="BigBassSprite" type="AnimatedSprite2D" node_paths=PackedStringArray("Hitbox")]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_k2vjb")
+script = ExtResource("2_gkc77")
+Hitbox = NodePath("Hitbox")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(0, -0.25)
+shape = SubResource("CircleShape2D_q1d8v")

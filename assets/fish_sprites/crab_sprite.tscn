@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://dbjfyfiyf7gvm"]
+
+[ext_resource type="Texture2D" uid="uid://keq2y2y4cqnw" path="res://assets/art/CrabLudum.png" id="1_au6ec"]
+[ext_resource type="Script" path="res://scripts/display/SummonSprite.cs" id="2_xqqde"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_47lyk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_au6ec")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_syx1i"]
+radius = 404.293
+
+[node name="CrabSprite" type="AnimatedSprite2D" node_paths=PackedStringArray("Hitbox")]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_47lyk")
+script = ExtResource("2_xqqde")
+Hitbox = NodePath("Hitbox")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CircleShape2D_syx1i")

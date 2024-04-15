@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://tka5lgn6l6pv"]
+
+[ext_resource type="Script" path="res://scripts/display/inventory_display.gd" id="1_0w0oy"]
+[ext_resource type="PackedScene" uid="uid://dxu8hwvd8q5ig" path="res://assets/demon_sprites/amon_sprite.tscn" id="3_kabqv"]
+[ext_resource type="PackedScene" uid="uid://cctbtj7mphtb" path="res://assets/game_objects/summon_display.tscn" id="5_1txba"]
+[ext_resource type="PackedScene" uid="uid://64xusobj1lb" path="res://assets/demon_sprites/bifrons_sprite.tscn" id="6_ubdru"]
+[ext_resource type="PackedScene" uid="uid://vn5y4378gtxd" path="res://assets/demon_sprites/eligos_sprite.tscn" id="7_6xuw5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ryqj5"]
+size = Vector2(189, 119)
+
+[node name="DisplayArea" type="Area2D" node_paths=PackedStringArray("summon_displays_debug")]
+position = Vector2(963, 547)
+script = ExtResource("1_0w0oy")
+summon_displays_debug = [NodePath("Debug/SummonDisplay"), NodePath("Debug/SummonDisplay2"), NodePath("Debug/SummonDisplay3")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(7.5, -15.5)
+shape = SubResource("RectangleShape2D_ryqj5")
+
+[node name="Debug" type="Node2D" parent="."]
+
+[node name="SummonDisplay" parent="Debug" instance=ExtResource("5_1txba")]
+position = Vector2(1.00006, 4)
+
+[node name="AmonSprite" parent="Debug/SummonDisplay" instance=ExtResource("3_kabqv")]
+position = Vector2(17.6582, -25.9445)
+
+[node name="SummonDisplay2" parent="Debug" instance=ExtResource("5_1txba")]
+position = Vector2(1.00006, 4)
+
+[node name="BifronsSprite" parent="Debug/SummonDisplay2" instance=ExtResource("6_ubdru")]
+position = Vector2(17.6582, -25.9445)
+
+[node name="SummonDisplay3" parent="Debug" instance=ExtResource("5_1txba")]
+position = Vector2(1.00006, 4)
+
+[node name="EligosSprite" parent="Debug/SummonDisplay3" instance=ExtResource("7_6xuw5")]
+position = Vector2(17.6582, -25.9445)
+
+[node name="Camera2D" type="Camera2D" parent="."]

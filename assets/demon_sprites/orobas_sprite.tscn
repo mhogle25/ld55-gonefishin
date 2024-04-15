@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://ci5ud5cnhrfk2"]
+
+[ext_resource type="Texture2D" uid="uid://2hleulku8fbm" path="res://assets/art/orobas.png" id="1_2lcwt"]
+[ext_resource type="Script" path="res://scripts/display/SummonSprite.cs" id="2_7id0u"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_nvvws"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_2lcwt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lyi4l"]
+radius = 87.0
+height = 418.0
+
+[node name="OrobasSprite" type="AnimatedSprite2D" node_paths=PackedStringArray("Hitbox")]
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_nvvws")
+script = ExtResource("2_7id0u")
+Hitbox = NodePath("Hitbox")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource("CapsuleShape2D_lyi4l")

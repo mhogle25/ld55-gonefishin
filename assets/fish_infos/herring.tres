@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://bgjue6ec8m1dw"]
+
+[ext_resource type="Script" path="res://scripts/system/resources/SummonInfo.cs" id="1_7sklf"]
+[ext_resource type="PackedScene" uid="uid://cjfpw2gfbamvn" path="res://assets/fish_sprites/herring_sprite.tscn" id="2_lf673"]
+
+[resource]
+script = ExtResource("1_7sklf")
+id = "herring"
+name = "Herring"
+successThreshold = 1000
+songId = "summon"
+spritePrefab = ExtResource("2_lf673")

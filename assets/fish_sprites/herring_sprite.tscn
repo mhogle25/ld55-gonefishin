@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cjfpw2gfbamvn"]
+
+[ext_resource type="Texture2D" uid="uid://duxyqcn70ybal" path="res://assets/art/Herring.png" id="1_f6tn0"]
+[ext_resource type="Script" path="res://scripts/display/SummonSprite.cs" id="2_v5g4j"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6dqu3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_f6tn0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nb64m"]
+radius = 413.239
+
+[node name="HerringSprite" type="AnimatedSprite2D" node_paths=PackedStringArray("Hitbox")]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_6dqu3")
+script = ExtResource("2_v5g4j")
+Hitbox = NodePath("Hitbox")
+
+[node name="Hitbox" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
+position = Vector2(-0.5, 0.5)
+shape = SubResource("CircleShape2D_nb64m")

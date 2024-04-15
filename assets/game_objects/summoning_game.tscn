@@ -1,0 +1,154 @@
+[gd_scene load_steps=27 format=3 uid="uid://da2kxw1ccgiag"]
+
+[ext_resource type="Script" path="res://scripts/system/GameManager.cs" id="1_yfxpf"]
+[ext_resource type="PackedScene" uid="uid://fbt50t0v5xiy" path="res://assets/game_objects/pedestal_prototype.tscn" id="2_8fyn6"]
+[ext_resource type="Resource" uid="uid://xubqjci1o0bl" path="res://assets/demon_infos/bifrons.tres" id="2_bcsk6"]
+[ext_resource type="Resource" uid="uid://cvynaoy2cy7up" path="res://assets/demon_infos/amon.tres" id="3_w2xhf"]
+[ext_resource type="Resource" uid="uid://cuvmhmjtijnw4" path="res://assets/demon_infos/orobas.tres" id="4_hnhqm"]
+[ext_resource type="Resource" uid="uid://ct5yeouywmmm2" path="res://assets/demon_infos/eligos.tres" id="5_mvxwf"]
+[ext_resource type="Resource" uid="uid://bgjue6ec8m1dw" path="res://assets/fish_infos/herring.tres" id="6_vay0d"]
+[ext_resource type="Resource" uid="uid://2dtq0lwys6tb" path="res://assets/fish_infos/salmon.tres" id="7_dasoj"]
+[ext_resource type="Resource" uid="uid://bku1ilflrtqsk" path="res://assets/fish_infos/tuna.tres" id="9_8ix41"]
+[ext_resource type="Resource" uid="uid://cosloe63sjp0o" path="res://assets/fish_infos/carp.tres" id="9_ca3by"]
+[ext_resource type="Resource" uid="uid://cxdqfsnmn66s8" path="res://assets/fish_infos/big_bass.tres" id="10_mf6k3"]
+[ext_resource type="PackedScene" uid="uid://dnbp28rwkbndb" path="res://assets/game_objects/fishing_minigame.tscn" id="12_u0bdp"]
+[ext_resource type="Texture2D" uid="uid://ppche0yadnx" path="res://assets/art/background_no_portal.png" id="13_etbkg"]
+[ext_resource type="PackedScene" uid="uid://cfwl2as5trinl" path="res://assets/game_objects/summon_body.tscn" id="13_s2juk"]
+[ext_resource type="Script" path="res://scripts/display/inventory_display.gd" id="14_8kyiy"]
+[ext_resource type="Texture2D" uid="uid://urfoperf12he" path="res://assets/art/lounging_MC.png" id="14_htfgc"]
+[ext_resource type="Texture2D" uid="uid://db463lo5dtuv0" path="res://assets/art/pedestal.png" id="15_3fs8p"]
+[ext_resource type="Texture2D" uid="uid://epq52pp6abn5" path="res://assets/art/lounging_MC_glow.png" id="15_4lol8"]
+[ext_resource type="Texture2D" uid="uid://dyr3hyanbewpr" path="res://assets/art/fail_wizard.png" id="15_p03s7"]
+[ext_resource type="Script" path="res://scripts/Wizard.cs" id="17_q5m57"]
+[ext_resource type="PackedScene" uid="uid://bs366ivubdraq" path="res://scenes/quote_display.tscn" id="18_3xqyy"]
+[ext_resource type="Texture2D" uid="uid://do2p6a35uj5at" path="res://assets/art/eye_portal_top.png" id="23_lmof7"]
+[ext_resource type="Texture2D" uid="uid://w0pb68geut8a" path="res://assets/art/eye_portal_bottom.png" id="24_xdc52"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2ie07"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_htfgc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("15_p03s7")
+}],
+"loop": true,
+"name": &"fail",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_htfgc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_4lol8")
+}],
+"loop": true,
+"name": &"summon",
+"speed": 2.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eiaa8"]
+radius = 146.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_018se"]
+size = Vector2(1920, 1080)
+
+[node name="SummoningGame" type="Node2D" node_paths=PackedStringArray("pedestals")]
+z_index = 1500
+script = ExtResource("1_yfxpf")
+demonInfos = [ExtResource("2_bcsk6"), ExtResource("3_w2xhf"), ExtResource("4_hnhqm"), ExtResource("5_mvxwf")]
+fishInfos = [ExtResource("6_vay0d"), ExtResource("7_dasoj"), ExtResource("9_8ix41"), ExtResource("9_ca3by")]
+bossInfo = ExtResource("10_mf6k3")
+pedestals = [NodePath("Pedestal1"), NodePath("Pedestal2"), NodePath("Pedestal3"), NodePath("Pedestal4")]
+summonBodyPrefab = ExtResource("13_s2juk")
+bodyOffset = Vector2(960, 530)
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1000
+position = Vector2(960, 540)
+texture = ExtResource("13_etbkg")
+
+[node name="Pedestal1" parent="." instance=ExtResource("2_8fyn6")]
+z_index = 10
+position = Vector2(1186, 861)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_3fs8p")
+demon_position_offset = Vector2(2.08165e-12, -250)
+
+[node name="Pedestal2" parent="." instance=ExtResource("2_8fyn6")]
+z_index = 10
+position = Vector2(746, 858)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_3fs8p")
+demon_position_offset = Vector2(2.08165e-12, -250)
+
+[node name="Pedestal3" parent="." instance=ExtResource("2_8fyn6")]
+position = Vector2(414, 322)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_3fs8p")
+demon_position_offset = Vector2(2.08165e-12, -250)
+
+[node name="Pedestal4" parent="." instance=ExtResource("2_8fyn6")]
+position = Vector2(1526, 331)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("15_3fs8p")
+demon_position_offset = Vector2(2.08165e-12, -250)
+
+[node name="Wizard" type="AnimatedSprite2D" parent="."]
+z_index = 5
+position = Vector2(444, 547)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_2ie07")
+animation = &"summon"
+offset = Vector2(78.27, -82.69)
+script = ExtResource("17_q5m57")
+
+[node name="Area2D" type="Area2D" parent="Wizard"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wizard/Area2D"]
+shape = SubResource("CircleShape2D_eiaa8")
+
+[node name="DisplayArea" type="Area2D" parent="."]
+position = Vector2(960, 540)
+script = ExtResource("14_8kyiy")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DisplayArea"]
+shape = SubResource("RectangleShape2D_018se")
+
+[node name="Fish_Minigame" parent="." instance=ExtResource("12_u0bdp")]
+z_index = 1500
+
+[node name="QuoteDisplay" parent="." instance=ExtResource("18_3xqyy")]
+z_index = 3000
+offset_right = 2174.0
+offset_bottom = 1087.0
+transition_only = true
+
+[node name="Portal" type="Node2D" parent="."]
+
+[node name="PortalTop" type="Sprite2D" parent="Portal"]
+z_index = 430
+position = Vector2(960, 430)
+texture = ExtResource("23_lmof7")
+offset = Vector2(2.08165e-12, 100)
+
+[node name="PortalBottom" type="Sprite2D" parent="Portal"]
+z_index = 430
+position = Vector2(960, 630)
+texture = ExtResource("24_xdc52")
+offset = Vector2(2.08165e-12, -100)
+
+[connection signal="body_entered" from="Wizard/Area2D" to="Wizard" method="HandleBodyEntered"]
+[connection signal="end_minigame" from="Fish_Minigame" to="." method="HandleSummoningCompleted"]
+
+[editable path="Pedestal1"]
+[editable path="Pedestal2"]
+[editable path="Pedestal3"]
+[editable path="Pedestal4"]

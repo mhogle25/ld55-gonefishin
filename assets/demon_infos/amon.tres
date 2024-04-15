@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cvynaoy2cy7up"]
+
+[ext_resource type="Script" path="res://scripts/system/resources/SummonInfo.cs" id="1_nwqt0"]
+[ext_resource type="PackedScene" uid="uid://dxu8hwvd8q5ig" path="res://assets/demon_sprites/amon_sprite.tscn" id="2_othqr"]
+
+[resource]
+script = ExtResource("1_nwqt0")
+id = "amon"
+name = "Amon"
+successThreshold = 1000
+songId = "summon"
+spritePrefab = ExtResource("2_othqr")

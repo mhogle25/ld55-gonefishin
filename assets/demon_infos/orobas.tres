@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://cuvmhmjtijnw4"]
+
+[ext_resource type="Script" path="res://scripts/system/resources/SummonInfo.cs" id="1_couo4"]
+[ext_resource type="PackedScene" uid="uid://ci5ud5cnhrfk2" path="res://assets/demon_sprites/orobas_sprite.tscn" id="2_ra6w8"]
+
+[resource]
+script = ExtResource("1_couo4")
+id = "orobas"
+name = "Orobas"
+successThreshold = 1000
+songId = "summon"
+spritePrefab = ExtResource("2_ra6w8")

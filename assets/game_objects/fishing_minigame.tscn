@@ -1,0 +1,199 @@
+[gd_scene load_steps=12 format=3 uid="uid://dnbp28rwkbndb"]
+
+[ext_resource type="Script" path="res://scripts/fishing_minigame.gd" id="1_g11kh"]
+[ext_resource type="Texture2D" uid="uid://dn66w68t3my5f" path="res://assets/art/staff.png" id="2_rs8q2"]
+[ext_resource type="AudioStream" uid="uid://c6yvhrwdtdlib" path="res://assets/sounds/splash_reverb.wav" id="3_dvphb"]
+[ext_resource type="Theme" uid="uid://bd0l5gpqu5x6u" path="res://assets/themes/UI_theme.tres" id="3_xpqyc"]
+[ext_resource type="FontFile" uid="uid://hjkqa2r7qed" path="res://assets/fonts/Taiganja Type.ttf" id="4_7myqn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_axj6i"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_0ow6w"]
+radius = 28.5854
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_11m13"]
+
+[sub_resource type="Animation" id="Animation_ehi1r"]
+resource_name = "fade_in_minigame"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+
+[sub_resource type="Animation" id="Animation_arqjx"]
+resource_name = "fade_out_minigame"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath(".:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kr7e0"]
+_data = {
+"fade_in_minigame": SubResource("Animation_ehi1r"),
+"fade_out_minigame": SubResource("Animation_arqjx")
+}
+
+[node name="Fish_Minigame" type="Node2D" node_paths=PackedStringArray("spawn_timer")]
+visible = false
+modulate = Color(1, 1, 1, 0)
+script = ExtResource("1_g11kh")
+spawn_timer = NodePath("SpawnTimer")
+
+[node name="PhysicsCursor" type="RigidBody2D" parent="."]
+position = Vector2(0, 15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PhysicsCursor"]
+shape = SubResource("RectangleShape2D_axj6i")
+
+[node name="cursor_beatbox" type="Area2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1523, 982)
+collision_layer = 0
+collision_mask = 2
+
+[node name="cursor_collision" type="CollisionShape2D" parent="cursor_beatbox"]
+unique_name_in_owner = true
+position = Vector2(-2, -274)
+scale = Vector2(2.24, 2.24)
+shape = SubResource("CircleShape2D_0ow6w")
+
+[node name="Staff_Sprite" type="Sprite2D" parent="cursor_beatbox"]
+position = Vector2(-32, -170)
+texture = ExtResource("2_rs8q2")
+
+[node name="CursorStatic" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CursorStatic"]
+shape = SubResource("RectangleShape2D_11m13")
+
+[node name="PinJoint2D" type="PinJoint2D" parent="CursorStatic"]
+position = Vector2(0, 7)
+node_a = NodePath("..")
+node_b = NodePath("../../PhysicsCursor")
+bias = 0.155
+softness = 0.3
+
+[node name="NoteSpawner" type="Marker2D" parent="."]
+position = Vector2(0, -72)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="effectssounds" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_dvphb")
+volume_db = 8.5
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_xpqyc")
+theme_override_constants/margin_left = 50
+theme_override_constants/margin_top = 70
+theme_override_constants/margin_right = 50
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_constants/separation = 30
+
+[node name="Score" type="Label" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/font = ExtResource("4_7myqn")
+text = "Score: "
+
+[node name="Combo" type="RichTextLabel" parent="CanvasLayer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(500, 200)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+theme_override_fonts/normal_font = ExtResource("4_7myqn")
+bbcode_enabled = true
+tab_size = 24
+
+[node name="SpawnTimer" type="Timer" parent="."]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kr7e0")
+}
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="end"]
+[connection signal="timeout" from="SpawnTimer" to="." method="spawn_timer_timeout"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]

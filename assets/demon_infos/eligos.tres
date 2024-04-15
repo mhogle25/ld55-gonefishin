@@ -1,0 +1,12 @@
+[gd_resource type="Resource" load_steps=3 format=3 uid="uid://ct5yeouywmmm2"]
+
+[ext_resource type="Script" path="res://scripts/system/resources/SummonInfo.cs" id="1_ogkw6"]
+[ext_resource type="PackedScene" uid="uid://vn5y4378gtxd" path="res://assets/demon_sprites/eligos_sprite.tscn" id="2_0b1gf"]
+
+[resource]
+script = ExtResource("1_ogkw6")
+id = "eligos"
+name = "Eligos"
+successThreshold = 1000
+songId = "summon"
+spritePrefab = ExtResource("2_0b1gf")
