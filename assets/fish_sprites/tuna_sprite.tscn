@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://cg0p882ay16nt"]
 
-[ext_resource type="Texture2D" uid="uid://dg7l4gt4wb0g2" path="res://assets/art/bigBASSa.png" id="1_aykqg"]
+[ext_resource type="Texture2D" uid="uid://c5p2y2n8kaqs2" path="res://assets/fish_sprites/Tuna.png" id="1_tbpfm"]
 [ext_resource type="Script" path="res://scripts/display/SummonSprite.cs" id="2_ap8et"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_612n1"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_aykqg")
+"texture": ExtResource("1_tbpfm")
 }],
 "loop": true,
 "name": &"default",

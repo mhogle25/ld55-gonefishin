@@ -1,7 +1,7 @@
 [gd_resource type="Resource" load_steps=3 format=3 uid="uid://cosloe63sjp0o"]
 
 [ext_resource type="Script" path="res://scripts/system/resources/SummonInfo.cs" id="1_1our5"]
-[ext_resource type="PackedScene" uid="uid://uctmchwt4rw0" path="res://assets/fish_sprites/trout_sprite.tscn" id="2_oxkgp"]
+[ext_resource type="PackedScene" uid="uid://uctmchwt4rw0" path="res://assets/fish_sprites/carp_sprite.tscn" id="2_oxkgp"]
 
 [resource]
 script = ExtResource("1_1our5")

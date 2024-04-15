@@ -214,7 +214,7 @@ public partial class GameManager : Node
 		BeginAwaiting();
 	}
 
-    private SummonInfo GetNextDemonInfo(int demonCount)  
+	private SummonInfo GetNextDemonInfo(int demonCount)  
 	{
 		return this.demonInfos[demonCount];
 	}
