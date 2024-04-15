@@ -1,6 +1,4 @@
-
 [gd_scene load_steps=24 format=3 uid="uid://da2kxw1ccgiag"]
-
 
 [ext_resource type="Script" path="res://scripts/system/GameManager.cs" id="1_yfxpf"]
 [ext_resource type="PackedScene" uid="uid://fbt50t0v5xiy" path="res://assets/game_objects/pedestal_prototype.tscn" id="2_8fyn6"]
@@ -17,13 +15,11 @@
 [ext_resource type="PackedScene" uid="uid://dnbp28rwkbndb" path="res://assets/game_objects/fishing_minigame.tscn" id="12_u0bdp"]
 [ext_resource type="PackedScene" uid="uid://cfwl2as5trinl" path="res://assets/game_objects/summon_body.tscn" id="13_s2juk"]
 [ext_resource type="Script" path="res://scripts/display/inventory_display.gd" id="14_8kyiy"]
-
-[ext_resource type="PackedScene" uid="uid://djx6t0onmy626" path="res://scenes/quote_display.tscn" id="18_3xqyy"]
-
 [ext_resource type="Texture2D" uid="uid://urfoperf12he" path="res://assets/art/lounging_MC.png" id="14_htfgc"]
 [ext_resource type="Texture2D" uid="uid://epq52pp6abn5" path="res://assets/art/lounging_MC_glow.png" id="15_4lol8"]
 [ext_resource type="Texture2D" uid="uid://dyr3hyanbewpr" path="res://assets/art/fail_wizard.png" id="15_p03s7"]
 [ext_resource type="Script" path="res://scripts/Wizard.cs" id="17_q5m57"]
+[ext_resource type="PackedScene" uid="uid://bs366ivubdraq" path="res://scenes/quote_display.tscn" id="18_3xqyy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2ie07"]
 animations = [{
@@ -94,12 +90,12 @@ position = Vector2(548, 555)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_2ie07")
 animation = &"summon"
+offset = Vector2(78.27, -82.69)
 script = ExtResource("17_q5m57")
 
 [node name="Area2D" type="Area2D" parent="Wizard"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Wizard/Area2D"]
-position = Vector2(-56, 96)
 shape = SubResource("CircleShape2D_eiaa8")
 
 [node name="DisplayArea" type="Area2D" parent="."]
@@ -111,19 +107,16 @@ shape = SubResource("RectangleShape2D_018se")
 
 [node name="Fish_Minigame" parent="." instance=ExtResource("12_u0bdp")]
 
-
 [node name="QuoteDisplay" parent="." instance=ExtResource("18_3xqyy")]
 offset_right = 2174.0
 offset_bottom = 1087.0
 transition_only = true
-
 
 [connection signal="OnAwait" from="." to="Wizard" method="SetSpriteDefault"]
 [connection signal="OnFail" from="." to="Wizard" method="SetSpriteFail"]
 [connection signal="OnSummon" from="." to="Wizard" method="SetSpriteSummon"]
 [connection signal="body_entered" from="Wizard/Area2D" to="Wizard" method="HandleBodyEntered"]
 [connection signal="body_entered" from="Wizard/Area2D" to="." method="HandleFinalizeSummoning" unbinds=1]
-
 [connection signal="end_minigame" from="Fish_Minigame" to="." method="HandleSummoningCompleted"]
 
 [editable path="Pedestal1"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://djx6t0onmy626"]
+[gd_scene load_steps=9 format=3 uid="uid://bs366ivubdraq"]
 
 [ext_resource type="FontFile" uid="uid://dwue47eggesu0" path="res://assets/fonts/Kingthings Willow.ttf" id="1_jr3va"]
 [ext_resource type="Script" path="res://scripts/menu_logic/quote_display.gd" id="1_nnuc1"]

@@ -25,7 +25,7 @@ public partial class GameCtx : Node
 	private SaveData saveData = null;
 
 	public override void _Ready()
-	{
+	{	
 		string savePath = $"{FileManager.USER_PATH}{SAVE_DIR}";
 		
 		if (!DirAccess.DirExistsAbsolute(savePath))
@@ -48,6 +48,8 @@ public partial class GameCtx : Node
 			
 		if ((code != null && name == null) || (code == null && name != null))
 			BFCtx.PrintErr("Color files must have the same number of lines");
+			
+		GetSaveData();
 	}
 
 	public int GetDemonCount() => 
@@ -79,7 +81,38 @@ public partial class GameCtx : Node
 	
 	public void EncounterBoss() => 
 		GetSaveData().EncounterBoss();
-	
+		
+	public float GetMusicVol() => this.saveData.MusicVol; 
+	public float GetMasterVol() => this.saveData.MasterVol;
+	public bool GetLimitMouseMovement() => this.saveData.LimitMouseMovement;
+	public int GetDifficultySelected() => this.saveData.DifficultySelected; 
+	public bool GetFullscreen() => this.saveData.Fullscreen; 
+	public void SetMusicVol(float value) 
+	{
+		this.saveData.MusicVol = value; 
+		SaveDataToDisk();
+	}
+	public void SetMasterVol(float value) 
+	{
+		this.saveData.MasterVol = value; 
+		SaveDataToDisk();
+	}
+	public void SetLimitMouseMovement(bool value)
+	{
+		this.saveData.LimitMouseMovement = value; 
+		SaveDataToDisk();
+	}
+	public void SetDifficultySelected(int value) 
+	{
+		this.saveData.DifficultySelected = value;
+		SaveDataToDisk();
+	}
+	public void SetFullscreen(bool value) 
+	{
+		this.saveData.Fullscreen = value;
+		SaveDataToDisk();
+	}
+
 	public ColorInfo GetRandColorInfo() 
 	{
 		return this.colorInfos[this.rng.RandiRange(0, this.colorInfos.Count - 1)];
