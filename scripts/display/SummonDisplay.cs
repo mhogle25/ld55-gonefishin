@@ -9,16 +9,6 @@ public partial class SummonDisplay : Node2D
 	[Export] Timer timer = null;
 	
 	private SummonSprite sprite = null;
-
-	public override void _Ready()
-	{
-		foreach (Node node in GetChildren())
-			if (node is SummonSprite sprite) 
-			{
-				SetupInternal(sprite, sprite.Name);
-				return;
-			}
-	}
 	
 	public SummonSprite GetSprite() => this.sprite;
 
@@ -31,6 +21,8 @@ public partial class SummonDisplay : Node2D
 	private void SetupInternal(SummonSprite sprite, string text) 
 	{
 		sprite.Position = new Vector2(0, 0);
+		BFCtx.Print($"Signal connection length: {sprite.Hitbox.GetSignalConnectionList("MouseEntered").Count}");
+		
 		sprite.Hitbox.MouseEntered += OnMouseEnter;
 		sprite.Hitbox.MouseExited += OnMouseExit;
 		

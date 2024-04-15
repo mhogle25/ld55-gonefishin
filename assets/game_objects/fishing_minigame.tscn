@@ -12,8 +12,10 @@ radius = 28.5854
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_11m13"]
 
-[node name="Fish_Minigame" type="Node2D"]
+[node name="Fish_Minigame" type="Node2D" node_paths=PackedStringArray("spawn_timer")]
+visible = false
 script = ExtResource("1_g11kh")
+spawn_timer = NodePath("SpawnTimer")
 
 [node name="PhysicsCursor" type="RigidBody2D" parent="."]
 position = Vector2(0, 15)
@@ -91,4 +93,7 @@ theme_override_fonts/normal_font = ExtResource("4_7myqn")
 bbcode_enabled = true
 tab_size = 24
 
+[node name="SpawnTimer" type="Timer" parent="."]
+
 [connection signal="finished" from="AudioStreamPlayer" to="." method="end"]
+[connection signal="timeout" from="SpawnTimer" to="." method="spawn_timer_timeout"]

@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics.Metrics;
 using Godot;
 
 namespace BFO.G.GoneFishin;
@@ -15,25 +16,43 @@ public partial class SummonBody : CharacterBody2D
 	}
 	
 	[Export] int tugSpeed = 80;
-	[Export] int tugJumpDistance = 20;
-	[Export] int chanceToTugBack = 15;
+	[Export] Timer tugTimer = null;
+	[Export] int captureSpeed = 200;
+	[Export] int fleeTimeout = 2;
 	
 	SummonSprite sprite = null;
+	Node2D target = null;
 	State state = State.Idle;
 	RandomNumberGenerator rng = new();
+	Timer deathTimer = null;
+	int tugCoefficient = 1;
 	
-	public void Setup(SummonSprite sprite) 
+	public void Setup(SummonSprite sprite, Node2D target) 
 	{
 		AddChild(sprite);
 		sprite.Position = new Vector2(0, 0);
 		this.sprite = sprite;
 		this.state = State.Tugging;
+		this.target = target;
+		
+		this.deathTimer = new() { OneShot = true, WaitTime = this.fleeTimeout };
+		AddChild(this.deathTimer);
+		this.deathTimer.Timeout += QueueFree;
 	}
 
 	public override void _Process(double delta) => GetProcessAction()?.Invoke((float) delta);
 	
 	public void Catch() => this.state = State.Caught;
-	public void Flee() => this.state = State.Fleeing;
+	public void Flee() 
+	{
+		this.state = State.Fleeing;
+		this.deathTimer.Start();
+	}
+	
+	public void TugTimeout() 
+	{
+		this.tugCoefficient *= -1;
+	}
 	
 	private Action<float> GetProcessAction() => this.state switch 
 	{
@@ -45,18 +64,16 @@ public partial class SummonBody : CharacterBody2D
 	
 	private void ProcessTugging(float delta) 
 	{
-		MoveAndCollide(new(0, -tugSpeed * delta));
-		if (this.rng.RandiRange(0, this.chanceToTugBack) == 0)
-			this.Position += new Vector2(0, this.tugJumpDistance);
+		MoveAndCollide(new(0, this.tugCoefficient * tugSpeed * delta));
 	}
 	
 	private void ProcessCaught(float delta) 
 	{
-		
+		MoveAndCollide(this.GlobalPosition.DirectionTo(this.target.GlobalPosition) * this.captureSpeed * delta);
 	}
 	
 	private void ProcessFleeing(float delta) 
 	{
-		
+		MoveAndCollide(new(0, tugSpeed * delta));
 	}
 }

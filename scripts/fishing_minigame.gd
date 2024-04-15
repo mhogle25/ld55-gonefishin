@@ -5,7 +5,7 @@ extends Node2D
 @onready var cursor_static = $CursorStatic
 var upperbound : int = 1800 ###pixel dependent, will change when target resolution is decided
 var lowerbound : int = 1400 ###pixel dependent, will change when target resolution is decided
-@onready var spawn_timer := Timer.new()
+@export var spawn_timer: Timer
 var score_rolling = false
 var num_note : int = 1
 @onready var difficulty : Dictionary = option.difficulty_storage[option.difficulty_selected]
@@ -21,7 +21,6 @@ var bpm_mod = float(1.0 / 60.0)
 var note = preload("res://assets/game_objects/note.tscn")
 
 signal end_minigame(total_score: int)
-
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -67,11 +66,6 @@ func begin(song: String):
 		$AudioStreamPlayer.play()
 		#song_isplaying.emit(song)
 
-
-	spawn_timer.one_shot = false
-	#spawn_timer.autostart = true
-	add_child(spawn_timer)
-	spawn_timer.timeout.connect(spawn_timer_timeout)
 	spawn_timer.start()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	#Create Cooldown Rate for spawning notes at a given BPM
@@ -83,10 +77,15 @@ func end():
 	#re-enable mouse cursor
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
-	spawn_timer.one_shot = true
 	spawn_timer.stop()
+
 	end_minigame.emit(total_score) ### useful signal!
 
+	score_rolling = false
+	num_note = 1
+	combo = 0
+	temp_score = 0
+	total_score = 0
 
 func hit_lowerbound():
 	cursor.position.x = lowerbound
@@ -113,7 +112,6 @@ func time_score_roll():
 	
 	#add_child(rolling_timer)
 	
-
 func set_combo_meter():
 
 	if combo > 1 and combo <10:

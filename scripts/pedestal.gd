@@ -3,12 +3,9 @@ extends Sprite2D
 @export var fade_rate = 0.2
 @export var demon_position_offset := Vector2(0, 0)
 
-signal on_faded_in
-
-enum State { INVISIBLE, FADING_IN, FADED }
+enum State { INVISIBLE, FADING_IN, VISIBLE }
 
 var demon_display = null
-var run_on_faded_in := false
 var state := State.INVISIBLE
 
 func _process(delta):
@@ -17,18 +14,15 @@ func _process(delta):
 		return
 
 	if demon_display.GetSprite().modulate.a >= 1:
-		if run_on_faded_in:
-			on_faded_in.emit()
-		state = State.FADED
+		state = State.VISIBLE
 		return
 
 	demon_display.GetSprite().modulate.a += fade_rate * delta
 
 
-func setup_demon(display, run_on_faded_in_event: bool):
+func setup_demon(display):
 	demon_display = display
 	add_child(demon_display)
 	demon_display.position = demon_position_offset
 	demon_display.GetSprite().modulate.a = 0
-	run_on_faded_in = run_on_faded_in_event
 	state = State.FADING_IN

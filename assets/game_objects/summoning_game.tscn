@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://da2kxw1ccgiag"]
+[gd_scene load_steps=21 format=3 uid="uid://da2kxw1ccgiag"]
 
 [ext_resource type="Script" path="res://scripts/system/GameManager.cs" id="1_yfxpf"]
 [ext_resource type="PackedScene" uid="uid://fbt50t0v5xiy" path="res://assets/game_objects/pedestal_prototype.tscn" id="2_8fyn6"]
@@ -11,42 +11,79 @@
 [ext_resource type="Resource" uid="uid://cosloe63sjp0o" path="res://assets/fish_infos/trout.tres" id="8_7g6ny"]
 [ext_resource type="Resource" uid="uid://bku1ilflrtqsk" path="res://assets/fish_infos/tuna.tres" id="9_8ix41"]
 [ext_resource type="Resource" uid="uid://cxdqfsnmn66s8" path="res://assets/fish_infos/big_bass.tres" id="10_mf6k3"]
+[ext_resource type="PackedScene" uid="uid://cctbtj7mphtb" path="res://assets/game_objects/summon_display.tscn" id="12_g00ne"]
 [ext_resource type="PackedScene" uid="uid://dnbp28rwkbndb" path="res://assets/game_objects/fishing_minigame.tscn" id="12_u0bdp"]
 [ext_resource type="PackedScene" uid="uid://cfwl2as5trinl" path="res://assets/game_objects/summon_body.tscn" id="13_s2juk"]
 [ext_resource type="Script" path="res://scripts/display/inventory_display.gd" id="14_8kyiy"]
+[ext_resource type="Texture2D" uid="uid://dui0gcebnscvl" path="res://assets/art/wiz_MC.png" id="14_lwtrf"]
+[ext_resource type="Texture2D" uid="uid://ortn5nh3yoeu" path="res://assets/art/wiz_MC_glowing.png" id="15_olhuk"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_2ie07"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_lwtrf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_olhuk")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eiaa8"]
+radius = 50.04
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_018se"]
 size = Vector2(1168, 886.5)
 
-[node name="SummoningGame" type="Node2D" node_paths=PackedStringArray("pedestals", "fishMinigame")]
+[node name="SummoningGame" type="Node2D" node_paths=PackedStringArray("pedestals", "inventoryDisplay", "fishingMinigame", "wizard")]
 script = ExtResource("1_yfxpf")
 demonInfos = [ExtResource("2_bcsk6"), ExtResource("3_w2xhf"), ExtResource("4_hnhqm"), ExtResource("5_mvxwf")]
 fishInfos = [ExtResource("6_vay0d"), ExtResource("7_dasoj"), ExtResource("8_7g6ny"), ExtResource("9_8ix41")]
 bossInfo = ExtResource("10_mf6k3")
 pedestals = [NodePath("Pedestal1"), NodePath("Pedestal2"), NodePath("Pedestal3"), NodePath("Pedestal4")]
-fishMinigame = NodePath("Fish_Minigame")
+inventoryDisplay = NodePath("DisplayArea")
+fishingMinigame = NodePath("Fish_Minigame")
 summonBodyPrefab = ExtResource("13_s2juk")
+summonDisplayPrefab = ExtResource("12_g00ne")
+wizard = NodePath("Wizard/Area2D")
 
 [node name="Pedestal1" parent="." instance=ExtResource("2_8fyn6")]
 position = Vector2(1446, 810)
+demon_position_offset = Vector2(2.08165e-12, -150)
 
 [node name="Pedestal2" parent="." instance=ExtResource("2_8fyn6")]
 position = Vector2(355, 826)
+demon_position_offset = Vector2(2.08165e-12, -150)
 
 [node name="Pedestal3" parent="." instance=ExtResource("2_8fyn6")]
 position = Vector2(350, 287)
+demon_position_offset = Vector2(2.08165e-12, -150)
 
 [node name="Pedestal4" parent="." instance=ExtResource("2_8fyn6")]
 position = Vector2(1452, 274)
+demon_position_offset = Vector2(2.08165e-12, -150)
 
-[node name="Fish_Minigame" parent="." instance=ExtResource("12_u0bdp")]
+[node name="Wizard" type="AnimatedSprite2D" parent="."]
+position = Vector2(634, 805)
+sprite_frames = SubResource("SpriteFrames_2ie07")
+
+[node name="Area2D" type="Area2D" parent="Wizard"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wizard/Area2D"]
+position = Vector2(-21, 41)
+shape = SubResource("CircleShape2D_eiaa8")
 
 [node name="DisplayArea" type="Area2D" parent="."]
+position = Vector2(942, 580)
 script = ExtResource("14_8kyiy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DisplayArea"]
-position = Vector2(925, 543)
 shape = SubResource("RectangleShape2D_018se")
+
+[node name="Fish_Minigame" parent="." instance=ExtResource("12_u0bdp")]
 
 [connection signal="end_minigame" from="Fish_Minigame" to="." method="HandleSummoningCompleted"]
 

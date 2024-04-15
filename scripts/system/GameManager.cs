@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Godot;
+using System.Linq;
 
 namespace BFO.G.GoneFishin;
 
@@ -12,17 +13,20 @@ public partial class GameManager : Node
 		Any
 	}
 	
-	public record SummonEvent(SummonBody Body, SummonInfo Info, SummonData Data, SummonType Type);
+	public record SummonEvent(SummonBody Body, SummonInfo Info, SummonData Data, SummonType Type, ColorInfo Color);
 	
-	[Export] private int fishToSummonRatio = 10;
+	[Export] private int fishToDemonRatio = 10;
 	[Export] private int maxWaitTime = 20;
 	[Export] private Godot.Collections.Array<SummonInfo> demonInfos = new();
 	[Export] private Godot.Collections.Array<SummonInfo> fishInfos = new();
 	[Export] private SummonInfo bossInfo = new();
 	[Export] private Godot.Collections.Array<Sprite2D> pedestals = new();
-	[Export] private Node2D fishMinigame = null;
+	[Export] private Area2D inventoryDisplay = null;
+	[Export] private Node2D fishingMinigame = null;
 	[Export] private PackedScene summonBodyPrefab = null;
+	[Export] private PackedScene summonDisplayPrefab = null;
 	[Export] private Vector2 bodyOffset = new(960, 540);
+	[Export] private Area2D wizard = null;
 	
 	private readonly Dictionary<string, SummonInfo> summonInfoBank = new();
 	private readonly RandomNumberGenerator rng = new();
@@ -57,6 +61,9 @@ public partial class GameManager : Node
 		
 		this.demonInfos.SetupDictionary(this.summonInfoBank);
 		this.fishInfos.SetupDictionary(this.summonInfoBank);
+		this.summonInfoBank[this.bossInfo.Id] = this.bossInfo;
+		
+		this.wizard.BodyEntered += WizardBodyEntered;
 		
 		Initialize();
 	}
@@ -70,8 +77,19 @@ public partial class GameManager : Node
 			BFCtx.Print("initializing pedestal");
 			SummonInfo demonInfo = this.demonInfos[i];
 			Sprite2D pedestal = this.pedestals[i];
-			SetupPedestal(pedestal, InstantiateSummonDisplay(demonInfo), false);
+			SetupPedestal(pedestal, InstantiateSummonDisplay(demonInfo, demonInfo.GetName()));
 		}
+		
+		IEnumerable<SummonDisplay> displays = this.ctx
+			.GetSummons()
+			.Select(data => 
+			{
+				SummonInfo info = GetSummonInfo(data.Id);
+				SummonDisplay display = InstantiateSummonDisplay(info, data.FullName, data.ColorCode);
+				return display;
+			});
+			
+		SetupInventory(this.inventoryDisplay, displays);
 		
 		BeginAwaiting();
 	}
@@ -88,24 +106,33 @@ public partial class GameManager : Node
 	public void BeginNextSummoning() 
 	{
 		BFCtx.Print("Summon caught! Beginning summon minigame...");
+		this.fishingMinigame.Visible = true;
 		int demonCount = this.ctx.GetDemonCount();
+		bool boss = demonCount == this.demonInfos.Count;
+		bool encounteredBoss = this.ctx.GetEncounteredBoss();
 		
+		SummonBody body;
 		SummonInfo info;
 		SummonData data;
 		SummonType type;
+		ColorInfo color = this.ctx.GetRandColorInfo();
 		
-		if (demonCount <= this.summonInfoBank.Count) 
+		if (demonCount <= this.demonInfos.Count && !encounteredBoss) 
 		{
-			bool boss = demonCount == this.demonInfos.Count;
-			info = boss ? GetNextDemonInfo(demonCount) : GetBossInfo();
+			if (boss) 
+				info = GetBossInfo().Also(_ => BFCtx.Print("Caught a boss!"));
+			else
+				info = GetNextDemonInfo(demonCount);
+				
 			data = new() 
 			{
 				Id = info.Id,
 				FullName = info.GetName(),
 			};
 			type = boss ? SummonType.Boss : SummonType.Demon;
+			body = InstantiateBody(info);
 		} 
-		else if (this.rng.RandiRange(1, this.fishToSummonRatio) == 1)
+		else if (this.rng.RandiRange(1, this.fishToDemonRatio) == 1)
 		{
 			info = GetRandDemonInfo();
 			data = new() 
@@ -114,6 +141,7 @@ public partial class GameManager : Node
 				FullName = info.GetName(),
 			};
 			type = SummonType.Any;
+			body = InstantiateBody(info);
 		} 
 		else 
 		{
@@ -121,43 +149,64 @@ public partial class GameManager : Node
 			data = new() 
 			{
 				Id = info.Id,
-				FullName = info.GetName(),
+				FullName = $"{color.Name} {info.GetName()}",
+				ColorCode = color.Code,
 			};
 			type = SummonType.Any;
+			body = InstantiateBodyPostgame(info, color);
 		}
-		
-		SummonBody body = InstantiateSummonBody(info);
-		this.summonEvent = new SummonEvent(body, info, data, type);
-		BeginMinigame(this.fishMinigame, info.GetSongId());
+		this.summonEvent = new SummonEvent(body, info, data, type, color);
+		BeginMinigame(this.fishingMinigame, info.GetSongId().Also(id => BFCtx.Print(id)));
 	}
 	
 	public void HandleSummoningCompleted(int totalScore) 
 	{
-		BFCtx.Print("Summoning minigame complete.");
+		BFCtx.Print("Finalizing summoning minigame...");
+		this.fishingMinigame.Visible = false;
 		SummonEvent sevent = this.summonEvent;
 		
 		if (sevent.Info.GetSuccessThreshold() > totalScore) 
 		{
 			BFCtx.Print($"Failed to catch, need to get above {sevent.Info.GetSuccessThreshold()}");
 			sevent.Body.Flee();
+			BeginAwaiting();
 			return;
 		}
 		
+		sevent.Body.Catch();
+	}
+	
+	private void HandleFinalizeSummoning() 
+	{
+		BFCtx.Print("Summoning minigame complete.");
+		SummonEvent sevent = this.summonEvent;
+		
+		SummonDisplay display;
 		switch (sevent.Type) 
 		{
 			case SummonType.Demon:
+				display = InstantiateSummonDisplay(sevent.Info, sevent.Data.FullName);
+				Sprite2D pedestal = this.pedestals[this.ctx.GetDemonCount()];
+				SetupPedestal(pedestal, display);
 				this.ctx.IncrementDemonCount();
 				break;
 			case SummonType.Boss:
-				this.ctx.IncrementDemonCount();
+				display = InstantiateSummonDisplay(sevent.Info, sevent.Data.FullName);
+				this.ctx.EncounterBoss();
+				AddToInventory(this.inventoryDisplay, display);
+				this.ctx.AddSummon(sevent.Data);
 				break;
 			case SummonType.Any:
-				
+				display = InstantiateSummonDisplay(sevent.Info, sevent.Data.FullName, sevent.Color.Code);
+				AddToInventory(this.inventoryDisplay, display);
+				this.ctx.AddSummon(sevent.Data);
 				break;
 		}
+		
+		BeginAwaiting();
 	}
 
-	private SummonInfo GetNextDemonInfo(int demonCount)  
+private SummonInfo GetNextDemonInfo(int demonCount)  
 	{
 		return this.demonInfos[demonCount];
 	}
@@ -177,26 +226,48 @@ public partial class GameManager : Node
 		return this.demonInfos[this.rng.RandiRange(0, this.demonInfos.Count - 1)];
 	}
 	
-	private static SummonDisplay InstantiateSummonDisplay(SummonInfo summonInfo) 
+	private SummonDisplay InstantiateSummonDisplay(SummonInfo info, string text, string colorCode = null) 
 	{
-		SummonSprite sprite = summonInfo.InstantiateSprite();
-		SummonDisplay summonDisplay = new();
-		summonDisplay.Setup(sprite, summonInfo.GetName());
+		SummonSprite sprite = colorCode is null ? info.InstantiateSprite() : info.InstantiateSprite(new Color(colorCode));
+		SummonDisplay summonDisplay = this.summonDisplayPrefab.Instantiate<SummonDisplay>();
+		summonDisplay.Setup(sprite, text);
 		return summonDisplay;
 	}
 	
-	private SummonBody InstantiateSummonBody(SummonInfo info) 
+	private SummonBody InstantiateBody(SummonInfo info) 
 	{
 		SummonBody body = this.summonBodyPrefab.Instantiate<SummonBody>();
-		body.Setup(info.InstantiateSprite());
+		body.Setup(info.InstantiateSprite(), this.wizard);
 		AddChild(body);
 		body.Position = this.bodyOffset;
 		return body;
 	}
+	
+	private SummonBody InstantiateBodyPostgame(SummonInfo info, ColorInfo color) 
+	{
+		SummonBody body = this.summonBodyPrefab.Instantiate<SummonBody>();
+		body.Setup(info.InstantiateSprite(new Color(color.Code)), this.wizard);
+		AddChild(body);
+		body.Position = this.bodyOffset;
+		return body;
+	}
+	
+	private static void AddToInventory(Area2D inventory, Node2D display) => 
+		inventory.CallDeferred("add_single", display);
+	
+	private static void SetupInventory(Area2D inventory, IEnumerable<Node2D> display) => 
+		inventory.Call("setup",  new Godot.Collections.Array<Node2D>(display));
 		
 	private static void BeginMinigame(Node2D fishingMinigame, string songId) => 
 		fishingMinigame.Call("begin", songId);
 	
-	private static void SetupPedestal(Sprite2D pedestal, SummonDisplay display, bool runOnFadedInEvent) => 
-		pedestal.Call("setup_demon", display, runOnFadedInEvent);
+	private static void SetupPedestal(Sprite2D pedestal, Node2D display) => 
+		pedestal.CallDeferred("setup_demon", display);
+		
+	private void WizardBodyEntered(Node2D body) 
+	{
+		BFCtx.Print(body.Name);
+		HandleFinalizeSummoning();
+		body.QueueFree();
+	}
 }

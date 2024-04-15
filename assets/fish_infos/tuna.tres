@@ -7,5 +7,6 @@
 script = ExtResource("1_vxs34")
 id = "tuna"
 name = "Tuna"
-songId = ""
+successThreshold = 1000
+songId = "slowfunk74"
 spritePrefab = ExtResource("2_4efvs")
