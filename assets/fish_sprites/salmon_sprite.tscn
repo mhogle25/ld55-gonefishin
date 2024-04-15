@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://ckrrpjjq346ga"]
 
-[ext_resource type="Texture2D" uid="uid://dg7l4gt4wb0g2" path="res://assets/art/Salmon.png" id="1_l3513"]
+[ext_resource type="Texture2D" uid="uid://pwkwfsj0tjyp" path="res://assets/art/Salmon.png" id="1_6rmjb"]
 [ext_resource type="Script" path="res://scripts/display/SummonSprite.cs" id="2_vmbvg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_47lyk"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_l3513")
+"texture": ExtResource("1_6rmjb")
 }],
 "loop": true,
 "name": &"default",

@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://da2kxw1ccgiag"]
+[gd_scene load_steps=27 format=3 uid="uid://da2kxw1ccgiag"]
 
 [ext_resource type="Script" path="res://scripts/system/GameManager.cs" id="1_yfxpf"]
 [ext_resource type="PackedScene" uid="uid://fbt50t0v5xiy" path="res://assets/game_objects/pedestal_prototype.tscn" id="2_8fyn6"]
@@ -11,7 +11,6 @@
 [ext_resource type="Resource" uid="uid://bku1ilflrtqsk" path="res://assets/fish_infos/tuna.tres" id="9_8ix41"]
 [ext_resource type="Resource" uid="uid://cosloe63sjp0o" path="res://assets/fish_infos/carp.tres" id="9_ca3by"]
 [ext_resource type="Resource" uid="uid://cxdqfsnmn66s8" path="res://assets/fish_infos/big_bass.tres" id="10_mf6k3"]
-[ext_resource type="PackedScene" uid="uid://cctbtj7mphtb" path="res://assets/game_objects/summon_display.tscn" id="12_g00ne"]
 [ext_resource type="PackedScene" uid="uid://dnbp28rwkbndb" path="res://assets/game_objects/fishing_minigame.tscn" id="12_u0bdp"]
 [ext_resource type="Texture2D" uid="uid://ppche0yadnx" path="res://assets/art/background_no_portal.png" id="13_etbkg"]
 [ext_resource type="PackedScene" uid="uid://cfwl2as5trinl" path="res://assets/game_objects/summon_body.tscn" id="13_s2juk"]
@@ -61,19 +60,15 @@ radius = 146.0
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_018se"]
 size = Vector2(1920, 1080)
 
-[node name="SummoningGame" type="Node2D" node_paths=PackedStringArray("pedestals", "inventoryDisplay", "fishingMinigame", "wizard")]
+[node name="SummoningGame" type="Node2D" node_paths=PackedStringArray("pedestals")]
 z_index = 1500
 script = ExtResource("1_yfxpf")
 demonInfos = [ExtResource("2_bcsk6"), ExtResource("3_w2xhf"), ExtResource("4_hnhqm"), ExtResource("5_mvxwf")]
 fishInfos = [ExtResource("6_vay0d"), ExtResource("7_dasoj"), ExtResource("9_8ix41"), ExtResource("9_ca3by")]
 bossInfo = ExtResource("10_mf6k3")
 pedestals = [NodePath("Pedestal1"), NodePath("Pedestal2"), NodePath("Pedestal3"), NodePath("Pedestal4")]
-inventoryDisplay = NodePath("DisplayArea")
-fishingMinigame = NodePath("Fish_Minigame")
 summonBodyPrefab = ExtResource("13_s2juk")
-summonDisplayPrefab = ExtResource("12_g00ne")
 bodyOffset = Vector2(960, 530)
-wizard = NodePath("Wizard")
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -1000
@@ -150,11 +145,7 @@ position = Vector2(960, 630)
 texture = ExtResource("24_xdc52")
 offset = Vector2(2.08165e-12, -100)
 
-[connection signal="OnAwait" from="." to="Wizard" method="SetSpriteDefault"]
-[connection signal="OnFail" from="." to="Wizard" method="SetSpriteFail"]
-[connection signal="OnSummon" from="." to="Wizard" method="SetSpriteSummon"]
 [connection signal="body_entered" from="Wizard/Area2D" to="Wizard" method="HandleBodyEntered"]
-[connection signal="body_entered" from="Wizard/Area2D" to="." method="HandleFinalizeSummoning" unbinds=1]
 [connection signal="end_minigame" from="Fish_Minigame" to="." method="HandleSummoningCompleted"]
 
 [editable path="Pedestal1"]

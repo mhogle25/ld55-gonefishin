@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://cjfpw2gfbamvn"]
 
-[ext_resource type="Texture2D" uid="uid://dg7l4gt4wb0g2" path="res://assets/art/Herring.png" id="1_xxbr3"]
+[ext_resource type="Texture2D" uid="uid://duxyqcn70ybal" path="res://assets/art/Herring.png" id="1_f6tn0"]
 [ext_resource type="Script" path="res://scripts/display/SummonSprite.cs" id="2_v5g4j"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6dqu3"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_xxbr3")
+"texture": ExtResource("1_f6tn0")
 }],
 "loop": true,
 "name": &"default",
