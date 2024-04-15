@@ -13,6 +13,8 @@ func _on_options_pressed():
 
 
 func _on_new_game_pressed():
+	$AudioStreamPlayer.play()
+	await $AudioStreamPlayer.finished
 	get_tree().change_scene_to_file("res://assets/game_objects/fishing_minigame_prototype.tscn")
 	pass
 

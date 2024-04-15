@@ -17,7 +17,8 @@ var total_score : int = 0
 @export var perfect_bounds : int = 20
 
 var bpm_mod = float(1.0 / 60.0)
-
+var splash_sound = preload("res://assets/sounds/splash_reverb.wav")
+var scratch_sound = preload("res://assets/sounds/scratch.wav")
 var note = preload("res://assets/game_objects/note.tscn")
 
 signal end_minigame
@@ -52,7 +53,13 @@ func _process(_delta):
 			note_hit[0].hit.emit(perfect_bounds, cursor_col.global_position.x, cursor_col.global_position.y)
 			combo += 1
 			temp_score += 10
+			$effectssounds.set_stream(splash_sound)
+			$effectssounds.set_pitch_scale(randf_range(0.9, 1.1))
+			$effectssounds.play()
 		elif combo != 0:
+			$effectssounds.set_stream(scratch_sound)
+			$effectssounds.set_pitch_scale(randf_range(0.9, 1.1))
+			$effectssounds.play()
 			time_score_roll()
 			total_score += (temp_score * combo)
 			temp_score = 0

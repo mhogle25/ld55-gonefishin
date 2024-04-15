@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://dnbp28rwkbndb"]
+[gd_scene load_steps=9 format=3 uid="uid://dnbp28rwkbndb"]
 
 [ext_resource type="Script" path="res://scripts/fishing_minigame_prototype.gd" id="1_ehl5l"]
 [ext_resource type="Texture2D" uid="uid://dn66w68t3my5f" path="res://assets/art/staff.png" id="2_m8ejj"]
 [ext_resource type="Theme" uid="uid://bd0l5gpqu5x6u" path="res://assets/themes/UI_theme.tres" id="3_2k63p"]
+[ext_resource type="AudioStream" uid="uid://c6yvhrwdtdlib" path="res://assets/sounds/splash_reverb.wav" id="3_dvphb"]
 [ext_resource type="FontFile" uid="uid://hjkqa2r7qed" path="res://assets/fonts/Taiganja Type.ttf" id="4_wyk2y"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_axj6i"]
@@ -53,6 +54,11 @@ softness = 0.3
 position = Vector2(0, -72)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+bus = &"Music"
+
+[node name="effectssounds" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_dvphb")
+volume_db = 8.5
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

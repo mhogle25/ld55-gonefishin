@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://lwvbniudbqxe"]
+[gd_scene load_steps=11 format=3 uid="uid://lwvbniudbqxe"]
 
 [ext_resource type="Theme" uid="uid://d1sg2hcjlo4sl" path="res://assets/themes/menu_theme.tres" id="1_5knkv"]
 [ext_resource type="Script" path="res://scripts/menu_logic/main_menu.gd" id="2_psoe0"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://d4jp6r4l3ikx5" path="res://assets/art/eyeball_pieces/eye_iris.png" id="5_bqk1p"]
 [ext_resource type="Texture2D" uid="uid://c8ck3svd3hqoh" path="res://assets/art/eyeball_pieces/eyelid.png" id="6_uq8cr"]
 [ext_resource type="Texture2D" uid="uid://wp7vrdmc26rk" path="res://assets/art/eyeball_pieces/eye_portalbg.png" id="7_nnm7v"]
+[ext_resource type="AudioStream" uid="uid://btcxdcy0ghn0f" path="res://assets/sounds/thum.wav" id="8_a0tvx"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tidds"]
 radius = 53.4241
@@ -149,6 +150,10 @@ visible = false
 position = Vector2(14, 20)
 scale = Vector2(1.17194, 1.17194)
 polygon = PackedVector2Array(-13, -16, -111, -18, -253, -44, -316, -77, -366, -122, -301, -206, -226, -227, -120, -248, 13, -254, 126, -248, 252, -217, 323, -176, 335, -124, 290, -77, 207, -44, 76, -15, -11, -15, -11, 23, 198, 10, 200, 10, 437, -7, 508, -75, 374, -267, 33, -333, -442, -267, -529, -106, -418, 32, -14, 25)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_a0tvx")
+volume_db = 8.842
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer2/New Game" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer2/Load Game" to="." method="_on_load_game_pressed"]
