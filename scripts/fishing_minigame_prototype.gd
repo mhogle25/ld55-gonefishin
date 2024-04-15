@@ -1,7 +1,19 @@
 extends Node2D
+<<<<<<< Updated upstream
 @onready var cursor = $cursor_beatbox
 var upperbound : int = Global.upperboundary ###pixel dependent, will change when target resolution is decided
 var lowerbound : int = Global.lowerboundary ###pixel dependent, will change when target resolution is decided
+=======
+@export_enum("Soft Stars", "Other songs here") var song_toplay : String
+@onready var cursor = %cursor_beatbox
+@onready var cursor_col = %cursor_collision
+@onready var cursor_physics = $PhysicsCursor
+@onready var cursor_static = $CursorStatic
+var upperbound : int = 1800 ###pixel dependent, will change when target resolution is decided
+var lowerbound : int = 1400 ###pixel dependent, will change when target resolution is decided
+@onready var spawn_timer := Timer.new()
+var score_rolling = false
+>>>>>>> Stashed changes
 var num_note : int = 1
 var note = preload("res://assets/game_objects/note.tscn")
 signal hit_upperboundary
@@ -39,7 +51,18 @@ func _process(delta):
 	if Input.is_action_just_pressed("rhythm"):
 		var note_hit = cursor.get_overlapping_areas()
 		if note_hit:
+<<<<<<< Updated upstream
 			note_hit[0].hit.emit()
+=======
+			note_hit[0].hit.emit(perfect_bounds, cursor_col.global_position.x, cursor_col.global_position.y)
+			combo += 1
+			temp_score += 10
+		else:
+			time_score_roll()
+			total_score += (temp_score * combo)
+			temp_score = 0
+			combo = 0 ###reset combo on a misclick
+>>>>>>> Stashed changes
 		
 
 	if Input.is_action_just_pressed("rightclick"): ###For DEBUG PURPOSE ONLY
