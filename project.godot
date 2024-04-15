@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="ld55-gonefishin"
-run/main_scene="res://assets/game_objects/fishing_minigame.tscn"
+run/main_scene="res://scenes/menus/main_menu.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="hugenose/ld55-gonefishin"
 config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
