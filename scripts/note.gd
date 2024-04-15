@@ -6,20 +6,13 @@ extends Area2D
 
 var selectedhsv : Color
 
-#var perf_height = 780
 var has_beenhit : bool = false
 signal hit(perf_bound)
 signal missed 
 
 
 
-# Called when the node enters the scene tree for the first time.
-#func _ready():
-	#pass
-	
 
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	
 	self.position.y += delta * speed ###most basic of sliding movement lol
@@ -56,13 +49,12 @@ func _on_hit(bound, x_ax, y_ax):
 	self.set_collision_layer_value(2, false)
 	var kill_timer := Timer.new()
 	kill_timer.name = "kill_note_timer"
-	#kill_timer.set_wait_time(1) ###get from global variable assigned to each song in a dict, pull from current song , set to quarter notes by default (*2 for half notes, /2 for eighth notes if you're a maniac)
 	kill_timer.one_shot = true
 	kill_timer.autostart = true
 	add_child(kill_timer)
 	kill_timer.timeout.connect(kill_timer_timeout)
 
-	###grab vertical height hit
+
 	var height_hit = self.global_position.y
 	var horizontal_hit = self.global_position.x
 	has_beenhit = true
@@ -71,7 +63,7 @@ func _on_hit(bound, x_ax, y_ax):
 		$PerfectText.visible = true
 		
 	else:
-		print("height hit: ", height_hit, "vs intended at :", y_ax, "\n horiz hit: ", horizontal_hit, "vs intended :", x_ax)
+		
 		$NoteSprite/GoodText.visible = true
 	
 

@@ -17,7 +17,8 @@ var total_score : int = 0
 @export var perfect_bounds : int = 20
 
 var bpm_mod = float(1.0 / 60.0)
-
+var splash_sound = preload("res://assets/sounds/splash_reverb.wav")
+var scratch_sound = preload("res://assets/sounds/scratch.wav")
 var note = preload("res://assets/game_objects/note.tscn")
 
 signal end_minigame(total_score: int)
@@ -27,6 +28,8 @@ func _ready():
 	if option.limit_mouse_movement:
 		upperbound = 1625
 		lowerbound = 1575
+	%Score.text = str("Score: ", total_score)
+
 
 func _process(_delta):
 	cursor_static.position.x = get_global_mouse_position().x
@@ -44,14 +47,19 @@ func _process(_delta):
 			note_hit[0].hit.emit(perfect_bounds, cursor_col.global_position.x, cursor_col.global_position.y)
 			combo += 1
 			temp_score += 10
-		else:
+			$effectssounds.set_stream(splash_sound)
+			$effectssounds.set_pitch_scale(randf_range(0.9, 1.1))
+			$effectssounds.play()
+		elif combo != 0:
+			$effectssounds.set_stream(scratch_sound)
+			$effectssounds.set_pitch_scale(randf_range(0.9, 1.1))
+			$effectssounds.play()
 			time_score_roll()
 			total_score += (temp_score * combo)
 			temp_score = 0
 			combo = 0 ###reset combo on a misclick
 		
-	#if Input.is_action_just_pressed("rightclick"): ###For DEBUG PURPOSE ONLY
-		#spawn_note()
+
 	set_combo_meter()
 	if score_rolling:
 		%Score.text = str("Score: ", randi_range(0000000, 9999999))
@@ -64,13 +72,12 @@ func begin(song: String):
 		music.bpm_active = bpm_mod
 		$AudioStreamPlayer.set_stream(load(mp3data[song]["path"]))
 		$AudioStreamPlayer.play()
-		#song_isplaying.emit(song)
 
 	spawn_timer.start()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	#Create Cooldown Rate for spawning notes at a given BPM
 	spawn_timer.set_wait_time(float(spawn_diff/bpm_mod)) ###defaults to quarter notes of active bpm
-	##start_minigame.emit() ### may be unneccessary signal
+
 	
 	
 func end():
@@ -106,19 +113,17 @@ func spawn_timer_timeout():
 
 func time_score_roll():
 	score_rolling = true
-	await get_tree().create_timer(randi_range(2,4)).timeout
+	await get_tree().create_timer(randi_range(1,3)).timeout
 	score_rolling = false
 	%Score.text = str("Score: ", total_score)
 	
-	#add_child(rolling_timer)
+
 	
 func set_combo_meter():
 
 	if combo > 1 and combo <10:
 		%Combo.bbcode_text = str("+ ", temp_score, " X", combo)
 	elif combo >= 10 and combo <=20: 
-		##%Combo.bbcode_text = str("[rainbow freq=1.0 sat=0.8 val=0.8]+ ",temp_score , " X ", combo, "[/rainbow]")
-		##%Combo.bbcode_text = str("[wave amp=50.0 freq=5.0 connected=1]+ ",temp_score , " X ", combo, "[/wave]")
 		%Combo.bbcode_text = str("[shake rate=20.0 level=5 connected=1]+ ",temp_score , " X ", combo, "[/shake]")
 	elif combo > 20 and combo <= 35:
 		%Combo.bbcode_text = str("[shake rate=25.0 level=20 connected=0]+ ",temp_score , " X " , combo, "[/shake]")
@@ -126,4 +131,4 @@ func set_combo_meter():
 		%Combo.bbcode_text = str("[rainbow freq=1.0 sat=0.8 val=0.8][shake rate=25.0 level=30 connected=0]+ ",temp_score , " X ", combo, "[/shake][/rainbow]")
 	else:
 		%Combo.clear()
-	#%Score.text = str("Score: ", total_score)
+
