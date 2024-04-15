@@ -16,10 +16,10 @@ signal kys(anim_time)
 func _ready():
 	self.visible = false ####exists invisibly in scene by default
 	exit = false
-	#start(quote_default)
+	#start()
 	
 
-func start(the_quote, start_delay: int = 3):
+func start(the_quote: String = quote_default, start_delay: int = 3):
 	self.visible = true
 	anim.play("fade_in")
 	await get_tree().create_timer(3).timeout
