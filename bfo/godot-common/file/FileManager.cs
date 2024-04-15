@@ -5,7 +5,7 @@ namespace BFO.G.Utilities
 {
 	public class FileManager 
 	{
-		const bool DEBUG = true;
+		const bool DEBUG = false;
 
 		public const string USER_PATH = "user://";
 		public const string RESOURCE_PATH = "res://";

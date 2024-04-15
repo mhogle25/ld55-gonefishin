@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://cctbtj7mphtb"]
 
 [ext_resource type="Script" path="res://scripts/display/SummonDisplay.cs" id="1_putdn"]
-[ext_resource type="Theme" uid="uid://ynfykhrun2sh" path="res://assets/themes/summon_display_theme.tres" id="2_1xn3u"]
+[ext_resource type="Theme" uid="uid://bk4e8ep4hogow" path="res://assets/themes/summon_display_theme.tres" id="2_1xn3u"]
 
 [node name="SummonDisplay" type="Node2D" node_paths=PackedStringArray("tooltipContainer", "tooltipLabel", "timer")]
 position = Vector2(215, 643)
@@ -15,7 +15,7 @@ wait_time = 0.5
 one_shot = true
 
 [node name="Tooltip" type="PanelContainer" parent="."]
-visible = false
+z_index = 100
 offset_left = 1.0
 offset_right = 235.0
 offset_bottom = 45.0

@@ -23,7 +23,7 @@ public partial class GameCtx : Node
 	}
 
 	public int GetDemonCount() => 
-		GetSaveData().DemonCount;
+		GetSaveData().GetDemonCount();
 	
 	public void AddSummon(SummonData summon) 
 	{

@@ -12,19 +12,31 @@ public partial class GameManager : Node
 		Any
 	}
 	
-	public record SummonEvent(SummonInfo Info, SummonData Data, SummonType Type= SummonType.Demon);
+	public record SummonEvent(SummonBody Body, SummonInfo Info, SummonData Data, SummonType Type);
 	
+	[Export] private int fishToSummonRatio = 10;
+	[Export] private int maxWaitTime = 20;
 	[Export] private Godot.Collections.Array<SummonInfo> demonInfos = new();
 	[Export] private Godot.Collections.Array<SummonInfo> fishInfos = new();
 	[Export] private SummonInfo bossInfo = new();
-	[Export] private int fishToSummonRatio = 10;
 	[Export] private Godot.Collections.Array<Sprite2D> pedestals = new();
+	[Export] private Node2D fishMinigame = null;
+	[Export] private PackedScene summonBodyPrefab = null;
+	[Export] private Vector2 bodyOffset = new(960, 540);
 	
 	private readonly Dictionary<string, SummonInfo> summonInfoBank = new();
-	public RandomNumberGenerator rng = new();
+	private readonly RandomNumberGenerator rng = new();
+	private readonly Timer timer;
 	private SummonEvent summonEvent = null;
 	
 	private GameCtx ctx = null;
+	
+	GameManager() 
+	{
+		this.timer = new() { OneShot = true };
+		AddChild(this.timer);
+		this.timer.Timeout += BeginNextSummoning;
+	}
 	
 	public override void _Ready()
 	{
@@ -51,72 +63,96 @@ public partial class GameManager : Node
 	
 	public void Initialize() 
 	{
+		BFCtx.Print($"Initializing pedestals and inventory... Demon Count: {this.ctx.GetDemonCount()}");
 		// Setup the pedestals
 		for (int i = 0; i < this.ctx.GetDemonCount(); i++) 
 		{
+			BFCtx.Print("initializing pedestal");
 			SummonInfo demonInfo = this.demonInfos[i];
 			Sprite2D pedestal = this.pedestals[i];
 			SetupPedestal(pedestal, InstantiateSummonDisplay(demonInfo), false);
 		}
+		
+		BeginAwaiting();
 	}
 	
 	public SummonInfo GetSummonInfo(string id) => this.summonInfoBank[id];
 	
+	public void BeginAwaiting() 
+	{
+		BFCtx.Print("Beginning awaiting...");
+		this.timer.WaitTime = this.rng.RandfRange(0, this.maxWaitTime);
+		this.timer.Start();
+	}
+	
 	public void BeginNextSummoning() 
 	{
+		BFCtx.Print("Summon caught! Beginning summon minigame...");
 		int demonCount = this.ctx.GetDemonCount();
+		
+		SummonInfo info;
+		SummonData data;
+		SummonType type;
 		
 		if (demonCount <= this.summonInfoBank.Count) 
 		{
 			bool boss = demonCount == this.demonInfos.Count;
-			
-			SummonInfo info = boss ? GetNextDemonInfo(demonCount) : GetBossInfo();
-			SummonData data = new() 
+			info = boss ? GetNextDemonInfo(demonCount) : GetBossInfo();
+			data = new() 
 			{
 				Id = info.Id,
 				FullName = info.GetName(),
 			};
-			
-			this.summonEvent = new(info, data, boss ? SummonType.Boss : SummonType.Demon);
-			// Do summoning stuff
+			type = boss ? SummonType.Boss : SummonType.Demon;
 		} 
 		else if (this.rng.RandiRange(1, this.fishToSummonRatio) == 1)
 		{
-			SummonInfo info = GetRandDemonInfo();
-			SummonData data = new() 
+			info = GetRandDemonInfo();
+			data = new() 
 			{
 				Id = info.Id,
 				FullName = info.GetName(),
 			};
-			
-			this.summonEvent = new(info, data, SummonType.Any);
-			// Do summoning stuff
+			type = SummonType.Any;
 		} 
 		else 
 		{
-			SummonInfo info = GetRandFishInfo();
-			SummonData data = new() 
+			info = GetRandFishInfo();
+			data = new() 
 			{
 				Id = info.Id,
 				FullName = info.GetName(),
 			};
-			
-			this.summonEvent = new(info, data, SummonType.Any);
-			// Do summoning stuff
+			type = SummonType.Any;
 		}
+		
+		SummonBody body = InstantiateSummonBody(info);
+		this.summonEvent = new SummonEvent(body, info, data, type);
+		BeginMinigame(this.fishMinigame, info.GetSongId());
 	}
 	
-	public void HandleSummoningCompleted(/* success parameters go here */) 
+	public void HandleSummoningCompleted(int totalScore) 
 	{
+		BFCtx.Print("Summoning minigame complete.");
+		SummonEvent sevent = this.summonEvent;
 		
+		if (sevent.Info.GetSuccessThreshold() > totalScore) 
+		{
+			BFCtx.Print($"Failed to catch, need to get above {sevent.Info.GetSuccessThreshold()}");
+			sevent.Body.Flee();
+			return;
+		}
 		
-		switch (this.summonEvent.Type) 
+		switch (sevent.Type) 
 		{
 			case SummonType.Demon:
+				this.ctx.IncrementDemonCount();
 				break;
 			case SummonType.Boss:
+				this.ctx.IncrementDemonCount();
 				break;
 			case SummonType.Any:
+				
 				break;
 		}
 	}
@@ -128,7 +164,6 @@ public partial class GameManager : Node
 		
 	private SummonInfo GetBossInfo() 
 	{
-		this.ctx.IncrementDemonCount();
 		return this.bossInfo;
 	}
 	
@@ -149,7 +184,19 @@ public partial class GameManager : Node
 		summonDisplay.Setup(sprite, summonInfo.GetName());
 		return summonDisplay;
 	}
+	
+	private SummonBody InstantiateSummonBody(SummonInfo info) 
+	{
+		SummonBody body = this.summonBodyPrefab.Instantiate<SummonBody>();
+		body.Setup(info.InstantiateSprite());
+		AddChild(body);
+		body.Position = this.bodyOffset;
+		return body;
+	}
 		
+	private static void BeginMinigame(Node2D fishingMinigame, string songId) => 
+		fishingMinigame.Call("begin", songId);
+	
 	private static void SetupPedestal(Sprite2D pedestal, SummonDisplay display, bool runOnFadedInEvent) => 
 		pedestal.Call("setup_demon", display, runOnFadedInEvent);
 }

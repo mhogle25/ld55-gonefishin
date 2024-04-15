@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://dnbp28rwkbndb"]
 
-[ext_resource type="Script" path="res://scripts/fishing_minigame_prototype.gd" id="1_ehl5l"]
-[ext_resource type="Texture2D" uid="uid://dn66w68t3my5f" path="res://assets/art/staff.png" id="2_m8ejj"]
-[ext_resource type="Theme" uid="uid://bd0l5gpqu5x6u" path="res://assets/themes/UI_theme.tres" id="3_2k63p"]
-[ext_resource type="FontFile" uid="uid://hjkqa2r7qed" path="res://assets/fonts/Taiganja Type.ttf" id="4_wyk2y"]
+[ext_resource type="Script" path="res://scripts/fishing_minigame.gd" id="1_g11kh"]
+[ext_resource type="Texture2D" uid="uid://dn66w68t3my5f" path="res://assets/art/staff.png" id="2_rs8q2"]
+[ext_resource type="Theme" path="res://assets/themes/UI_theme.tres" id="3_xpqyc"]
+[ext_resource type="FontFile" uid="uid://hjkqa2r7qed" path="res://assets/fonts/Taiganja Type.ttf" id="4_7myqn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_axj6i"]
 
@@ -13,7 +13,7 @@ radius = 28.5854
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_11m13"]
 
 [node name="Fish_Minigame" type="Node2D"]
-script = ExtResource("1_ehl5l")
+script = ExtResource("1_g11kh")
 
 [node name="PhysicsCursor" type="RigidBody2D" parent="."]
 position = Vector2(0, 15)
@@ -34,7 +34,7 @@ shape = SubResource("CircleShape2D_0ow6w")
 
 [node name="Staff_Sprite" type="Sprite2D" parent="cursor_beatbox"]
 position = Vector2(-32, -170)
-texture = ExtResource("2_m8ejj")
+texture = ExtResource("2_rs8q2")
 
 [node name="CursorStatic" type="StaticBody2D" parent="."]
 
@@ -61,7 +61,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_2k63p")
+theme = ExtResource("3_xpqyc")
 theme_override_constants/margin_left = 50
 theme_override_constants/margin_top = 70
 theme_override_constants/margin_right = 50
@@ -77,7 +77,7 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme_override_fonts/font = ExtResource("4_wyk2y")
+theme_override_fonts/font = ExtResource("4_7myqn")
 text = "Score: "
 
 [node name="Combo" type="RichTextLabel" parent="CanvasLayer/MarginContainer/VBoxContainer"]
@@ -86,6 +86,8 @@ custom_minimum_size = Vector2(500, 200)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
-theme_override_fonts/normal_font = ExtResource("4_wyk2y")
+theme_override_fonts/normal_font = ExtResource("4_7myqn")
 bbcode_enabled = true
 tab_size = 24
+
+[connection signal="finished" from="AudioStreamPlayer" to="." method="end"]

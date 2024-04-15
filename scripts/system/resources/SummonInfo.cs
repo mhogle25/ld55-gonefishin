@@ -7,6 +7,7 @@ public partial class SummonInfo : Resource
 {
 	[Export] private string id = string.Empty;
 	[Export] private string name = string.Empty;
+	[Export] private int successThreshold = 1000;
 	[Export] private string songId = string.Empty;
 	[Export] private PackedScene spritePrefab = null;
 	
@@ -25,7 +26,8 @@ public partial class SummonInfo : Resource
 	}
 	
 	public string GetName() => this.name;
-	public string SongId => this.songId;
+	public string GetSongId() => this.songId;
+	public int GetSuccessThreshold() => this.successThreshold;
 }
 
 public static class SummonInfoExtensions 

@@ -1,5 +1,4 @@
 extends Node2D
-@export_enum("Soft Stars", "Other songs here") var song_toplay : String
 @onready var cursor = %cursor_beatbox
 @onready var cursor_physics = $PhysicsCursor
 @onready var cursor_static = $CursorStatic
@@ -10,6 +9,7 @@ var score_rolling = false
 var num_note : int = 1
 @onready var difficulty : Dictionary = option.difficulty_storage[option.difficulty_selected]
 @onready var spawn_diff = difficulty["NoteSpawnDelay"]
+
 var combo : int = 0
 var temp_score : int = 0
 var total_score : int = 0
@@ -19,12 +19,11 @@ var bpm_mod = float(1.0 / 60.0)
 
 var note = preload("res://assets/game_objects/note.tscn")
 
-signal end_minigame
+signal end_minigame(total_score: int)
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	begin("Soft Stars")
 	if option.limit_mouse_movement:
 		upperbound = 1625
 		lowerbound = 1575
@@ -85,7 +84,7 @@ func end():
 
 	spawn_timer.one_shot = true
 	spawn_timer.stop()
-	end_minigame.emit() ### useful signal!
+	end_minigame.emit(total_score) ### useful signal!
 
 
 func hit_lowerbound():
@@ -112,10 +111,6 @@ func time_score_roll():
 	%Score.text = str("Score: ", total_score)
 	
 	#add_child(rolling_timer)
-	
-
-
-	
 	
 
 func set_combo_meter():

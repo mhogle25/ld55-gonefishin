@@ -7,5 +7,6 @@
 script = ExtResource("1_ogkw6")
 id = "eligos"
 name = "Eligos"
+successThreshold = 1000
 songId = ""
 spritePrefab = ExtResource("2_0b1gf")
