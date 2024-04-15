@@ -1,84 +1,41 @@
-[gd_scene load_steps=10 format=3 uid="uid://tka5lgn6l6pv"]
+[gd_scene load_steps=7 format=3 uid="uid://tka5lgn6l6pv"]
 
 [ext_resource type="Script" path="res://scripts/display/inventory_display.gd" id="1_0w0oy"]
-[ext_resource type="Script" path="res://scripts/display/SummonDisplay.cs" id="2_s18l2"]
 [ext_resource type="PackedScene" uid="uid://dxu8hwvd8q5ig" path="res://assets/demon_sprites/amon_sprite.tscn" id="3_kabqv"]
-[ext_resource type="Theme" uid="uid://ynfykhrun2sh" path="res://assets/themes/summon_display_theme.tres" id="4_u880j"]
 [ext_resource type="PackedScene" uid="uid://cctbtj7mphtb" path="res://assets/game_objects/summon_display.tscn" id="5_1txba"]
 [ext_resource type="PackedScene" uid="uid://64xusobj1lb" path="res://assets/demon_sprites/bifrons_sprite.tscn" id="6_ubdru"]
 [ext_resource type="PackedScene" uid="uid://vn5y4378gtxd" path="res://assets/demon_sprites/eligos_sprite.tscn" id="7_6xuw5"]
-[ext_resource type="PackedScene" uid="uid://ci5ud5cnhrfk2" path="res://assets/demon_sprites/orobas_sprite.tscn" id="8_ystn0"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_018se"]
-size = Vector2(1040, 196.5)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ryqj5"]
+size = Vector2(189, 119)
 
 [node name="DisplayArea" type="Area2D" node_paths=PackedStringArray("summon_displays_debug")]
+position = Vector2(963, 547)
 script = ExtResource("1_0w0oy")
-summon_displays_debug = [NodePath("Debug/SummonDisplay2"), NodePath("Debug/SummonDisplay3"), NodePath("Debug/SummonDisplay4"), NodePath("Debug/SummonDisplay")]
+summon_displays_debug = [NodePath("Debug/SummonDisplay"), NodePath("Debug/SummonDisplay2"), NodePath("Debug/SummonDisplay3")]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(957, 134.75)
-shape = SubResource("RectangleShape2D_018se")
+position = Vector2(7.5, -15.5)
+shape = SubResource("RectangleShape2D_ryqj5")
 
-[node name="Debug" type="Node" parent="."]
+[node name="Debug" type="Node2D" parent="."]
 
-[node name="SummonDisplay2" parent="Debug" instance=ExtResource("5_1txba")]
-position = Vector2(1537, 971)
-
-[node name="BifronsSprite" parent="Debug/SummonDisplay2" instance=ExtResource("6_ubdru")]
-position = Vector2(-1.196, 4.62601)
-
-[node name="SummonDisplay3" parent="Debug" instance=ExtResource("5_1txba")]
-position = Vector2(1884, 570)
-
-[node name="EligosSprite" parent="Debug/SummonDisplay3" instance=ExtResource("7_6xuw5")]
-position = Vector2(839.804, 499.626)
-
-[node name="SummonDisplay4" parent="Debug" instance=ExtResource("5_1txba")]
-position = Vector2(449, 624)
-
-[node name="OrobasSprite" parent="Debug/SummonDisplay4" instance=ExtResource("8_ystn0")]
-position = Vector2(331.804, 683.626)
-
-[node name="SummonDisplay" type="Node2D" parent="Debug" node_paths=PackedStringArray("tooltipContainer", "tooltipLabel", "timer")]
-position = Vector2(150, 1122)
-script = ExtResource("2_s18l2")
-tooltipContainer = NodePath("Tooltip")
-tooltipLabel = NodePath("Tooltip/MarginContainer/Label")
-timer = NodePath("Timer")
+[node name="SummonDisplay" parent="Debug" instance=ExtResource("5_1txba")]
+position = Vector2(1.00006, 4)
 
 [node name="AmonSprite" parent="Debug/SummonDisplay" instance=ExtResource("3_kabqv")]
-position = Vector2(-2, 0)
+position = Vector2(17.6582, -25.9445)
 
-[node name="Timer" type="Timer" parent="Debug/SummonDisplay"]
-wait_time = 0.5
-one_shot = true
+[node name="SummonDisplay2" parent="Debug" instance=ExtResource("5_1txba")]
+position = Vector2(1.00006, 4)
 
-[node name="Tooltip" type="PanelContainer" parent="Debug/SummonDisplay"]
-visible = false
-offset_left = 1.0
-offset_right = 235.0
-offset_bottom = 45.0
-mouse_filter = 2
+[node name="BifronsSprite" parent="Debug/SummonDisplay2" instance=ExtResource("6_ubdru")]
+position = Vector2(17.6582, -25.9445)
 
-[node name="ColorRect" type="ColorRect" parent="Debug/SummonDisplay/Tooltip"]
-layout_mode = 2
-color = Color(0.0392157, 0.0392157, 0.0392157, 1)
+[node name="SummonDisplay3" parent="Debug" instance=ExtResource("5_1txba")]
+position = Vector2(1.00006, 4)
 
-[node name="MarginContainer" type="MarginContainer" parent="Debug/SummonDisplay/Tooltip"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme = ExtResource("4_u880j")
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
-theme_override_constants/margin_bottom = 10
+[node name="EligosSprite" parent="Debug/SummonDisplay3" instance=ExtResource("7_6xuw5")]
+position = Vector2(17.6582, -25.9445)
 
-[node name="Label" type="Label" parent="Debug/SummonDisplay/Tooltip/MarginContainer"]
-layout_mode = 2
-text = "Summon Name Here"
-
-[connection signal="timeout" from="Debug/SummonDisplay/Timer" to="Debug/SummonDisplay" method="ShowTooltip"]
-
-[editable path="Debug/SummonDisplay/AmonSprite"]
+[node name="Camera2D" type="Camera2D" parent="."]

@@ -18,7 +18,6 @@ animations = [{
 size = Vector2(350, 200)
 
 [node name="AmonSprite" type="AnimatedSprite2D" node_paths=PackedStringArray("Hitbox")]
-position = Vector2(748, 669)
 sprite_frames = SubResource("SpriteFrames_e2n0h")
 script = ExtResource("2_l2714")
 Hitbox = NodePath("Hitbox")

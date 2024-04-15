@@ -1,5 +1,6 @@
 extends Node2D
 @onready var cursor = %cursor_beatbox
+@onready var cursor_col = %cursor_collision
 @onready var cursor_physics = $PhysicsCursor
 @onready var cursor_static = $CursorStatic
 var upperbound : int = 1800 ###pixel dependent, will change when target resolution is decided
@@ -41,7 +42,7 @@ func _process(_delta):
 	if Input.is_action_just_pressed("rhythm"):
 		var note_hit = cursor.get_overlapping_areas()
 		if note_hit:
-			note_hit[0].hit.emit(perfect_bounds)
+			note_hit[0].hit.emit(perfect_bounds, cursor_col.global_position.x, cursor_col.global_position.y)
 			combo += 1
 			temp_score += 10
 		else:

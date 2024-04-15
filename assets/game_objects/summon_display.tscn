@@ -4,7 +4,6 @@
 [ext_resource type="Theme" uid="uid://bk4e8ep4hogow" path="res://assets/themes/summon_display_theme.tres" id="2_1xn3u"]
 
 [node name="SummonDisplay" type="Node2D" node_paths=PackedStringArray("tooltipContainer", "tooltipLabel", "timer")]
-position = Vector2(215, 643)
 script = ExtResource("1_putdn")
 tooltipContainer = NodePath("Tooltip")
 tooltipLabel = NodePath("Tooltip/MarginContainer/Label")
