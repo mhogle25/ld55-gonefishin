@@ -66,25 +66,34 @@ func _process(_delta):
 
 func begin(song: String):
 	var mp3data = music.music_data
+	num_note = 1
+	combo = 0
+	temp_score = 0
 
+	total_score = 0
+	$AnimationPlayer.play("fade_in_minigame")
+	%Score.text = str("Score: ", total_score)
 	if song in mp3data.keys():
 		bpm_mod = float(mp3data[song]["BPM"] / float(60))
 		music.bpm_active = bpm_mod
 		$AudioStreamPlayer.set_stream(load(mp3data[song]["path"]))
-		$AudioStreamPlayer.play()
-
-	spawn_timer.start()
+		#$AudioStreamPlayer.play()
+	#
+	#spawn_timer.start()
 	Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
-	#Create Cooldown Rate for spawning notes at a given BPM
-	spawn_timer.set_wait_time(float(spawn_diff/bpm_mod)) ###defaults to quarter notes of active bpm
+	##Create Cooldown Rate for spawning notes at a given BPM
+	#spawn_timer.set_wait_time(float(spawn_diff/bpm_mod)) ###defaults to quarter notes of active bpm
 
 	
 	
 func end():
 	#re-enable mouse cursor
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-
+	
 	spawn_timer.stop()
+	total_score += (temp_score * combo)
+	%Score.text = str("Score: ", total_score)
+	$AnimationPlayer.play("fade_out_minigame")
 
 	end_minigame.emit(total_score) ### useful signal!
 
@@ -92,6 +101,7 @@ func end():
 	num_note = 1
 	combo = 0
 	temp_score = 0
+
 	total_score = 0
 
 func hit_lowerbound():
@@ -131,4 +141,15 @@ func set_combo_meter():
 		%Combo.bbcode_text = str("[rainbow freq=1.0 sat=0.8 val=0.8][shake rate=25.0 level=30 connected=0]+ ",temp_score , " X ", combo, "[/shake][/rainbow]")
 	else:
 		%Combo.clear()
+
+
+
+func _on_animation_player_animation_finished(anim):
+	if anim == "fade_in_minigame":
+		$AudioStreamPlayer.play()
+
+		spawn_timer.start()
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	#Create Cooldown Rate for spawning notes at a given BPM
+		spawn_timer.set_wait_time(float(spawn_diff/bpm_mod)) ###defaults to quarter notes of active bpm
 

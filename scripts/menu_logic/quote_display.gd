@@ -10,20 +10,30 @@ var author = ""
 var ending: bool = false
 @onready var anim = $AnimationPlayer
 var exit : bool = false
-signal kys(anim_time)
+var scene_to_trans : PackedScene
+@export var transition_only : bool
+signal kys(anim_time, transitioncheck)
+
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	self.visible = false ####exists invisibly in scene by default
 	exit = false
-	#start()
+	start(transition_only, null)
 	
 
-func start(the_quote: String = quote_default, start_delay: int = 3):
-	self.visible = true
-	anim.play("fade_in")
-	await get_tree().create_timer(3).timeout
-	roll_quote(the_quote)
+func start(only_transition: bool, next_scene : PackedScene, the_quote: String = quote_default, start_delay: int = 3):
+	if only_transition:
+		transition_only = only_transition
+		self.visible = true
+		kys.emit(3, transition_only)
+	else:
+		self.visible = true
+		scene_to_trans = next_scene
+		anim.play("fade_in")
+		await get_tree().create_timer(start_delay).timeout
+		roll_quote(the_quote)
 	
 func _process(delta):
 	if author and words and !ending:
@@ -38,7 +48,7 @@ func _process(delta):
 		num -= 1
 		num2 = num
 	elif ending and !exit:
-		kys.emit(3)
+		kys.emit(3, false)
 		
 		
 	
@@ -65,11 +75,21 @@ func re_init():
 	author = ""
 	ending = false
 	exit = false
+	transition_only = false
 
-func _on_kys(time):
+func _on_kys(time, transition: bool):
+
 	exit = true
 	$RichTextLabel.clear()
-	anim.play("fade_out")
-	await get_tree().create_timer(time).timeout
-	self.visible = false
+	
+	if transition:
+		
+		anim.play("fade_out")
+	
+		await get_tree().create_timer(time).timeout
+		self.visible = false
+		re_init()
+	else:
+		get_tree().change_scene_to_packed(scene_to_trans)
 	re_init()
+	

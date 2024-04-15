@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://da2kxw1ccgiag"]
+[gd_scene load_steps=22 format=3 uid="uid://da2kxw1ccgiag"]
 
 [ext_resource type="Script" path="res://scripts/system/GameManager.cs" id="1_yfxpf"]
 [ext_resource type="PackedScene" uid="uid://fbt50t0v5xiy" path="res://assets/game_objects/pedestal_prototype.tscn" id="2_8fyn6"]
@@ -17,6 +17,7 @@
 [ext_resource type="Script" path="res://scripts/display/inventory_display.gd" id="14_8kyiy"]
 [ext_resource type="Texture2D" uid="uid://dui0gcebnscvl" path="res://assets/art/wiz_MC.png" id="14_lwtrf"]
 [ext_resource type="Texture2D" uid="uid://ortn5nh3yoeu" path="res://assets/art/wiz_MC_glowing.png" id="15_olhuk"]
+[ext_resource type="PackedScene" uid="uid://djx6t0onmy626" path="res://scenes/quote_display.tscn" id="18_3xqyy"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_2ie07"]
 animations = [{
@@ -84,6 +85,11 @@ script = ExtResource("14_8kyiy")
 shape = SubResource("RectangleShape2D_018se")
 
 [node name="Fish_Minigame" parent="." instance=ExtResource("12_u0bdp")]
+
+[node name="QuoteDisplay" parent="." instance=ExtResource("18_3xqyy")]
+offset_right = 2174.0
+offset_bottom = 1087.0
+transition_only = true
 
 [connection signal="end_minigame" from="Fish_Minigame" to="." method="HandleSummoningCompleted"]
 

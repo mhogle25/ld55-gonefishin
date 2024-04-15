@@ -69,6 +69,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("NoteSprite/PointLight2D:energy")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_wqj3t"]
 _data = {
@@ -107,6 +119,7 @@ text = "[wave][rainbow]PERFECT[/rainbow][/wave]"
 texture = ExtResource("2_tj351")
 
 [node name="PointLight2D" type="PointLight2D" parent="NoteSprite"]
+unique_name_in_owner = true
 scale = Vector2(1.6, 1.6)
 texture = SubResource("GradientTexture2D_04rv5")
 
