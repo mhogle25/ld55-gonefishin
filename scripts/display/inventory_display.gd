@@ -12,7 +12,7 @@ func add_single(summon_display):
 	add_child(summon_display)
 	var magnitudex = rect.x/2
 	var magnitudey = rect.y/2
-	var x = randf_range(-magnitudex,magnitudex)
-	var y = randf_range(-magnitudey,magnitudey)
+	var x = randf_range(-magnitudex, magnitudex)
+	var y = randf_range(-magnitudey, magnitudey)
 	summon_display.position = Vector2(x,y)
-
+	summon_display.z_index = int(summon_display.position.y)

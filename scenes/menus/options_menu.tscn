@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://cgbduwvuile3w"]
+[gd_scene load_steps=5 format=3 uid="uid://cgbduwvuile3w"]
 
 [ext_resource type="Theme" uid="uid://d1sg2hcjlo4sl" path="res://assets/themes/menu_theme.tres" id="1_pedo1"]
 [ext_resource type="Script" path="res://scripts/menu_logic/options_menu.gd" id="2_g02dd"]
 [ext_resource type="AudioStream" uid="uid://btcxdcy0ghn0f" path="res://assets/sounds/thum.wav" id="3_6hkyk"]
+[ext_resource type="FontFile" uid="uid://disbfv4nbsndf" path="res://assets/fonts/Kingthings Willowless.ttf" id="3_kqo5l"]
 
 [node name="Control" type="MarginContainer"]
 anchors_preset = 15
@@ -24,6 +25,7 @@ theme_override_constants/separation = 40
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("1_pedo1")
+theme_override_fonts/font = ExtResource("3_kqo5l")
 text = "Options"
 horizontal_alignment = 1
 vertical_alignment = 1

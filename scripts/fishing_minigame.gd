@@ -8,7 +8,7 @@ var lowerbound : int = 1400 ###pixel dependent, will change when target resoluti
 @export var spawn_timer: Timer
 var score_rolling = false
 var num_note : int = 1
-@onready var difficulty : Dictionary = option.difficulty_storage[option.difficulty_selected]
+@onready var difficulty : Dictionary = option.get_difficulty()
 @onready var spawn_diff = difficulty["NoteSpawnDelay"]
 
 var combo : int = 0
@@ -25,7 +25,7 @@ signal end_minigame(total_score: int)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if option.limit_mouse_movement:
+	if option.get_limit_mouse_movement():
 		upperbound = 1625
 		lowerbound = 1575
 	%Score.text = str("Score: ", total_score)

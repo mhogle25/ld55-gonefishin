@@ -1,14 +1,17 @@
-[gd_scene load_steps=12 format=3 uid="uid://lwvbniudbqxe"]
+[gd_scene load_steps=15 format=3 uid="uid://lwvbniudbqxe"]
 
 [ext_resource type="Theme" uid="uid://d1sg2hcjlo4sl" path="res://assets/themes/menu_theme.tres" id="1_5knkv"]
 [ext_resource type="Script" path="res://scripts/menu_logic/main_menu.gd" id="2_psoe0"]
 [ext_resource type="Script" path="res://scripts/menu_logic/Menu_Eyeball.gd" id="3_5j3pi"]
+[ext_resource type="FontFile" uid="uid://dwue47eggesu0" path="res://assets/fonts/Kingthings Willow.ttf" id="3_rq0cu"]
 [ext_resource type="Texture2D" uid="uid://cfnurkpdinbt2" path="res://assets/art/eyeball_pieces/eyeball.png" id="4_to054"]
 [ext_resource type="Texture2D" uid="uid://d4jp6r4l3ikx5" path="res://assets/art/eyeball_pieces/eye_iris.png" id="5_bqk1p"]
 [ext_resource type="Texture2D" uid="uid://c8ck3svd3hqoh" path="res://assets/art/eyeball_pieces/eyelid.png" id="6_uq8cr"]
 [ext_resource type="Texture2D" uid="uid://wp7vrdmc26rk" path="res://assets/art/eyeball_pieces/eye_portalbg.png" id="7_nnm7v"]
 [ext_resource type="AudioStream" uid="uid://btcxdcy0ghn0f" path="res://assets/sounds/thum.wav" id="8_a0tvx"]
 [ext_resource type="PackedScene" uid="uid://djx6t0onmy626" path="res://scenes/quote_display.tscn" id="9_natv7"]
+[ext_resource type="Script" path="res://scenes/menus/rainingfish.gd" id="9_nssvo"]
+[ext_resource type="Texture2D" uid="uid://dyr3hyanbewpr" path="res://assets/art/fail_wizard.png" id="11_yacps"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_tidds"]
 radius = 53.4241
@@ -37,8 +40,11 @@ theme_override_constants/separation = 65
 layout_mode = 2
 size_flags_horizontal = 4
 theme = ExtResource("1_5knkv")
-text = "Big Game Title
-sponsored by bass pro shops"
+theme_override_fonts/font = ExtResource("3_rq0cu")
+theme_override_font_sizes/font_size = 131
+text = "Summon
+&
+Release"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -97,7 +103,7 @@ flat = true
 
 [node name="EyeballRoot" type="Node2D" parent="."]
 show_behind_parent = true
-position = Vector2(1554, 313)
+position = Vector2(1554, 598.5)
 script = ExtResource("3_5j3pi")
 max_v_displacement = 50
 max_h_displacement = 50
@@ -137,10 +143,10 @@ shape = SubResource("CircleShape2D_yve5e")
 texture = ExtResource("5_bqk1p")
 
 [node name="v_bound" type="Marker2D" parent="EyeballRoot"]
-position = Vector2(-11, 77)
+position = Vector2(-11, 55)
 
 [node name="h_bound" type="Marker2D" parent="EyeballRoot"]
-position = Vector2(197, 4)
+position = Vector2(172, 4)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="EyeballRoot"]
 position = Vector2(0, 137)
@@ -152,6 +158,10 @@ position = Vector2(14, 20)
 scale = Vector2(1.17194, 1.17194)
 polygon = PackedVector2Array(-13, -16, -111, -18, -253, -44, -316, -77, -366, -122, -301, -206, -226, -227, -120, -248, 13, -254, 126, -248, 252, -217, 323, -176, 335, -124, 290, -77, 207, -44, 76, -15, -11, -15, -11, 23, 198, 10, 200, 10, 437, -7, 508, -75, 374, -267, 33, -333, -442, -267, -529, -106, -418, 32, -14, 25)
 
+[node name="Marker2D" type="Marker2D" parent="EyeballRoot"]
+position = Vector2(-594, -695)
+script = ExtResource("9_nssvo")
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_a0tvx")
 volume_db = 8.842
@@ -161,6 +171,10 @@ volume_db = 8.842
 [node name="QuoteDisplay" parent="CanvasLayer" instance=ExtResource("9_natv7")]
 unique_name_in_owner = true
 transition_only = true
+
+[node name="FailWizard" type="Sprite2D" parent="."]
+position = Vector2(266, 880.5)
+texture = ExtResource("11_yacps")
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer2/New Game" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer2/Load Game" to="." method="_on_load_game_pressed"]

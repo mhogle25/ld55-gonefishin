@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvkiw4ufdm7ui"]
+
+[ext_resource type="Script" path="res://assets/game_objects/randfish.gd" id="1_jvt8a"]
+
+[node name="Randfish" type="Sprite2D"]
+script = ExtResource("1_jvt8a")

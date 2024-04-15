@@ -6,11 +6,11 @@ var music_AudioIndex = AudioServer.get_bus_index("Music")
 
 
 func _ready():
-	%Music_HSlider.value = option.music_vol 
-	%Master_HSlider.value = option.master_vol 
-	%MouseMovement.button_pressed = option.limit_mouse_movement
-	%FullscreenToggle.button_pressed = option.fullscreen
-	%DifficultySlider.value = option.difficulty_selected
+	%Music_HSlider.value = option.get_music_vol()
+	%Master_HSlider.value = option.get_master_vol() 
+	%MouseMovement.button_pressed = option.get_limit_mouse_movement()
+	%FullscreenToggle.button_pressed = option.get_fullscreen()
+	%DifficultySlider.value = option.get_difficulty_selected()
 
 
 
@@ -22,7 +22,7 @@ func _on_back_pressed():
 func _on_master_h_slider_value_changed(value):
 	
 	%MasterBar.value = value * 100
-	option.master_vol = value
+	option.set_master_vol(value)
 	AudioServer.set_bus_volume_db(master_AudioIndex,linear_to_db(value))
 	streamplay.set_pitch_scale(randf_range(0.8, 1.1))
 	streamplay.play()
@@ -30,11 +30,11 @@ func _on_master_h_slider_value_changed(value):
 
 func _on_music_h_slider_value_changed(value):
 	%MusicBar.value = value * 100
-	option.music_vol = value
+	option.set_music_vol(value)
 	AudioServer.set_bus_volume_db(music_AudioIndex,linear_to_db(value))
 
 func _on_mouse_movement_toggled(toggled_on):
-	option.limit_mouse_movement = toggled_on
+	option.set_limit_mouse_movement(toggled_on)
 	streamplay.set_pitch_scale(randf_range(0.8, 1.1))
 	streamplay.play()
 
@@ -45,7 +45,7 @@ func _on_mouse_movement_toggled(toggled_on):
 func _on_difficulty_slider_drag_ended(value_changed):
 	
 	if value_changed:
-		option.difficulty_selected = %DifficultySlider.value
+		option.set_difficulty_selected(%DifficultySlider.value)
 		streamplay.set_pitch_scale(randf_range(0.8, 1.1))
 		streamplay.play()
 
