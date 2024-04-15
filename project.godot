@@ -11,18 +11,23 @@ config_version=5
 [application]
 
 config/name="ld55-gonefishin"
-run/main_scene="res://scenes/fishing_minigame_prototype.tscn"
-config/features=PackedStringArray("4.2", "GL Compatibility")
+run/main_scene="res://assets/game_objects/fishing_minigame_prototype.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="hugenose/ld55-gonefishin"
+config/features=PackedStringArray("4.2", "C#", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
-Global="*res://scripts/Global.gd"
+GameCtx="*res://scripts/system/GameCtx.cs"
+music="*res://scripts/gd_autoload/Music_Auto.gd"
+option="*res://scripts/gd_autoload/options_control.gd"
 
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
 window/stretch/mode="canvas_items"
 
 [dotnet]

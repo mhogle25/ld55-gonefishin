@@ -1,0 +1,197 @@
+[gd_scene load_steps=3 format=3 uid="uid://cgbduwvuile3w"]
+
+[ext_resource type="Theme" uid="uid://d1sg2hcjlo4sl" path="res://assets/themes/menu_theme.tres" id="1_pedo1"]
+[ext_resource type="Script" path="res://scripts/menu_logic/options_menu.gd" id="2_g02dd"]
+
+[node name="Control" type="MarginContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_pedo1")
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 35
+script = ExtResource("2_g02dd")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/separation = 40
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_pedo1")
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_bottom = 15
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 38
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.823529, 0.85098, 1)
+theme_override_font_sizes/font_size = 56
+text = "Volume"
+horizontal_alignment = 1
+
+[node name="VolumeContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_pedo1")
+theme_override_constants/separation = 95
+
+[node name="Music" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/VBoxContainer/VolumeContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/VBoxContainer/VolumeContainer/Music"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.823529, 0.85098, 1)
+theme_override_font_sizes/font_size = 80
+text = "Music"
+horizontal_alignment = 1
+
+[node name="Music_HSlider" type="HSlider" parent="VBoxContainer/MarginContainer2/VBoxContainer/VolumeContainer/Music"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+value = 1.0
+
+[node name="MusicBar" type="ProgressBar" parent="VBoxContainer/MarginContainer2/VBoxContainer/VolumeContainer/Music/Music_HSlider"]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -12.0
+offset_bottom = 21.0
+grow_horizontal = 2
+value = 100.0
+
+[node name="Master" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/VBoxContainer/VolumeContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/MarginContainer2/VBoxContainer/VolumeContainer/Master"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.823529, 0.85098, 1)
+theme_override_font_sizes/font_size = 80
+text = "Master"
+horizontal_alignment = 1
+
+[node name="Master_HSlider" type="HSlider" parent="VBoxContainer/MarginContainer2/VBoxContainer/VolumeContainer/Master"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 1.0
+step = 0.001
+value = 1.0
+
+[node name="MasterBar" type="ProgressBar" parent="VBoxContainer/MarginContainer2/VBoxContainer/VolumeContainer/Master/Master_HSlider"]
+unique_name_in_owner = true
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -12.0
+offset_bottom = 21.0
+grow_horizontal = 2
+value = 100.0
+
+[node name="Label2" type="Label" parent="VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.823529, 0.85098, 1)
+theme_override_font_sizes/font_size = 56
+text = "Accessibility"
+horizontal_alignment = 1
+
+[node name="AccessibilityContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_pedo1")
+theme_override_constants/separation = 95
+
+[node name="LimitMouse" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/VBoxContainer/AccessibilityContainer"]
+layout_mode = 2
+
+[node name="MouseMovement" type="Button" parent="VBoxContainer/MarginContainer2/VBoxContainer/AccessibilityContainer/LimitMouse"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.823529, 0.85098, 1)
+theme_override_font_sizes/font_size = 48
+toggle_mode = true
+text = "Limit Mouse
+Movement"
+
+[node name="Gameplay" type="Label" parent="VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_colors/font_color = Color(1, 0.823529, 0.85098, 1)
+theme_override_font_sizes/font_size = 56
+text = "Gameplay"
+horizontal_alignment = 1
+
+[node name="GameplayContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("1_pedo1")
+theme_override_constants/separation = 95
+
+[node name="Difficulty" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/VBoxContainer/GameplayContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="VBoxContainer/MarginContainer2/VBoxContainer/GameplayContainer/Difficulty"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0.823529, 0.85098, 1)
+theme_override_font_sizes/font_size = 64
+text = "Difficulty"
+horizontal_alignment = 1
+
+[node name="DifficultySlider" type="HSlider" parent="VBoxContainer/MarginContainer2/VBoxContainer/GameplayContainer/Difficulty"]
+unique_name_in_owner = true
+layout_mode = 2
+max_value = 2.0
+value = 1.0
+
+[node name="Fullscreen" type="VBoxContainer" parent="VBoxContainer/MarginContainer2/VBoxContainer/GameplayContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="FullscreenToggle" type="CheckBox" parent="VBoxContainer/MarginContainer2/VBoxContainer/GameplayContainer/Fullscreen"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 0.823529, 0.85098, 1)
+text = "Fullscreen"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="back" type="Button" parent="VBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 66
+text = "Back"
+flat = true
+
+[connection signal="value_changed" from="VBoxContainer/MarginContainer2/VBoxContainer/VolumeContainer/Music/Music_HSlider" to="." method="_on_music_h_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/MarginContainer2/VBoxContainer/VolumeContainer/Master/Master_HSlider" to="." method="_on_master_h_slider_value_changed"]
+[connection signal="toggled" from="VBoxContainer/MarginContainer2/VBoxContainer/AccessibilityContainer/LimitMouse/MouseMovement" to="." method="_on_mouse_movement_toggled"]
+[connection signal="drag_ended" from="VBoxContainer/MarginContainer2/VBoxContainer/GameplayContainer/Difficulty/DifficultySlider" to="." method="_on_difficulty_slider_drag_ended"]
+[connection signal="toggled" from="VBoxContainer/MarginContainer2/VBoxContainer/GameplayContainer/Fullscreen/FullscreenToggle" to="." method="_on_fullscreen_toggle_toggled"]
+[connection signal="pressed" from="VBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer3/back" to="." method="_on_back_pressed"]

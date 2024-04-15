@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://cctbtj7mphtb"]
+
+[ext_resource type="Script" path="res://scripts/display/SummonDisplay.cs" id="1_putdn"]
+[ext_resource type="Theme" uid="uid://ynfykhrun2sh" path="res://assets/themes/summon_display_theme.tres" id="2_1xn3u"]
+
+[node name="SummonDisplay" type="Node2D" node_paths=PackedStringArray("tooltipContainer", "tooltipLabel", "timer")]
+script = ExtResource("1_putdn")
+tooltipContainer = NodePath("Tooltip")
+tooltipLabel = NodePath("Tooltip/MarginContainer/Label")
+timer = NodePath("Timer")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="Tooltip" type="PanelContainer" parent="."]
+offset_left = 1.0
+offset_right = 235.0
+offset_bottom = 45.0
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="Tooltip"]
+layout_mode = 2
+color = Color(0.0392157, 0.0392157, 0.0392157, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="Tooltip"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("2_1xn3u")
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="Tooltip/MarginContainer"]
+layout_mode = 2
+text = "Summon Name Here"
+
+[connection signal="timeout" from="Timer" to="." method="ShowTooltip"]

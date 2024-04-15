@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://bd0l5gpqu5x6u"]
+
+[ext_resource type="FontFile" uid="uid://disbfv4nbsndf" path="res://assets/fonts/Kingthings Willowless.ttf" id="1_epx36"]
+
+[resource]
+Label/font_sizes/font_size = 56
+Label/fonts/font = ExtResource("1_epx36")
+RichTextLabel/font_sizes/normal_font_size = 48
+RichTextLabel/fonts/normal_font = ExtResource("1_epx36")
