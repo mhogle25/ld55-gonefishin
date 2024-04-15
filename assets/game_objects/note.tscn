@@ -15,14 +15,6 @@ gradient = SubResource("Gradient_4bb3x")
 fill = 1
 fill_from = Vector2(0.5, 0.5)
 
-[sub_resource type="Gradient" id="Gradient_jwtbh"]
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 0)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_3cix5"]
-gradient = SubResource("Gradient_jwtbh")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
 [sub_resource type="Animation" id="Animation_lr5qq"]
 resource_name = "bob"
 loop_mode = 1
@@ -102,6 +94,15 @@ script = ExtResource("1_8oln7")
 scale = Vector2(1.5, 1.5)
 shape = SubResource("RectangleShape2D_tfc7r")
 
+[node name="PerfectText" type="RichTextLabel" parent="."]
+visible = false
+offset_left = -33.0
+offset_top = -260.0
+offset_right = 80.0
+offset_bottom = -234.0
+bbcode_enabled = true
+text = "[wave][rainbow]PERFECT[/rainbow][/wave]"
+
 [node name="NoteSprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_tj351")
 
@@ -109,11 +110,21 @@ texture = ExtResource("2_tj351")
 scale = Vector2(1.6, 1.6)
 texture = SubResource("GradientTexture2D_04rv5")
 
+<<<<<<< Updated upstream
 [node name="NoteSprite2" type="Sprite2D" parent="NoteSprite"]
 visible = false
 show_behind_parent = true
 scale = Vector2(1.44, 1.44)
 texture = SubResource("GradientTexture2D_3cix5")
+=======
+[node name="GoodText" type="RichTextLabel" parent="NoteSprite"]
+visible = false
+offset_left = -25.0
+offset_top = -260.0
+offset_right = 88.0
+offset_bottom = -234.0
+text = "GOOD"
+>>>>>>> Stashed changes
 
 [node name="GoodText" type="RichTextLabel" parent="NoteSprite"]
 visible = false

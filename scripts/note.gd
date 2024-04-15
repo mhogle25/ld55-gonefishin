@@ -3,11 +3,14 @@ extends Area2D
 
 @export var speed : float = 195 * music.bpm_active  
 @onready var animate = $AnimationPlayer
+
 var selectedhsv : Color
-var vertical_height_hit : int 
-var perf_height = 780
-signal hit (perf_bound)
+
+#var perf_height = 780
+var has_beenhit : bool = false
+signal hit(perf_bound)
 signal missed 
+
 
 
 # Called when the node enters the scene tree for the first time.
@@ -20,16 +23,22 @@ signal missed
 func _process(delta):
 	
 	self.position.y += delta * speed ###most basic of sliding movement lol
-	if self.position.y >= 850: ###idunno thats probably off the screen
-		$NoteSprite.modulate = Color.DIM_GRAY
-		$NoteSprite/PerfectText.visible = false
-		$NoteSprite/GoodText.visible = false
-	if self.position.y >= 1500: ###idunno thats probably off the screen
+
+	if self.position.y >= 850 and !has_beenhit: 
+		$NoteSprite.set_self_modulate(Color.DIM_GRAY)
 		missed.emit() #### this signals a note has been missed
+
+	if self.position.y >= 1500: ###idunno thats probably off the screen
+		
+
 		queue_free()
 		
 
 func enter(upbound, lowbound, tempo):
+
+	$PerfectText.visible = false
+	$NoteSprite/GoodText.visible = false
+
 	var animation = $AnimationPlayer
 	animation.speed_scale = tempo
 	animation.play("bob")
@@ -39,8 +48,10 @@ func enter(upbound, lowbound, tempo):
 	$NoteSprite.modulate = rand_hsv ####pseudo-random color picker
 	
 	
-func _on_hit(bound):
+
+func _on_hit(bound, x_ax, y_ax):
 	$ParticleSpawn.go_spawn.emit(selectedhsv)
+
 	animate.play("hit_feedback")
 	self.set_collision_layer_value(2, false)
 	var kill_timer := Timer.new()
@@ -50,15 +61,20 @@ func _on_hit(bound):
 	kill_timer.autostart = true
 	add_child(kill_timer)
 	kill_timer.timeout.connect(kill_timer_timeout)
-	###grab vertical height hit
-	vertical_height_hit = self.position.y
 
-	if vertical_height_hit > perf_height - bound && vertical_height_hit < perf_height + bound:
-		$NoteSprite/PerfectText.visible = true
+	###grab vertical height hit
+	var height_hit = self.global_position.y
+	var horizontal_hit = self.global_position.x
+	has_beenhit = true
+	
+	if height_hit > y_ax - bound && height_hit < y_ax + bound and horizontal_hit < x_ax + bound and horizontal_hit > x_ax - bound:
+		$PerfectText.visible = true
+		
 	else:
+		print("height hit: ", height_hit, "vs intended at :", y_ax, "\n horiz hit: ", horizontal_hit, "vs intended :", x_ax)
 		$NoteSprite/GoodText.visible = true
 	
-	
+
 	
 func kill_timer_timeout():
 	$ParticleSpawn.kill.emit()
