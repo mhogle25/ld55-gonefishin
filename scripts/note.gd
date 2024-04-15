@@ -38,7 +38,9 @@ func enter(upbound, lowbound, tempo):
 	var rand_hsv = Color.from_hsv((randi() % 12) / 12.0, 1, 1) ####pseudo-random color picker
 	selectedhsv = rand_hsv
 	self.position.x = randi_range(upbound, lowbound)
+	
 	$NoteSprite.modulate = rand_hsv ####pseudo-random color picker
+	$NoteSprite/PointLight2D.set_self_modulate(rand_hsv)
 	
 	
 
