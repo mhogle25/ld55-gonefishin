@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://duxyqcn70ybal"
-path="res://.godot/imported/Herring.png-8b3e4fb4a47d6029d532df0453272e8b.ctex"
+uid="uid://pwkwfsj0tjyp"
+path="res://.godot/imported/Salmon.png-89172317894f2cca7b7eec7c88eeb0ac.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/fish_sprites/Herring.png"
-dest_files=["res://.godot/imported/Herring.png-8b3e4fb4a47d6029d532df0453272e8b.ctex"]
+source_file="res://assets/art/Salmon.png"
+dest_files=["res://.godot/imported/Salmon.png-89172317894f2cca7b7eec7c88eeb0ac.ctex"]
 
 [params]
 

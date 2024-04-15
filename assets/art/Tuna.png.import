@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pwkwfsj0tjyp"
-path="res://.godot/imported/Salmon.png-bf14541ccc232dc8bd4a0e259d5f0dcd.ctex"
+uid="uid://c5p2y2n8kaqs2"
+path="res://.godot/imported/Tuna.png-11a0d7ee36a2ca3556fd94722a7adb71.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/fish_sprites/Salmon.png"
-dest_files=["res://.godot/imported/Salmon.png-bf14541ccc232dc8bd4a0e259d5f0dcd.ctex"]
+source_file="res://assets/art/Tuna.png"
+dest_files=["res://.godot/imported/Tuna.png-11a0d7ee36a2ca3556fd94722a7adb71.ctex"]
 
 [params]
 
