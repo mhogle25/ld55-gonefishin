@@ -8,6 +8,9 @@ enum State { INVISIBLE, FADING_IN, VISIBLE }
 var demon_display = null
 var state := State.INVISIBLE
 
+func _ready():
+	z_index = int(position.y)
+
 func _process(delta):
 	#if fading in (var), add value to the a/alpha.
 	if demon_display == null || state != State.FADING_IN:

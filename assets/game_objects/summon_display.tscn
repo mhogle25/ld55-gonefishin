@@ -15,7 +15,7 @@ one_shot = true
 
 [node name="Tooltip" type="PanelContainer" parent="."]
 visible = false
-z_index = 100
+z_index = 2000
 offset_left = 1.0
 offset_right = 235.0
 offset_bottom = 45.0

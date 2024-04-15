@@ -70,10 +70,12 @@ summonDisplayPrefab = ExtResource("12_g00ne")
 wizard = NodePath("Wizard")
 
 [node name="Pedestal1" parent="." instance=ExtResource("2_8fyn6")]
+z_index = 10
 position = Vector2(1446, 810)
 demon_position_offset = Vector2(2.08165e-12, -150)
 
 [node name="Pedestal2" parent="." instance=ExtResource("2_8fyn6")]
+z_index = 10
 position = Vector2(460, 827)
 demon_position_offset = Vector2(2.08165e-12, -150)
 
@@ -86,6 +88,7 @@ position = Vector2(1459, 292)
 demon_position_offset = Vector2(2.08165e-12, -150)
 
 [node name="Wizard" type="AnimatedSprite2D" parent="."]
+z_index = 5
 position = Vector2(548, 555)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_2ie07")
@@ -108,6 +111,7 @@ shape = SubResource("RectangleShape2D_018se")
 [node name="Fish_Minigame" parent="." instance=ExtResource("12_u0bdp")]
 
 [node name="QuoteDisplay" parent="." instance=ExtResource("18_3xqyy")]
+z_index = 3000
 offset_right = 2174.0
 offset_bottom = 1087.0
 transition_only = true
