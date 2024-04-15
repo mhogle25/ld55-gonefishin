@@ -15,6 +15,9 @@ public partial class ColorInfo : Resource
 	
 	public string Code { get; init; } 
 	public string Name { get; init;}
+	
+	public string GetCode() => this.Code;
+	public string GetName() => this.Name;
 }
 
 public partial class GameCtx : Node
