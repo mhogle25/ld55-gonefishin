@@ -35,6 +35,8 @@ func _ready():
 	if option.limit_mouse_movement:
 		upperbound = 1625
 		lowerbound = 1575
+	%Score.text = str("Score: ", total_score)
+
 
 func _process(_delta):
 	cursor_static.position.x = get_global_mouse_position().x
@@ -52,7 +54,7 @@ func _process(_delta):
 			note_hit[0].hit.emit(perfect_bounds, cursor_col.global_position.x, cursor_col.global_position.y)
 			combo += 1
 			temp_score += 10
-		else:
+		elif combo != 0:
 			time_score_roll()
 			total_score += (temp_score * combo)
 			temp_score = 0
@@ -114,7 +116,7 @@ func spawn_timer_timeout():
 
 func time_score_roll():
 	score_rolling = true
-	await get_tree().create_timer(randi_range(2,4)).timeout
+	await get_tree().create_timer(randi_range(1,3)).timeout
 	score_rolling = false
 	%Score.text = str("Score: ", total_score)
 	

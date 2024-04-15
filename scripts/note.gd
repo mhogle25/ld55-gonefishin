@@ -56,7 +56,7 @@ func _on_hit(bound, x_ax, y_ax):
 	self.set_collision_layer_value(2, false)
 	var kill_timer := Timer.new()
 	kill_timer.name = "kill_note_timer"
-	#kill_timer.set_wait_time(1) ###get from global variable assigned to each song in a dict, pull from current song , set to quarter notes by default (*2 for half notes, /2 for eighth notes if you're a maniac)
+	#kill_timer.set_wait_time(1) 
 	kill_timer.one_shot = true
 	kill_timer.autostart = true
 	add_child(kill_timer)
@@ -71,7 +71,7 @@ func _on_hit(bound, x_ax, y_ax):
 		$PerfectText.visible = true
 		
 	else:
-		print("height hit: ", height_hit, "vs intended at :", y_ax, "\n horiz hit: ", horizontal_hit, "vs intended :", x_ax)
+		
 		$NoteSprite/GoodText.visible = true
 	
 
