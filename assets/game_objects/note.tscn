@@ -110,21 +110,6 @@ texture = ExtResource("2_tj351")
 scale = Vector2(1.6, 1.6)
 texture = SubResource("GradientTexture2D_04rv5")
 
-<<<<<<< Updated upstream
-[node name="NoteSprite2" type="Sprite2D" parent="NoteSprite"]
-visible = false
-show_behind_parent = true
-scale = Vector2(1.44, 1.44)
-texture = SubResource("GradientTexture2D_3cix5")
-=======
-[node name="GoodText" type="RichTextLabel" parent="NoteSprite"]
-visible = false
-offset_left = -25.0
-offset_top = -260.0
-offset_right = 88.0
-offset_bottom = -234.0
-text = "GOOD"
->>>>>>> Stashed changes
 
 [node name="GoodText" type="RichTextLabel" parent="NoteSprite"]
 visible = false

@@ -27,10 +27,8 @@ position = Vector2(1523, 982)
 collision_layer = 0
 collision_mask = 2
 
-
 [node name="cursor_collision" type="CollisionShape2D" parent="cursor_beatbox"]
 unique_name_in_owner = true
-
 position = Vector2(-2, -274)
 scale = Vector2(2.24, 2.24)
 shape = SubResource("CircleShape2D_0ow6w")
