@@ -114,7 +114,7 @@ texture = ExtResource("23_lmof7")
 offset = Vector2(2.08165e-12, 100)
 
 [node name="PortalBottom" type="Sprite2D" parent="."]
-z_index = 430
+z_index = 630
 position = Vector2(960, 630)
 texture = ExtResource("24_xdc52")
 offset = Vector2(2.08165e-12, -100)
@@ -152,6 +152,7 @@ transition_only = true
 [connection signal="OnAwait" from="." to="Wizard" method="SetSpriteDefault"]
 [connection signal="OnFail" from="." to="Wizard" method="SetSpriteFail"]
 [connection signal="OnSummon" from="." to="Wizard" method="SetSpriteSummon"]
+[connection signal="body_entered" from="Wizard/Area2D" to="." method="HandleFinalizeSummoning"]
 [connection signal="body_entered" from="Wizard/Area2D" to="Wizard" method="HandleBodyEntered"]
 [connection signal="end_minigame" from="Fish_Minigame" to="." method="HandleSummoningCompleted"]
 
