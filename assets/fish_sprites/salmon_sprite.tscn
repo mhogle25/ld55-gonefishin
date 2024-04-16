@@ -27,5 +27,4 @@ Hitbox = NodePath("Hitbox")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox"]
 position = Vector2(-1.19209e-05, 0)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_rho4u")

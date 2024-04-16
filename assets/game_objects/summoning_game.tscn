@@ -12,9 +12,9 @@
 [ext_resource type="Resource" uid="uid://cosloe63sjp0o" path="res://assets/fish_infos/carp.tres" id="9_ca3by"]
 [ext_resource type="Resource" uid="uid://cxdqfsnmn66s8" path="res://assets/fish_infos/big_bass.tres" id="10_mf6k3"]
 [ext_resource type="Resource" uid="uid://blsqvxbft1ley" path="res://assets/fish_infos/crab.tres" id="10_x5wtj"]
-[ext_resource type="PackedScene" uid="uid://cctbtj7mphtb" path="res://assets/game_objects/summon_display.tscn" id="12_g00ne"]
 [ext_resource type="PackedScene" uid="uid://dnbp28rwkbndb" path="res://assets/game_objects/fishing_minigame.tscn" id="12_u0bdp"]
 [ext_resource type="Texture2D" uid="uid://ppche0yadnx" path="res://assets/art/background_no_portal.png" id="13_etbkg"]
+[ext_resource type="PackedScene" uid="uid://cctbtj7mphtb" path="res://assets/game_objects/summon_display.tscn" id="13_euh5m"]
 [ext_resource type="PackedScene" uid="uid://cfwl2as5trinl" path="res://assets/game_objects/summon_body.tscn" id="13_s2juk"]
 [ext_resource type="Script" path="res://scripts/display/inventory_display.gd" id="14_8kyiy"]
 [ext_resource type="Texture2D" uid="uid://urfoperf12he" path="res://assets/art/lounging_MC.png" id="14_htfgc"]
@@ -72,7 +72,7 @@ pedestals = [NodePath("Pedestal1"), NodePath("Pedestal2"), NodePath("Pedestal3")
 inventoryDisplay = NodePath("DisplayArea")
 fishingMinigame = NodePath("Fish_Minigame")
 summonBodyPrefab = ExtResource("13_s2juk")
-summonDisplayPrefab = ExtResource("12_g00ne")
+summonDisplayPrefab = ExtResource("13_euh5m")
 bodyOffset = Vector2(960, 530)
 wizard = NodePath("Wizard")
 
@@ -153,7 +153,6 @@ transition_only = true
 [connection signal="OnFail" from="." to="Wizard" method="SetSpriteFail"]
 [connection signal="OnSummon" from="." to="Wizard" method="SetSpriteSummon"]
 [connection signal="body_entered" from="Wizard/Area2D" to="Wizard" method="HandleBodyEntered"]
-[connection signal="body_entered" from="Wizard/Area2D" to="." method="HandleFinalizeSummoning" unbinds=1]
 [connection signal="end_minigame" from="Fish_Minigame" to="." method="HandleSummoningCompleted"]
 
 [editable path="Pedestal1"]
