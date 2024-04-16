@@ -76,6 +76,10 @@ summonDisplayPrefab = ExtResource("13_euh5m")
 bodyOffset = Vector2(960, 530)
 wizard = NodePath("Wizard")
 
+[node name="Fish_Minigame" parent="." instance=ExtResource("12_u0bdp")]
+visible = true
+z_index = 1500
+
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -1000
 position = Vector2(960, 540)
@@ -140,9 +144,6 @@ script = ExtResource("14_8kyiy")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DisplayArea"]
 shape = SubResource("RectangleShape2D_018se")
 
-[node name="Fish_Minigame" parent="." instance=ExtResource("12_u0bdp")]
-z_index = 1500
-
 [node name="QuoteDisplay" parent="." instance=ExtResource("18_3xqyy")]
 z_index = 3000
 offset_right = 2174.0
@@ -152,9 +153,9 @@ transition_only = true
 [connection signal="OnAwait" from="." to="Wizard" method="SetSpriteDefault"]
 [connection signal="OnFail" from="." to="Wizard" method="SetSpriteFail"]
 [connection signal="OnSummon" from="." to="Wizard" method="SetSpriteSummon"]
+[connection signal="end_minigame" from="Fish_Minigame" to="." method="HandleSummoningCompleted"]
 [connection signal="body_entered" from="Wizard/Area2D" to="Wizard" method="HandleBodyEntered"]
 [connection signal="body_entered" from="Wizard/Area2D" to="." method="HandleFinalizeSummoning" unbinds=1]
-[connection signal="end_minigame" from="Fish_Minigame" to="." method="HandleSummoningCompleted"]
 
 [editable path="Pedestal1"]
 [editable path="Pedestal2"]
