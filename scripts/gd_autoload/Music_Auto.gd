@@ -2,11 +2,13 @@ extends Node
 
 var bpm_active = float(90.0 / 60) #####for testing bpm speed scaling, technically units of beats per second, applied as a speed multiplier to animations looping on one second
 
-var music_data : Dictionary
+var music_data : Dictionary = { "idle": { "BPM": 123, "path": "res://assets/music/idle - 123.ogg" }, "summon": { "BPM": 164, "path": "res://assets/music/summon - 164.ogg" } }
 ## Called when the node enters the scene tree for the first time.
 func _ready():
-	music_data = gather_music_data("res://assets/music/")
-
+	#music_data = gather_music_data("res://assets/music/")
+	#
+	#print(music_data)
+	pass
 func gather_music_data(path: String) -> Dictionary:
 	var data : Dictionary = {}
 	var songs : Array = []
