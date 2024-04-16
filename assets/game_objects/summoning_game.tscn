@@ -135,7 +135,7 @@ transition_only = true
 
 [node name="PortalTop" type="Sprite2D" parent="Portal"]
 z_index = 430
-position = Vector2(960, 430)
+position = Vector2(960, 430.18)
 texture = ExtResource("23_lmof7")
 offset = Vector2(2.08165e-12, 100)
 
