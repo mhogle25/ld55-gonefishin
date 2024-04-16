@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://lwvbniudbqxe"]
+[gd_scene load_steps=18 format=3 uid="uid://lwvbniudbqxe"]
 
 [ext_resource type="Theme" uid="uid://d1sg2hcjlo4sl" path="res://assets/themes/menu_theme.tres" id="1_5knkv"]
 [ext_resource type="Script" path="res://scripts/menu_logic/main_menu.gd" id="2_psoe0"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://dwue47eggesu0" path="res://assets/fonts/Kingthings Willow.ttf" id="3_rq0cu"]
 [ext_resource type="Texture2D" uid="uid://cfnurkpdinbt2" path="res://assets/art/eyeball_pieces/eyeball.png" id="4_to054"]
 [ext_resource type="Texture2D" uid="uid://d4jp6r4l3ikx5" path="res://assets/art/eyeball_pieces/eye_iris.png" id="5_bqk1p"]
+[ext_resource type="Texture2D" uid="uid://ppche0yadnx" path="res://assets/art/background_no_portal.png" id="6_mnoxs"]
 [ext_resource type="Texture2D" uid="uid://c8ck3svd3hqoh" path="res://assets/art/eyeball_pieces/eyelid.png" id="6_uq8cr"]
 [ext_resource type="Texture2D" uid="uid://wp7vrdmc26rk" path="res://assets/art/eyeball_pieces/eye_portalbg.png" id="7_nnm7v"]
 [ext_resource type="AudioStream" uid="uid://btcxdcy0ghn0f" path="res://assets/sounds/thum.wav" id="8_a0tvx"]
@@ -18,6 +19,28 @@ radius = 53.4241
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_yve5e"]
 radius = 27.4713
+
+[sub_resource type="Animation" id="Animation_8yvd2"]
+resource_name = "bob_mc"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../../FailWizard:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2.1, 4.1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(266, 880.5), Vector2(294, 753.5), Vector2(334, 890.5)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v6r08"]
+_data = {
+"bob_mc": SubResource("Animation_8yvd2")
+}
 
 [node name="Control" type="MarginContainer"]
 anchors_preset = 15
@@ -109,6 +132,11 @@ script = ExtResource("3_5j3pi")
 max_v_displacement = 50
 max_h_displacement = 50
 
+[node name="BackgroundNoPortal" type="Sprite2D" parent="EyeballRoot"]
+position = Vector2(-740.025, 305.114)
+scale = Vector2(1.16267, 1.16267)
+texture = ExtResource("6_mnoxs")
+
 [node name="Marker2D" type="Marker2D" parent="EyeballRoot"]
 position = Vector2(-706.818, -490.909)
 scale = Vector2(1.13636, 1.13636)
@@ -173,11 +201,19 @@ volume_db = 8.842
 
 [node name="QuoteDisplay" parent="CanvasLayer" instance=ExtResource("9_natv7")]
 unique_name_in_owner = true
+offset_top = -1.0
+offset_bottom = -1.0
 transition_only = true
 
 [node name="FailWizard" type="Sprite2D" parent="."]
-position = Vector2(266, 880.5)
+position = Vector2(316.446, 789.309)
 texture = ExtResource("11_yacps")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../EyeballRoot/BackgroundNoPortal")
+libraries = {
+"": SubResource("AnimationLibrary_v6r08")
+}
 
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer2/New Game" to="." method="_on_new_game_pressed"]
 [connection signal="pressed" from="VBoxContainer/MarginContainer2/VBoxContainer/HBoxContainer2/Load Game" to="." method="_on_load_game_pressed"]

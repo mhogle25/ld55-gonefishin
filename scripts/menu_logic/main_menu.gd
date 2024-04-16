@@ -3,6 +3,9 @@ var options = preload("res://scenes/menus/options_menu.tscn")
 var newgame_scene = preload("res://assets/game_objects/summoning_game.tscn")
 
 
+func _ready():
+	$AnimationPlayer.play("bob_mc")
+
 
 func _on_quit_pressed():
 	get_tree().quit() # Replace with function body.

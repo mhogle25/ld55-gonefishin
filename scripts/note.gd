@@ -40,7 +40,7 @@ func enter(upbound, lowbound, tempo):
 	self.position.x = randi_range(upbound, lowbound)
 	
 	$NoteSprite.modulate = rand_hsv ####pseudo-random color picker
-	$NoteSprite/PointLight2D.set_self_modulate(rand_hsv)
+	$NoteSprite/PointLight2D.color = rand_hsv
 	
 	
 
