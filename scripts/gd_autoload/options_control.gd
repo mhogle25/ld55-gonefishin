@@ -32,3 +32,6 @@ func get_difficulty():
 	return difficulty_storage[get_difficulty_selected()]
 
 
+func _unhandled_input(_event):
+	if Input.is_action_just_pressed("return_to_menu"):
+		get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")
