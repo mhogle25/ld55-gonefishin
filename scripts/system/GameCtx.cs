@@ -73,6 +73,12 @@ public partial class GameCtx : Node
 		GetSaveData();
 	}
 
+	public void ResetSave() 
+	{
+		this.saveData = new();
+		SaveDataToDisk();
+	}
+	
 	public int GetDemonCount() => 
 		GetSaveData().GetDemonCount();
 	

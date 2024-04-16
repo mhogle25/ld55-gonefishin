@@ -17,7 +17,7 @@ func _on_options_pressed():
 
 func _on_new_game_pressed():
 	$AudioStreamPlayer.play()
-
+	GameCtx.ResetSaveData()
 	%QuoteDisplay.start(false, newgame_scene) ####needs to wipe save state
 	
 
