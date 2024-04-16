@@ -114,6 +114,7 @@ public partial class GameManager : Node
 	public void BeginNextSummoning() 
 	{
 		BFCtx.Print("Summon caught! Beginning summon minigame...");
+		this.ctx.PauseMusic();
 		EmitSignal(SignalName.OnSummon);
 		int demonCount = this.ctx.GetDemonCount();
 		bool boss = demonCount == this.demonInfos.Count;
@@ -170,6 +171,8 @@ public partial class GameManager : Node
 	public void HandleSummoningCompleted(int totalScore) 
 	{
 		BFCtx.Print("Finalizing summoning minigame...");
+		this.ctx.PlayMusic();
+		
 		SummonEvent sevent = this.summonEvent;
 		
 		if (sevent.Info.GetSuccessThreshold() > totalScore) 
