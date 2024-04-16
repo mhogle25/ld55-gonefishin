@@ -36,6 +36,7 @@ public partial class GameCtx : Node
 	private readonly RandomNumberGenerator rng = new();
 	
 	private SaveData saveData = null;
+	private AudioStreamPlayer globalMusic = null;
 
 	public override void _Ready()
 	{	
@@ -61,6 +62,13 @@ public partial class GameCtx : Node
 			
 		if ((code != null && name == null) || (code == null && name != null))
 			BFCtx.PrintErr("Color files must have the same number of lines");
+			
+		AudioStreamOggVorbis stream = GD.Load<AudioStreamOggVorbis>("res://assets/music/idle - 123.ogg");
+		this.globalMusic = new();
+		AddChild(this.globalMusic);
+		this.globalMusic.Stream = stream;
+		
+		PlayMusic();
 			
 		GetSaveData();
 	}
@@ -129,6 +137,16 @@ public partial class GameCtx : Node
 	public ColorInfo GetRandColorInfo() 
 	{
 		return this.colorInfos[this.rng.RandiRange(0, this.colorInfos.Count - 1)];
+	}
+	
+	public void PlayMusic() 
+	{
+		this.globalMusic.Play();
+	}
+	
+	public void PauseMusic() 
+	{
+		this.globalMusic.Stop();
 	}
 
 	

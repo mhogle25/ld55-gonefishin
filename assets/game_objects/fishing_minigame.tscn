@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/fishing_minigame.gd" id="1_g11kh"]
 [ext_resource type="Texture2D" uid="uid://dn66w68t3my5f" path="res://assets/art/staff.png" id="2_rs8q2"]
 [ext_resource type="AudioStream" uid="uid://c6yvhrwdtdlib" path="res://assets/sounds/splash_reverb.wav" id="3_dvphb"]
-[ext_resource type="Theme" uid="uid://bd0l5gpqu5x6u" path="res://assets/themes/UI_theme.tres" id="3_xpqyc"]
+[ext_resource type="Theme" path="res://assets/themes/UI_theme.tres" id="3_xpqyc"]
 [ext_resource type="FontFile" uid="uid://hjkqa2r7qed" path="res://assets/fonts/Taiganja Type.ttf" id="4_7myqn"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_axj6i"]
