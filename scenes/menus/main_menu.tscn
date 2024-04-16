@@ -202,7 +202,7 @@ volume_db = 8.842
 [node name="QuoteDisplay" parent="CanvasLayer" instance=ExtResource("9_natv7")]
 unique_name_in_owner = true
 offset_top = -1.0
-offset_bottom = -1.0
+offset_bottom = 2.0
 transition_only = true
 
 [node name="FailWizard" type="Sprite2D" parent="."]
