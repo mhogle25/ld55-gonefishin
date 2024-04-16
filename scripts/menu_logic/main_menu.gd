@@ -5,7 +5,7 @@ var newgame_scene = preload("res://assets/game_objects/summoning_game.tscn")
 
 func _ready():
 	$AnimationPlayer.play("bob_mc")
-
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func _on_quit_pressed():
 	get_tree().quit() # Replace with function body.
@@ -23,6 +23,7 @@ func _on_new_game_pressed():
 
 
 func _on_load_game_pressed():
+	$AudioStreamPlayer.play()
 	get_tree().change_scene_to_file("res://assets/game_objects/summoning_game.tscn")
 
 

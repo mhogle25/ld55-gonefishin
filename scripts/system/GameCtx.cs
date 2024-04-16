@@ -60,6 +60,7 @@ public partial class GameCtx : Node
 		this.globalMusic = new();
 		AddChild(this.globalMusic);
 		this.globalMusic.Stream = stream;
+		this.globalMusic.Bus = "Music";
 		
 		PlayMusic();
 			
